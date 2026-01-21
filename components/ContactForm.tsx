@@ -12,14 +12,37 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus('sending');
 
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Form submitted:', formState);
-      setStatus('success');
-      setFormState({ name: '', email: '', message: '' });
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'e6fcaab5-6c52-427b-8c6d-e898b9c5a91b',
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          subject: `New Contact from ${formState.name} - Portfolio`,
+          from_name: 'Harsha Virat Portfolio',
+        }),
+      });
 
-      setTimeout(() => setStatus('idle'), 3000);
-    }, 1500);
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('success');
+        setFormState({ name: '', email: '', message: '' });
+        setTimeout(() => setStatus('idle'), 3000);
+      } else {
+        console.error('Submission failed:', result);
+        setStatus('error');
+      }
+    } catch (error) {
+      console.error('Form error:', error);
+      setStatus('error');
+    }
   };
 
   return (
