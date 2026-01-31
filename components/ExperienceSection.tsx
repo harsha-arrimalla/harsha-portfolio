@@ -165,21 +165,6 @@ export default function ExperienceSection() {
           </div>
         </div>
 
-        {/* Resume download */}
-        <div
-          className={`mt-20 text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-          style={{ transitionDelay: '1.5s' }}
-        >
-          <a
-            href="/resume.pdf"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-black text-white rounded-full font-medium transition-all hover:scale-105 hover:-translate-y-1 active:scale-95 group"
-          >
-            <span>Download Resume</span>
-            <span className="inline-block animate-bounce group-hover:translate-y-1 transition-transform">
-              ↓
-            </span>
-          </a>
-        </div>
       </div>
     </section>
   );
