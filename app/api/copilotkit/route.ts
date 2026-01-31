@@ -5,6 +5,8 @@ import {
 } from "@copilotkit/runtime";
 import { NextRequest } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export const POST = async (req: NextRequest) => {
     const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GOOGLE_GEMINI_API_KEY;
 

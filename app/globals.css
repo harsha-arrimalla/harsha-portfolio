@@ -569,262 +569,343 @@ a.poweredBy,
 }
 
 /* =========================================
-   LIQUID OS THEME (CopilotKit)
+   LUFFY URBANIST THEME (CopilotKit)
    ========================================= */
 
 :root {
-  /* Liquid OS Palette */
-  --liquid-glass-bg: rgba(255, 255, 255, 0.65);
-  --liquid-glass-border: rgba(255, 255, 255, 0.4);
-  --liquid-blur: 24px;
-  --liquid-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
-  --liquid-primary: #000000;
-  --liquid-accent: #2563eb;
-  --liquid-response-bg: rgba(245, 247, 250, 0.8);
-  --liquid-user-bg: linear-gradient(135deg, #E2E8F0 0%, #F8FAFC 100%);
-
-  /* CopilotKit Overrides */
-  --copilot-kit-primary-color: var(--liquid-primary);
-  --copilot-kit-background-color: transparent;
-  --copilot-kit-response-color: #1a1a1a;
+  --luffy-bg: #F8F9FA;
+  --luffy-yellow: #FCD34D;
+  --luffy-dark: #1A1A1A;
+  --luffy-gray: #9CA3AF;
+  --luffy-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* 1. Main Chat Window (Glass Panel) */
-.copilotKitPopup {
+/* 1. Main Chat Window */
+/* 1. Main Chat Window */
+/* 1. Main Chat Window */
+/* Restored generic selector to ensure it targets the library component */
+.copilotKitPopup,
+.luffy-theme-popup {
   position: fixed !important;
-  bottom: 32px !important;
-  right: 32px !important;
-  width: 400px !important;
-  height: 600px !important;
+  bottom: 0px !important;
+  right: 20px !important;
+  width: 450px !important;
+  height: 85vh !important;
+  max-height: none !important;
   z-index: 9999 !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .copilotKitWindow {
-  background: var(--liquid-glass-bg) !important;
-  backdrop-filter: blur(var(--liquid-blur)) !important;
-  -webkit-backdrop-filter: blur(var(--liquid-blur)) !important;
-  border: 1px solid var(--liquid-glass-border) !important;
-  border-radius: 24px !important;
-  box-shadow: var(--liquid-shadow) !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  /* Rounded top, flat bottom for docked look */
+  border-radius: 24px 24px 0 0 !important;
+  box-shadow: var(--luffy-shadow) !important;
   overflow: hidden !important;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif !important;
-  margin-bottom: 80px !important;
-  animation: liquid-float-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  font-family: "Urbanist", sans-serif !important;
   display: flex !important;
   flex-direction: column !important;
-  height: 600px !important;
-  /* Ensure fixed height for scrolling */
-  overscroll-behavior: contain !important;
+  height: 100% !important;
+  position: relative !important;
 }
 
-@keyframes liquid-float-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+/* Force specific width for project cards in the carousel */
+.luffy-card-item {
+  min-width: 380px !important;
+  width: 380px !important;
+  flex-shrink: 0 !important;
+  scroll-snap-align: center !important;
 }
 
-/* 2. Chat Header (Liquid Style) */
-.liquid-chat-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-  background: rgba(255, 255, 255, 0.2);
+/* Hide visible scrollbars but allow scrolling */
+.copilotKitMessagesContainer,
+.copilotKitWindow {
+  /* Firefox */
+  scrollbar-width: none !important;
+  /* IE and Edge */
+  -ms-overflow-style: none !important;
 }
 
-.liquid-header-title {
-  font-weight: 600;
-  font-size: 15px;
-  color: #1a1a1a;
-  letter-spacing: -0.01em;
-}
-
-.liquid-header-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  color: #666;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.liquid-header-btn:hover {
-  background: rgba(0, 0, 0, 0.05);
-  color: #000;
-}
-
-/* Hide specific Copilot headers */
-.copilotKitHeader {
+.copilotKitMessagesContainer::-webkit-scrollbar,
+.copilotKitWindow::-webkit-scrollbar {
   display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
-/* 3. Messages (Fluid Bubbles) */
+/* 2. Messages Container */
 .copilotKitMessagesContainer {
-  background: transparent !important;
+  background: #FFFFFF !important;
   padding: 24px !important;
   overflow-y: auto !important;
+  scroll-behavior: auto !important;
+  /* Force instant jump for JS logic */
   flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
   overscroll-behavior: contain !important;
-  /* Critical for preventing parent scroll */
-  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
   touch-action: pan-y !important;
-  /* Ensure touch gestures are handled efficiently */
-  min-height: 0 !important;
-  /* CRITICAL: Enables scrolling in flex container */
-  height: 100% !important;
-  /* Force fill for scrolling context */
-
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  -ms-overflow-style: none !important;
-  /* IE and Edge */
-  scrollbar-width: none !important;
-  /* Firefox */
-}
-
-.copilotKitMessagesContainer::-webkit-scrollbar {
-  display: none !important;
 }
 
 .copilotKitMessage {
-  background: transparent !important;
+  margin-bottom: 20px !important;
   padding: 0 !important;
-  margin-bottom: 16px !important;
+  background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  width: 100% !important;
 }
 
-/* User Message */
+/* User Message (Yellow Bubble) */
 .copilotKitUserMessage {
-  background: var(--liquid-user-bg) !important;
-  color: #1a1a1a !important;
-  border-radius: 20px 20px 4px 20px !important;
-  padding: 12px 18px !important;
+  background: var(--luffy-yellow) !important;
+  color: #1A1A1A !important;
+  border-radius: 12px 12px 2px 12px !important;
+  padding: 14px 18px !important;
   font-size: 15px !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
-  border: 1px solid rgba(255, 255, 255, 0.8) !important;
-  max-width: 85% !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  max-width: 80% !important;
   margin-left: auto !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+  width: fit-content !important;
 }
 
-/* AI Message */
+/* AI Message (White Card style) */
 .copilotKitAssistantMessage {
-  background: transparent !important;
+  background: #FFFFFF !important;
   color: #333 !important;
-  padding: 0 8px !important;
+  padding: 16px !important;
+  border-radius: 12px 12px 12px 2px !important;
   font-size: 15px !important;
-  line-height: 1.6 !important;
-  border-radius: 0 !important;
+  line-height: 1.5 !important;
+  border: 1px solid #F3F4F6 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  max-width: 90% !important;
+  margin-right: auto !important;
+  width: fit-content !important;
 }
 
-/* 4. Input Area (Floating Pill) */
-/* 4. Input Area (Floating Pill) */
+/* 4. Input Area (Luffy Style) */
 .copilotKitInput {
-  background: #ffffff !important;
-  border-radius: 99px !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  padding: 6px 20px !important;
-  margin: 16px 20px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
-  transition: all 0.3s ease !important;
+  position: relative !important;
+  width: calc(100% - 48px) !important;
+  margin: 0 24px 24px 24px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: 16px !important;
+  padding: 12px 16px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02) !important;
   display: flex !important;
   align-items: center !important;
-  min-height: 48px !important;
-  max-height: 60px !important;
+  min-height: 56px !important;
+  flex-shrink: 0 !important;
+  z-index: 50 !important;
 }
 
 .copilotKitInput:focus-within {
-  border-color: var(--liquid-accent) !important;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.1) !important;
-  transform: translateY(-1px);
+  border-color: #D1D5DB !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
 .copilotKitInput textarea {
-  color: #1a1a1a !important;
-  font-size: 14px !important;
+  font-family: 'Urbanist', sans-serif !important;
+  font-size: 15px !important;
+  color: #1A1A1A !important;
+  font-weight: 500 !important;
   padding: 0 12px !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  resize: none !important;
-  height: 24px !important;
-  min-height: 24px !important;
-  line-height: 24px !important;
-  overflow: hidden !important;
 }
 
 .copilotKitInput textarea::placeholder {
-  color: #999 !important;
-  overflow: visible !important;
+  color: #9CA3AF !important;
+  font-weight: 400 !important;
 }
 
 /* Send Button */
 .copilotKitSendButton {
-  background: var(--liquid-primary) !important;
-  color: #fff !important;
-  border-radius: 50% !important;
-  width: 32px !important;
-  height: 32px !important;
-  padding: 0 !important;
+  background: transparent !important;
+  color: #1A1A1A !important;
+  border-radius: 8px !important;
+  width: 40px !important;
+  height: 40px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  transition: transform 0.2s ease !important;
-  position: static !important;
-  margin-left: 8px !important;
+  transition: bg 0.2s !important;
 }
 
 .copilotKitSendButton:hover {
-  transform: scale(1.05);
+  background: #F3F4F6 !important;
 }
 
-.copilotKitSendButton svg {
-  width: 16px !important;
-  height: 16px !important;
+/* Hide default branding */
+.copilotKitHeader,
+.copilot-kit-branding {
+  display: none !important;
 }
 
-/* 5. Liquid Search Trigger */
-.liquid-search-trigger {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
-  border-radius: 99px;
-  height: 54px;
-  min-width: 180px;
-  padding: 0 6px 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-  z-index: 9998;
+/* =========================================
+   NUCLEAR OVERRIDES (Post-Load Fixes)
+   ========================================= */
+
+/* Message Animation */
+/* Message Animation */
+@keyframes messageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.liquid-search-trigger:hover {
+/* Message Animation - Only for User for punchy feel */
+.copilotKitMessage.copilotKitUserMessage {
+  animation: messageFadeIn 0.3s ease-out forwards !important;
+  background: #F3F4F6 !important;
+  color: #111 !important;
+  border-radius: 12px 12px 0 12px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 12px !important;
+}
+
+/* AI Message - Transparent & Zero Delay */
+.copilotKitMessage.copilotKitAssistantMessage {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 4px 0 !important;
+  margin-bottom: 12px !important;
+  /* Use a subtle animation to make streaming feel more organic */
+  animation: assistantTextReveal 0.4s ease-out forwards !important;
+}
+
+@keyframes assistantTextReveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 5. Scoped Typography for Chat */
+.copilotKitWindow h1,
+.copilotKitWindow h2,
+.copilotKitWindow h3,
+.copilotKitWindow h4,
+.copilotKitWindow h5,
+.copilotKitWindow h6,
+.luffy-chat-header span {
+  font-family: 'Outfit', sans-serif !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Force Popup Position (Floating) */
+body .copilotKitPopup,
+body .luffy-theme-popup {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 99999 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+  /* Let the content determine size/shape so we don't block clicks */
+}
+
+/* Reset Window Positioning inside Popup and Force Dimensions */
+body .copilotKitWindow {
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  width: 450px !important;
+  height: 85vh !important;
+  margin: 0 !important;
+  transform: none !important;
+  border-radius: 20px !important;
+  box-shadow: 0 5px 40px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden !important;
+  pointer-events: auto !important;
+  z-index: 100000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Ensure Chat Content Containers scroll properly and fill space */
+body .copilotKitMessagesContainer {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  padding: 20px !important;
+  scroll-behavior: auto !important;
+  height: 100% !important;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Force streaming cursor visibility */
+.copilotKitCursor {
+  display: inline-block !important;
+  background-color: #3B82F6 !important;
+  /* Blue cursor for clear streaming */
+  width: 2px !important;
+  height: 1.2em !important;
+  vertical-align: middle !important;
+  margin-left: 2px !important;
+  animation: blink 0.8s step-end infinite !important;
+}
+
+/* Allow Trigger to be clickable */
+.luffy-search-trigger {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 2147483647 !important;
+  position: fixed !important;
+  bottom: 15px !important;
+  right: 20px !important;
+}
+
+
+/* Force Project Card Sizing */
+.luffy-card-item {
+  min-width: 380px !important;
+  width: 380px !important;
+  flex-shrink: 0 !important;
+  scroll-snap-align: start !important;
+  /* Keep snap-align but remove mandatory if needed */
+}
+
+.luffy-search-trigger:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.03);
-  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0%), 0 4px 8px rgba(0, 0, 0, 0.03);
+  background: rgb(255 255 255 / 0%);
 }
 
-.liquid-search-trigger:active {
+.luffy-search-trigger:active {
   transform: scale(0.98);
 }
 

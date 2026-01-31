@@ -73,10 +73,10 @@ export default function ProjectsGrid() {
   };
 
   return (
-    <section id="projects" ref={ref} className="py-32 md:py-40 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
+    <section id="projects" ref={ref} className="py-20 md:py-32 lg:py-40 px-4 md:px-12 lg:px-24 bg-white relative overflow-hidden">
       {/* Background decoration */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] pointer-events-none opacity-[0.02] animate-spin-slow"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[1000px] h-[600px] md:h-[1000px] pointer-events-none opacity-[0.02] animate-spin-slow"
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="0.5" />
@@ -87,19 +87,19 @@ export default function ProjectsGrid() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="mb-20">
+        <div className="mb-12 md:mb-20">
           <div
-            className={`flex items-center gap-4 mb-8 transition-opacity duration-700 ${isInView ? 'opacity-100' : 'opacity-0'}`}
+            className={`flex items-center gap-4 mb-4 md:mb-8 transition-opacity duration-700 ${isInView ? 'opacity-100' : 'opacity-0'}`}
           >
             <div
-              className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-[60px]' : 'w-0'}`}
+              className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-[40px] md:w-[60px]' : 'w-0'}`}
             />
-            <span className="text-sm tracking-[0.3em] uppercase text-gray-500">Selected Work</span>
+            <span className="text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase text-gray-500">Selected Work</span>
           </div>
 
           <div className="overflow-hidden px-1 pb-4">
             <KineticText
-              className="text-5xl md:text-7xl lg:text-8xl font-black"
+              className="text-4xl md:text-7xl lg:text-8xl font-black"
               type="char"
               duration={0.6}
             >
@@ -109,7 +109,7 @@ export default function ProjectsGrid() {
         </div>
 
         {/* Projects grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <ProjectCard key={index} project={project} index={index} isInView={isInView} />
           ))}
@@ -117,7 +117,7 @@ export default function ProjectsGrid() {
 
         {/* View all button */}
         <div
-          className={`mt-16 text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          className={`mt-12 md:mt-16 text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           style={{ transitionDelay: '0.3s' }}
         >
           <LiquidButton href="/projects" variant="outline" icon="→">
@@ -134,13 +134,16 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
+  // Determine if it's a touch device (simple check)
+  const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isTouch) return; // Disable hover tilt on touch
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const x = (e.clientX - centerX) / 10;
-    const y = (e.clientY - centerY) / 10;
+    const x = (e.clientX - centerX) / 20;
+    const y = (e.clientY - centerY) / 20;
     setRotation({ x: -y, y: x });
   };
 
@@ -157,71 +160,64 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={handleMouseLeave}
         style={{
-          transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+          transform: !isTouch ? `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)` : 'none',
           transformStyle: 'preserve-3d',
           transition: isHovered ? 'none' : 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
           opacity: isInView ? 1 : 0,
           translate: isInView ? '0 0' : '0 50px',
         }}
-        className="group cursor-pointer perspective-1000 block h-full transition-all duration-500"
+        className="group cursor-pointer perspective-1000 block h-full transition-all duration-700 delay-[100ms]"
       >
         <div
-          className={`aspect-[4/5] bg-gradient-to-br ${project.bg} rounded-3xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-500 relative`}
+          className="relative aspect-[4/5] w-full rounded-[24px] md:rounded-[32px] overflow-hidden bg-gray-900 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-blue-500/10"
           style={{
-            filter: isHovered ? 'brightness(1.05)' : 'brightness(1)',
+            transform: 'translateZ(0)',
           }}
         >
-          {/* Project number */}
-          <div
-            className={`absolute top-6 left-6 text-sm font-mono text-gray-400 transition-all duration-500 ${isInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
-            style={{ transitionDelay: `${0.1 + index * 0.05}s` }}
-          >
-            {project.number}
+          {/* Full Background Image */}
+          <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out group-hover:scale-110">
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
+            />
           </div>
 
-          {/* Gradient overlay on hover */}
-          <div
-            className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
-          />
+          {/* Liquid Gradient Overlay - Stronger on mobile for legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-100 md:opacity-80 transition-opacity duration-500 md:group-hover:opacity-90" />
 
-          {/* Shine effect */}
-          <div
-            className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 opacity-0 group-hover:opacity-100 transition-all duration-700 pointer-events-none"
-            style={{
-              transform: isHovered ? 'translateX(100%) rotate(45deg)' : 'translateX(-100%) rotate(45deg)',
-            }}
-          />
+          {/* Glass Shine (Desktop only) */}
+          <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-overlay">
+            <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 transform -translate-x-full group-hover:animate-shine" />
+          </div>
 
-          {/* Content */}
-          <div className="w-full h-full flex flex-col items-center justify-center p-8 relative z-10" style={{ transform: 'translateZ(50px)' }}>
-            <div
-              className={`w-full aspect-video rounded-2xl overflow-hidden mb-6 transition-all duration-700 ${isInView ? 'scale-100 opacity-100' : 'scale-75 opacity-0'}`}
-              style={{
-                transitionDelay: `${0.4 + index * 0.1}s`,
-                transform: isHovered ? 'scale(1.05)' : 'scale(1)'
-              }}
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700"
-                style={{ transform: isHovered ? 'scale(1.1)' : 'scale(1)' }}
-              />
+          {/* Content Container */}
+          <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col justify-end h-full z-10">
+
+            {/* Top Badge: Project Number */}
+            <div className="absolute top-4 left-4 md:top-6 md:left-6">
+              <div className="px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] md:text-xs font-medium text-white/90">
+                {project.number}
+              </div>
             </div>
 
-            <div className="text-center">
-              <h3 className="text-2xl font-bold mb-2 group-hover:text-black transition-colors">
+            {/* Main Text Content */}
+            <div className="transform transition-transform duration-500 ease-out md:group-hover:-translate-y-2">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
                 {project.title}
               </h3>
-              <p className="text-gray-500">{project.subtitle}</p>
-            </div>
-          </div>
+              <p className="text-white/80 md:text-white/60 text-sm md:text-base font-medium line-clamp-2 mb-4 md:group-hover:text-white/80 transition-colors">
+                {project.subtitle}
+              </p>
 
-          {/* Arrow indicator */}
-          <div
-            className={`absolute bottom-6 right-6 w-10 h-10 bg-black rounded-full flex items-center justify-center text-white transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
-          >
-            <span className="animate-bounce-horizontal">→</span>
+              {/* Action Button - Always visible on mobile, reveal on hover on desktop */}
+              <div className="overflow-hidden h-10 md:h-0 md:group-hover:h-12 transition-[height] duration-300 ease-out">
+                <div className="flex items-center gap-2 text-white font-medium border-b border-white/40 pb-1 w-fit group-hover:border-white transition-colors cursor-pointer text-sm md:text-base">
+                  View Case Study
+                  <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

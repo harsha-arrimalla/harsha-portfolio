@@ -18,9 +18,20 @@ export default function Chatbot({ className }: ChatbotProps) {
 
   useEffect(() => {
     if (isOpen && messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      const behavior = isLoading ? 'auto' : 'smooth';
+
+      const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior, block: 'end' });
+      };
+
+      // First attempt
+      requestAnimationFrame(scrollToBottom);
+
+      // Second attempt after a short delay for layout stability
+      const timeoutId = setTimeout(scrollToBottom, 50);
+      return () => clearTimeout(timeoutId);
     }
-  }, [messages, isOpen]);
+  }, [messages, isOpen, isLoading]);
 
   return (
     <>
