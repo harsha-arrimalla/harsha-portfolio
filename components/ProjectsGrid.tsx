@@ -3,6 +3,8 @@
 import { useRef, useState, MouseEvent } from 'react';
 import Link from 'next/link';
 import { useInView } from '@/hooks/useInView';
+import KineticText from '@/components/KineticText';
+import LiquidButton from '@/components/LiquidButton';
 
 export default function ProjectsGrid() {
   const [ref, isInView] = useInView({ threshold: 0.1, rootMargin: '20% 0px' });
@@ -95,28 +97,14 @@ export default function ProjectsGrid() {
             <span className="text-sm tracking-[0.3em] uppercase text-gray-500">Selected Work</span>
           </div>
 
-          <div className="overflow-hidden">
-            <h2 className={`text-5xl md:text-7xl lg:text-8xl font-black transition-opacity duration-700 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
-              {'Featured'.split('').map((char, i) => (
-                <span
-                  key={i}
-                  className={`inline-block cursor-default transition-all duration-300 hover:text-blue-600 hover:-translate-y-1 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
-                  style={{ animationDelay: `${i * 0.05}s` }}
-                >
-                  {char}
-                </span>
-              ))}
-              {' '}
-              {'Projects'.split('').map((char, i) => (
-                <span
-                  key={i + 10}
-                  className={`inline-block text-gray-400 cursor-default transition-all duration-300 hover:text-purple-600 hover:-translate-y-1 ${isInView ? 'animate-slide-up' : 'opacity-0'}`}
-                  style={{ animationDelay: `${(i + 8) * 0.05}s` }}
-                >
-                  {char}
-                </span>
-              ))}
-            </h2>
+          <div className="overflow-hidden px-1 pb-4">
+            <KineticText
+              className="text-5xl md:text-7xl lg:text-8xl font-black"
+              type="char"
+              duration={0.6}
+            >
+              Featured Projects
+            </KineticText>
           </div>
         </div>
 
@@ -132,17 +120,9 @@ export default function ProjectsGrid() {
           className={`mt-16 text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
           style={{ transitionDelay: '0.3s' }}
         >
-          <button
-            className="group px-10 py-4 border-2 border-black rounded-full font-medium relative overflow-hidden transition-all hover:scale-105 active:scale-95"
-          >
-            <span
-              className="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-300"
-            />
-            <span className="relative z-10 group-hover:text-white transition-colors flex items-center gap-2">
-              View All Projects
-              <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-            </span>
-          </button>
+          <LiquidButton href="/projects" variant="outline" icon="→">
+            View All Projects
+          </LiquidButton>
         </div>
       </div>
     </section>

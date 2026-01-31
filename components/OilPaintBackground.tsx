@@ -12,8 +12,10 @@ export default function OilPaintBackground() {
     const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.scale(dpr, dpr);
 
     const colors = ['#3B82F6', '#8B5CF6', '#EC4899', '#F97316', '#22C55E', '#06B6D4', '#F59E0B'];
     let currentColor = colors[0];
@@ -68,7 +70,8 @@ export default function OilPaintBackground() {
 
     const draw = () => {
       // Clear canvas completely (transparent)
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Note: we use canvas.width/height which are absolute dimensions
+      ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
 
       // Draw all strokes with their current opacity
       for (let i = strokes.length - 1; i >= 0; i--) {
@@ -136,8 +139,9 @@ export default function OilPaintBackground() {
     };
 
     const onResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      ctx.scale(dpr, dpr);
     };
 
     window.addEventListener('mousemove', onMouseMove);
@@ -162,8 +166,10 @@ export default function OilPaintBackground() {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: 1,
+        zIndex: 40,
         pointerEvents: 'none',
+        mixBlendMode: 'difference',
+        opacity: 0.6
       }}
     />
   );

@@ -2,18 +2,18 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Harsha Virat — UI/UX Designer & AI Full-Stack Developer',
+  title: 'Harsha — UI/UX Designer & AI – Full Stack Developer',
   description: 'Designing AI experiences that users trust—from concept to code. Specializing in conversational AI, healthcare, and enterprise platforms.',
   keywords: ['UI/UX Designer', 'AI Developer', 'Full-Stack Developer', 'Conversational AI', 'Healthcare UX', 'Enterprise Design'],
-  authors: [{ name: 'Harsha Virat' }],
+  authors: [{ name: 'Harsha' }],
   openGraph: {
-    title: 'Harsha Virat — UI/UX Designer & AI Full-Stack Developer',
+    title: 'Harsha — UI/UX Designer & AI – Full Stack Developer',
     description: 'Designing AI experiences that users trust—from concept to code',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Harsha Virat — UI/UX Designer & AI Full-Stack Developer',
+    title: 'Harsha — UI/UX Designer & AI – Full Stack Developer',
     description: 'Designing AI experiences that users trust—from concept to code',
   },
   robots: {
@@ -22,7 +22,12 @@ export const metadata: Metadata = {
   },
 }
 
-import Chatbot from '@/src/components/ui/Chatbot'
+import CopilotWrapper from '@/components/CopilotWrapper'
+import { LoadingProvider } from '@/components/LoadingContext'
+import SmoothScroll from '@/components/SmoothScroll'
+import CustomCursor from '@/components/CustomCursor'
+import MouseFollower from '@/components/MouseFollower'
+import OilPaintBackground from '@/components/OilPaintBackground'
 
 export default function RootLayout({
   children,
@@ -30,15 +35,25 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
       <body>
-        {children}
-        <Chatbot />
+        <LoadingProvider>
+          <OilPaintBackground />
+          <SmoothScroll>
+            {/* Global Mouse Animations */}
+            <CustomCursor />
+            <MouseFollower />
+
+            <CopilotWrapper>
+              {children}
+            </CopilotWrapper>
+          </SmoothScroll>
+        </LoadingProvider>
       </body>
     </html>
   )

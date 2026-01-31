@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { useInView } from '@/hooks/useInView';
+import KineticText from '@/components/KineticText';
 
 export default function AboutSection() {
   const [ref, isInView] = useInView({ threshold: 0.1, rootMargin: '20% 0px' });
@@ -53,10 +54,15 @@ export default function AboutSection() {
           <span className="text-sm tracking-[0.3em] uppercase text-gray-500">About Me</span>
         </div>
 
-        <div className="overflow-hidden mb-16">
-          <h2 className={`text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] max-w-5xl transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className="overflow-hidden mb-16 px-1 py-2">
+          <KineticText
+            className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] max-w-5xl"
+            type="word"
+            duration={0.8}
+            delay={0.2}
+          >
             I design AI-powered products that balance intelligence with empathy.
-          </h2>
+          </KineticText>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">

@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useRef } from 'react';
 
 export default function MagneticButton({
   children,
@@ -10,56 +11,38 @@ export default function MagneticButton({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = element.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
+  // Spring physics for "heavy" magnetic feel
+  const mouseX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.1 });
+  const mouseY = useSpring(y, { stiffness: 150, damping: 15, mass: 0.1 });
 
-      const distanceX = e.clientX - centerX;
-      const distanceY = e.clientY - centerY;
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { clientX, clientY } = e;
+    const { height, width, left, top } = ref.current!.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
 
-      const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2);
-      const maxDistance = 100;
+    x.set(clientX - centerX);
+    y.set(clientY - centerY);
+  };
 
-      if (distance < maxDistance) {
-        const strength = 0.3;
-        setPosition({ x: distanceX * strength, y: distanceY * strength });
-      } else {
-        setPosition({ x: 0, y: 0 });
-      }
-    };
-
-    const handleMouseLeave = () => {
-      setPosition({ x: 0, y: 0 });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, []);
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      style={{
-        transform: `translate(${position.x}px, ${position.y}px)`,
-        transition: position.x === 0 && position.y === 0
-          ? 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
-          : 'transform 0.1s linear'
-      }}
-      className={`inline-block ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: mouseX, y: mouseY }}
+      className={`inline-block cursor-pointer ${className}`}
     >
       {children}
-    </div>
+    </motion.div>
   );
 }

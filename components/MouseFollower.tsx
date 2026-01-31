@@ -11,8 +11,8 @@ export default function MouseFollower() {
 
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({
-        x: e.clientX - window.innerWidth / 2,
-        y: e.clientY - window.innerHeight / 2
+        x: e.clientX,
+        y: e.clientY
       });
     };
 
@@ -26,28 +26,25 @@ export default function MouseFollower() {
   if (!isMounted) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Floating orbs that follow mouse */}
+    <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden mix-blend-multiply opacity-50">
+      {/* Floating orbs that follow mouse - NOW CENTERED ON CURSOR */}
       <div
         style={{
-          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px) scale(0.05)`,
-          transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          left: `${mousePosition.x}px`,
+          top: `${mousePosition.y}px`,
+          transform: 'translate(-50%, -50%)',
+          transition: 'left 0.4s cubic-bezier(0.16, 1, 0.3, 1), top 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
-        className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+        className="absolute w-96 h-96 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"
       />
       <div
         style={{
-          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px) scale(-0.03)`,
-          transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          left: `${mousePosition.x}px`,
+          top: `${mousePosition.y}px`,
+          transform: 'translate(-50%, -50%) scale(0.7)',
+          transition: 'left 0.6s cubic-bezier(0.16, 1, 0.3, 1), top 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
-        className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-gradient-to-br from-pink-500/10 to-orange-500/10 rounded-full blur-3xl"
-      />
-      <div
-        style={{
-          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px) scale(0.04)`,
-          transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
-        className="absolute top-1/2 right-1/3 w-48 h-48 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl"
+        className="absolute w-64 h-64 bg-gradient-to-br from-pink-500/20 to-orange-500/20 rounded-full blur-3xl"
       />
     </div>
   );

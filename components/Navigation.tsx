@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import MagneticButton from './MagneticButton';
+import LiquidButton from './LiquidButton';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function Navigation() {
           href="/"
           className="text-lg font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent hover:scale-105 active:scale-95 transition-transform"
         >
-          Harsha Virat
+          Harsha
         </Link>
 
         {/* Desktop Menu */}
@@ -61,12 +62,11 @@ export default function Navigation() {
         <div className="flex items-center gap-4">
           {/* Desktop CTA */}
           <MagneticButton>
-            <a
-              href="#contact"
-              className="hidden md:block px-6 py-2 bg-black text-white text-sm rounded-full hover:bg-gray-800 transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-            >
-              Say Hi! 👋
-            </a>
+            <div className="hidden md:block">
+              <LiquidButton href="#contact" variant="primary" size="sm" className="shadow-lg hover:shadow-xl">
+                Say Hi! 👋
+              </LiquidButton>
+            </div>
           </MagneticButton>
 
           {/* Mobile Menu Button */}
@@ -121,14 +121,15 @@ export default function Navigation() {
             ))}
           </nav>
 
-          <a
-            href="#contact"
-            onClick={() => setIsOpen(false)}
-            className={`block mt-12 px-8 py-3 bg-black text-white text-center rounded-full hover:bg-gray-800 active:scale-95 transition-all transition-all duration-500 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+          <div
+            className={`transition-all duration-500 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionDelay: '0.4s' }}
+            onClick={() => setIsOpen(false)}
           >
-            Say Hi! 👋
-          </a>
+            <LiquidButton href="#contact" variant="primary" fullWidth>
+              Say Hi! 👋
+            </LiquidButton>
+          </div>
 
           <div
             className={`mt-12 pt-8 border-t border-gray-200 transition-opacity duration-1000 ${isOpen ? 'opacity-100' : 'opacity-0'}`}

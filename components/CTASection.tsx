@@ -1,6 +1,8 @@
 'use client';
 
 import { useInView } from '@/hooks/useInView';
+import KineticText from '@/components/KineticText';
+import LiquidButton from '@/components/LiquidButton';
 
 export default function CTASection() {
   const [ref, isInView] = useInView({ threshold: 0.1, rootMargin: '20% 0px' });
@@ -40,19 +42,15 @@ export default function CTASection() {
         </div>
 
         {/* Main heading */}
-        <div className="overflow-hidden mb-8">
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1]">
-            {["Let's create", "something", "amazing."].map((word, wordIndex) => (
-              <span key={wordIndex} className="block overflow-hidden">
-                <span
-                  className={`inline-block transition-transform duration-1000 ease-out ${isInView ? 'translate-y-0' : 'translate-y-full'} ${wordIndex === 2 ? 'bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent' : ''}`}
-                  style={{ transitionDelay: `${wordIndex * 0.15}s` }}
-                >
-                  {word}
-                </span>
-              </span>
-            ))}
-          </h2>
+        <div className="overflow-hidden mb-8 px-1 pb-4">
+          <KineticText
+            className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.1]"
+            type="word"
+            duration={0.8}
+            delay={0.1}
+          >
+            Let's create something amazing.
+          </KineticText>
         </div>
 
         <p
@@ -66,25 +64,22 @@ export default function CTASection() {
         <div
           className={`flex flex-wrap justify-center gap-4 transition-all duration-1000 reveal ${isInView ? 'active delay-700' : ''}`}
         >
-          <a
+          <LiquidButton
             href="#contact"
-            className="group px-10 py-5 bg-white text-black rounded-full font-bold text-lg relative overflow-hidden transition-all hover:scale-105 hover:-translate-y-1 active:scale-95"
+            variant="white"
+            size="lg"
+            icon="→"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
-            <span className="relative z-10 group-hover:text-white transition-colors flex items-center gap-2">
-              Start a Project
-              <span className="inline-block animate-bounce-horizontal">
-                →
-              </span>
-            </span>
-          </a>
+            Start a Project
+          </LiquidButton>
 
-          <a
+          <LiquidButton
             href="mailto:hello@harsha.dev"
-            className="px-10 py-5 border-2 border-white/30 rounded-full font-bold text-lg transition-all hover:scale-105 hover:-translate-y-1 hover:border-white active:scale-95"
+            variant="whiteOutline"
+            size="lg"
           >
             Send Email
-          </a>
+          </LiquidButton>
         </div>
 
         {/* Social links */}

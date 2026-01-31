@@ -1,38 +1,38 @@
 'use client';
 
+import { ReactLenis, useLenis } from '@studio-freight/react-lenis';
 import { useEffect, useState } from 'react';
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => {
-    // Enable smooth scroll behavior
-    document.documentElement.style.scrollBehavior = 'smooth';
-
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = (window.scrollY / totalHeight) * 100;
-      setScrollProgress(progress);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      document.documentElement.style.scrollBehavior = 'auto';
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  // Hook to track scroll progress via Lenis
+  useLenis(({ scroll, limit }) => {
+    const progress = (scroll / limit) * 100;
+    setScrollProgress(progress);
+  });
 
   return (
-    <>
-      {/* Progress bar at top */}
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.15, // Smoothness
+        duration: 0.1, // Almost instant (User Request)
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 2,
+      }}
+    >
+      {/* Progress bar */}
       <div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 origin-left z-[100] pointer-events-none transition-transform duration-100 ease-out"
-        style={{ transform: `scaleX(${scrollProgress / 100})`, transformOrigin: 'left' }}
+        className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 origin-left z-[100] pointer-events-none"
+        style={{
+          transform: `scaleX(${scrollProgress / 100})`,
+          transformOrigin: 'left',
+          // No transition on the bar itself, let Lenis handle the smoothness
+        }}
       />
-
       {children}
-    </>
+    </ReactLenis>
   );
 }

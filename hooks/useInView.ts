@@ -9,7 +9,7 @@ interface UseInViewOptions extends IntersectionObserverInit {
 export function useInView(
     options: UseInViewOptions = {}
 ): [RefObject<HTMLDivElement>, boolean] {
-    const { once = false, ...observerOptions } = options;
+    const { once = true, ...observerOptions } = options;
     const [isInView, setIsInView] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 

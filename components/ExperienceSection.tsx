@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { useInView } from '@/hooks/useInView';
+import KineticText from '@/components/KineticText';
 
 export default function ExperienceSection() {
   const [ref, isInView] = useInView({ threshold: 0.1, rootMargin: '20% 0px' });
@@ -24,33 +25,6 @@ export default function ExperienceSection() {
 
   const lineHeight = Math.min(100, scrollYProgress * 200) + '%';
   const overlayOpacity = Math.min(0.5, scrollYProgress);
-
-  const experiences = [
-    {
-      company: 'Mondee',
-      period: '2023 - Present',
-      role: 'UI/UX Designer',
-      description: 'Designing scalable, enterprise-grade travel systems with high operational complexity.',
-      tags: ['Enterprise UX', 'Scalable Systems', 'Travel Tech'],
-      highlight: true,
-    },
-    {
-      company: 'Aarna',
-      period: '2023',
-      role: 'AI Product Designer',
-      description: 'Building AI-assisted platforms that convert unstructured content into high-quality travel experiences.',
-      tags: ['AI Interaction', 'Conversational UX', 'Public Platform'],
-      highlight: false,
-    },
-    {
-      company: 'Hita & Pranik',
-      period: '2022 - 2023',
-      role: 'AI Product Builder',
-      description: 'Designing and building end-to-end AI companions for travel and healthcare contexts.',
-      tags: ['Agentic AI', 'Healthcare UX', 'Fullstack Design'],
-      highlight: false,
-    },
-  ];
 
   return (
     <section
@@ -76,17 +50,16 @@ export default function ExperienceSection() {
           </div>
 
           <div className="overflow-hidden">
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black">
-              {'My Journey'.split('').map((char, i) => (
-                <span
-                  key={i}
-                  className={`inline-block cursor-default transition-all duration-700 reveal ${isInView ? 'active' : ''}`}
-                  style={{ transitionDelay: `${i * 0.03}s` }}
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
-            </h2>
+            <KineticText
+              className="text-5xl md:text-7xl lg:text-8xl font-black"
+              type="char"
+              duration={0.6}
+            >
+              My Journey
+            </KineticText>
+            <p className="text-xl text-gray-500 mt-6 font-light max-w-2xl leading-relaxed">
+              Designing AI-driven, enterprise-scale travel systems and conversational experiences.
+            </p>
           </div>
         </div>
 
@@ -102,7 +75,32 @@ export default function ExperienceSection() {
 
           {/* Experience cards */}
           <div className="space-y-12 md:space-y-24">
-            {experiences.map((exp, index) => (
+            {[
+              {
+                company: 'Mondee',
+                period: '2023 – Present',
+                role: 'Senior Product Designer',
+                description: 'Designed and shipped scalable, enterprise-grade travel systems managing global operational complexity.',
+                tags: ['Enterprise UX', 'Scalable Systems', 'Travel Tech'],
+                highlight: true,
+              },
+              {
+                company: 'Aarna',
+                period: '2023 – 2023',
+                role: 'AI Product Designer',
+                description: 'Designed and shipped an AI-assisted platform transforming unstructured content into publish-ready experiences.',
+                tags: ['AI Interaction', 'Conversational UX', 'Platform Design'],
+                highlight: false,
+              },
+              {
+                company: 'Hita & Pranik',
+                period: '2022 – 2023',
+                role: 'AI Product Builder',
+                description: 'Designed and branded autonomous AI companions for specialized healthcare and travel verticals.',
+                tags: ['Agentic AI', 'Healthcare UX', 'Concept Strategy'],
+                highlight: false,
+              },
+            ].map((exp, index) => (
               <div
                 key={index}
                 className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'

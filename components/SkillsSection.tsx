@@ -2,29 +2,26 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { useInView } from '@/hooks/useInView';
+import KineticText from '@/components/KineticText';
 
 const skillCategories = [
   {
     title: 'Design & 3D',
-    icon: '🎨',
     color: 'from-blue-500 to-cyan-400',
     skills: ['Figma', 'Framer', 'Adobe XD', 'Photoshop', 'Blender', 'Spline', 'Three.js'],
   },
   {
     title: 'Development',
-    icon: '⚡',
     color: 'from-purple-500 to-pink-400',
     skills: ['React.js', 'Next.js', 'JavaScript', 'HTML', 'CSS', 'Framer Motion', 'Git'],
   },
   {
     title: 'AI & UX Strategy',
-    icon: '🤖',
     color: 'from-orange-500 to-red-400',
     skills: ['Conversational UX', 'AI Interaction Design', 'AI agents', 'Prompt design', 'UX Flow Mapping'],
   },
   {
     title: 'Tools & Systems',
-    icon: '🛠️',
     color: 'from-green-500 to-teal-400',
     skills: ['Cursor', 'Vercel', 'Render', 'Design Systems', 'Prototype', 'Wireframe'],
   },
@@ -61,22 +58,23 @@ export default function SkillsSection() {
 
       <div ref={ref} className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="text-center mb-20">
-          <div className={`inline-flex items-center gap-4 mb-8 reveal ${isInView ? 'active' : ''}`}>
+        <div className="mb-20">
+          <div className={`flex items-center gap-4 mb-8 reveal ${isInView ? 'active' : ''}`}>
             <div
               className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-15' : 'w-0'}`}
               style={{ width: isInView ? '60px' : '0px' }}
             />
             <span className="text-sm tracking-[0.3em] uppercase text-gray-500">Expertise</span>
-            <div
-              className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-15' : 'w-0'}`}
-              style={{ width: isInView ? '60px' : '0px' }}
-            />
           </div>
 
-          <h2 className={`text-5xl md:text-7xl font-black mb-6 reveal ${isInView ? 'active delay-100' : ''}`}>
+          <KineticText
+            className="text-5xl md:text-7xl font-black mb-6"
+            type="char"
+            duration={0.6}
+            delay={0.1}
+          >
             Skills & Tools
-          </h2>
+          </KineticText>
           <p className={`text-xl text-gray-500 max-w-2xl mx-auto reveal ${isInView ? 'active delay-200' : ''}`}>
             Technologies and methodologies I use to bring ideas to life
           </p>
@@ -92,11 +90,7 @@ export default function SkillsSection() {
             >
               {/* Category header */}
               <div className="flex items-center gap-4 mb-6">
-                <div
-                  className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${category.color} flex items-center justify-center text-2xl shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-6`}
-                >
-                  {category.icon}
-                </div>
+                <div className={`w-3 h-8 rounded-full bg-gradient-to-b ${category.color}`} />
                 <h3 className="text-2xl font-bold">{category.title}</h3>
               </div>
 

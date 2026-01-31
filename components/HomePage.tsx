@@ -7,13 +7,10 @@ import ProjectsGrid from './ProjectsGrid';
 import SkillsSection from './SkillsSection';
 import ExperienceSection from './ExperienceSection';
 import LatestWorksSection from './LatestWorksSection';
-import BlogSection from './BlogSection';
 import CTASection from './CTASection';
 import ContactForm from './ContactForm';
 import Footer from './Footer';
-import OilPaintBackground from './OilPaintBackground';
 import PageLoader from './PageLoader';
-import SmoothScroll from './SmoothScroll';
 import { useInView } from '@/hooks/useInView';
 
 // Seamless section wrapper with smooth reveal using native IntersectionObserver
@@ -32,49 +29,46 @@ function Section({ children, delay = 0, className = "" }: { children: React.Reac
 
 export default function HomePage() {
   return (
-    <PageLoader>
-      <OilPaintBackground />
-      <main className="relative min-h-screen">
-        <Navigation />
+    <>
+      <PageLoader>
+        <main className="relative min-h-screen">
+          <Navigation />
 
-        <Section>
-          <HeroSection />
-        </Section>
+          <Section>
+            <HeroSection />
+          </Section>
 
-        <Section>
-          <NewAboutSection />
-        </Section>
+          <Section>
+            <NewAboutSection />
+          </Section>
 
-        <Section>
-          <ProjectsGrid />
-        </Section>
+          <Section>
+            <ProjectsGrid />
+          </Section>
 
-        <Section delay={0.05}>
-          <SkillsSection />
-        </Section>
+          <Section delay={0.05}>
+            <SkillsSection />
+          </Section>
 
-        <Section delay={0.05}>
-          <ExperienceSection />
-        </Section>
+          <Section delay={0.05}>
+            <ExperienceSection />
+          </Section>
 
-        <Section delay={0.1}>
-          <LatestWorksSection />
-        </Section>
+          <Section delay={0.1}>
+            <LatestWorksSection />
+          </Section>
 
-        <Section delay={0.1}>
-          <BlogSection />
-        </Section>
+          <Section delay={0.1}>
+            <CTASection />
+          </Section>
 
-        <Section delay={0.1}>
-          <CTASection />
-        </Section>
+          <Section delay={0.1}>
+            <ContactForm />
+          </Section>
 
-        <Section delay={0.1}>
-          <ContactForm />
-        </Section>
-
-        <Footer />
-      </main>
-    </PageLoader>
+          <Footer />
+        </main>
+      </PageLoader>
+    </>
   );
 }

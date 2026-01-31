@@ -1,183 +1,166 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
+import LiquidButton from './LiquidButton';
+
+gsap.registerPlugin(useGSAP);
 
 export default function HeroSection() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [scrollY, setScrollY] = useState(0);
-  const ref = useRef<HTMLDivElement>(null);
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // Refs for specific elements to animate
+  const headingLinesRef = useRef<(HTMLHeadingElement | null)[]>([]);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const orbit1Ref = useRef<HTMLDivElement>(null);
+  const orbit2Ref = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    // 1. Entrance Timeline
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    // Initial states (set here to avoid FOUC)
+    gsap.set([orbit1Ref.current, orbit2Ref.current], { scale: 0, opacity: 0 });
+    gsap.set(imageRef.current, { scale: 0.8, opacity: 0, rotationY: 15 });
+
+    tl.to(containerRef.current, { opacity: 1, duration: 0.5 }) // Fade in container
+      .from(textRef.current?.children || [], {
+        y: 50,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.1,
+        ease: "power4.out"
+      })
+      .to(imageRef.current, {
+        scale: 1,
+        opacity: 1,
+        rotationY: 0,
+        duration: 1.2,
+        ease: "elastic.out(1, 0.75)"
+      }, "-=0.8")
+      .to([orbit1Ref.current, orbit2Ref.current], {
+        scale: 1,
+        opacity: 1,
+        duration: 1.5,
+        stagger: 0.2,
+        ease: "expo.out"
+      }, "-=1.0");
+
+    // 2. Mouse Parallax Setup
+    const xTo = gsap.quickTo(imageRef.current, "rotationY", { duration: 0.5, ease: "power3" });
+    const yTo = gsap.quickTo(imageRef.current, "rotationX", { duration: 0.5, ease: "power3" });
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const maxRotation = 8;
-      const xRot = (e.clientX - centerX) / 60;
-      const yRot = (e.clientY - centerY) / 60;
+      if (!containerRef.current) return;
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
 
-      setMousePos({
-        x: Math.max(-maxRotation, Math.min(maxRotation, xRot)),
-        y: Math.max(-maxRotation, Math.min(maxRotation, yRot)),
-      });
+      // Calculate normalized position (-1 to 1)
+      const xPos = (clientX / innerWidth - 0.5) * 2;
+      const yPos = (clientY / innerHeight - 0.5) * 2;
+
+      // Apply rotation (max 10 degrees)
+      xTo(xPos * 10);
+      yTo(-yPos * 10); // Invert Y for natural feel
     };
 
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
+    window.addEventListener("mousemove", handleMouseMove);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
 
-  // Parallax calculations
-  const textY = scrollY * 0.2;
-  const imageY = scrollY * 0.05;
-  const opacity = Math.max(1 - scrollY / 600, 0);
-
-  // Rotate based on mouse
-  const rotateX = -mousePos.y;
-  const rotateY = mousePos.x;
-
-  const floatingAnimation = {
-    y: [0, -20, 0],
-    transition: {
-      duration: 6,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  };
+  }, { scope: containerRef });
 
   return (
     <section
       ref={containerRef}
-      className="min-h-screen bg-white flex items-center px-6 md:px-12 lg:px-24 pt-20 relative overflow-hidden"
+      className="min-h-screen bg-white flex items-center px-6 md:px-12 lg:px-24 pt-20 relative overflow-hidden opacity-0" // Start invisible
     >
-      {/* Animated gradient orbs using CSS animations */}
+      {/* Animated gradient orbs */}
       <div
-        className="absolute top-20 left-10 w-[500px] h-[500px] bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl animate-float-slow"
+        ref={orbit1Ref}
+        className="absolute top-20 left-10 w-[500px] h-[500px] bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl mix-blend-multiply"
       />
       <div
-        className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-gradient-to-r from-pink-200/30 to-orange-200/30 rounded-full blur-3xl animate-float-slower"
+        ref={orbit2Ref}
+        className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-gradient-to-r from-pink-200/30 to-orange-200/30 rounded-full blur-3xl mix-blend-multiply"
       />
 
-      <div
-        style={{
-          transform: `translateY(${textY}px)`,
-          opacity,
-          transition: 'transform 0.1s linear' // Smooth scroll link
-        }}
-        className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10"
-      >
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
         {/* Left side - Text */}
-        <div className="reveal active"> {/* Always active for Hero entrance */}
+        <div ref={textRef} className="relative z-20">
           {/* Animated line */}
-          <div
-            className="h-[2px] bg-black mb-8 animate-grow-horizontal origin-left"
-            style={{ width: '60px' }}
-          />
+          <div className="h-[2px] bg-black mb-8 w-[60px]" />
 
-          <div className="text-sm text-gray-500 mb-6 tracking-[0.3em] uppercase animate-fade-in-right">
-            UI/UX Designer & AI Developer
+          <div className="text-sm text-gray-500 mb-6 tracking-[0.3em] uppercase font-medium">
+            UI/UX Designer & AI – Full Stack Developer
           </div>
 
           {/* Main heading */}
-          <div className="overflow-hidden mb-2">
-            <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black leading-[0.95] tracking-tight text-black mb-4 animate-slide-up">
-              Designing
-              <br />
-              intelligent products
-              <br />
-              people trust.
-            </h1>
-          </div>
+          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-black leading-[0.95] tracking-tight text-black mb-8">
+            Designing
+            <br />
+            intelligent products
+            <br />
+            people trust.
+          </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-lg leading-relaxed font-light animate-slide-up">
+          <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-lg leading-relaxed font-light">
             AI-first UX for travel, healthcare, and enterprise systems.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-4 animate-slide-up">
-            <a
-              href="#projects"
-              className="group px-8 py-4 bg-black text-white rounded-full font-medium relative overflow-hidden transition-transform hover:-translate-y-1 active:scale-95"
-            >
-              <span
-                className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity"
-              />
-              <span className="relative z-10 flex items-center gap-2">
-                View Work
-                <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-              </span>
-            </a>
+          <div ref={ctaRef} className="flex flex-wrap gap-4">
+            <LiquidButton href="#projects" variant="primary" icon="→">
+              View Work
+            </LiquidButton>
 
-            <a
-              href="#contact"
-              className="px-8 py-4 border-2 border-black rounded-full font-medium transition-all hover:bg-black hover:text-white hover:-translate-y-1 active:scale-95"
-            >
+            <LiquidButton href="#contact" variant="outline">
               Ask AI about me
-            </a>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="absolute bottom-10 left-6 md:left-12 lg:left-24 hidden lg:flex flex-col items-center gap-2 opacity-50">
-            <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center pt-2">
-              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
-            </div>
-            <span className="text-xs text-gray-400 tracking-wider">SCROLL</span>
+            </LiquidButton>
           </div>
         </div>
 
-        <div
-          ref={ref}
-          className="relative perspective-1000 animate-scale-up"
-          style={{
-            transform: `translateY(${imageY}px)`,
-            transition: 'transform 0.1s linear'
-          }}
-        >
+        {/* Right side - Image & Cards */}
+        <div className="relative perspective-1000 flex justify-center lg:justify-end">
           <div
-            style={{
-              transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
-              transformStyle: 'preserve-3d',
-              transition: 'transform 0.4s ease-out'
-            }}
-            className="relative"
+            ref={imageRef}
+            className="relative transform-style-3d will-change-transform"
           >
-            <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-50 rounded-3xl overflow-hidden shadow-2xl relative hover:scale-[1.01] transition-transform duration-500">
-              {/* Animated gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-animate opacity-20" />
+            <div className="w-[350px] h-[350px] md:w-[500px] md:h-[500px] bg-gradient-to-br from-gray-100 to-gray-50 rounded-[2.5rem] overflow-hidden shadow-2xl relative border border-white/50">
+
+              {/* Shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/40 to-transparent opacity-50" />
 
               <div className="w-full h-full flex items-center justify-center relative z-10">
                 <div className="text-center">
-                  <div className="w-40 h-40 mx-auto mb-4 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center shadow-2xl animate-pulse-gentle">
-                    <span className="text-6xl">👤</span>
+                  <div className="w-32 h-32 md:w-48 md:h-48 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center shadow-lg transform transition-transform hover:scale-110 duration-500">
+                    <span className="text-5xl md:text-7xl">👤</span>
                   </div>
-                  <p className="text-gray-400 text-sm font-medium">Harsha Virat</p>
+                  <p className="text-gray-400 text-sm font-medium tracking-widest uppercase">Harsha</p>
                 </div>
               </div>
             </div>
 
-            {/* Floating cards */}
+            {/* Floating cards - Animated with CSS floating but parent moves with parallax */}
             <div
-              style={{ transform: 'translateZ(60px)' }}
-              className="absolute top-10 -left-8 bg-white rounded-2xl shadow-xl p-6 backdrop-blur-xl border border-gray-100/50 hover:scale-105 hover:-rotate-3 transition-transform duration-500"
+              className="absolute top-10 -left-4 md:-left-12 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 animate-float-slow"
+              style={{ transform: 'translateZ(40px)' }}
             >
-              <div className="text-4xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+              <div className="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
                 200+
               </div>
               <div className="text-xs text-gray-500 mt-1 font-medium">Happy Clients</div>
             </div>
 
             <div
-              className="absolute bottom-10 -right-8 bg-white rounded-2xl shadow-xl p-6 backdrop-blur-xl border border-gray-100/50 hover:scale-105 hover:rotate-3 transition-transform duration-500"
+              className="absolute bottom-10 -right-4 md:-right-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/50 animate-float-slower"
               style={{ transform: 'translateZ(60px)' }}
             >
-              <div className="text-4xl font-black bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
+              <div className="text-3xl md:text-4xl font-black bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent">
                 50+
               </div>
               <div className="text-xs text-gray-500 mt-1 font-medium">Projects Done</div>

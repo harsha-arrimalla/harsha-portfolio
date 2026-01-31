@@ -1,6 +1,8 @@
 'use client';
 
 import { useInView } from '@/hooks/useInView';
+import KineticText from '@/components/KineticText';
+import LiquidButton from '@/components/LiquidButton';
 
 export default function BlogSection() {
   const [ref, isInView] = useInView({ threshold: 0.1, rootMargin: '20% 0px' });
@@ -33,22 +35,23 @@ export default function BlogSection() {
     <section ref={ref} className="py-32 md:py-40 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
-        <div className="text-center mb-20">
-          <div className={`inline-flex items-center gap-4 mb-8 transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="mb-20">
+          <div className={`flex items-center gap-4 mb-8 transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <div
               className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-15' : 'w-0'}`}
               style={{ width: isInView ? '60px' : '0px' }}
             />
             <span className="text-sm tracking-[0.3em] uppercase text-gray-500">Insights</span>
-            <div
-              className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-15' : 'w-0'}`}
-              style={{ width: isInView ? '60px' : '0px' }}
-            />
           </div>
 
-          <h2 className={`text-5xl md:text-7xl font-black reveal ${isInView ? 'active delay-300' : ''}`}>
+          <KineticText
+            className="text-5xl md:text-7xl font-black mb-6"
+            type="char"
+            duration={0.6}
+            delay={0.2}
+          >
             Latest Articles
-          </h2>
+          </KineticText>
         </div>
 
         {/* Posts grid */}
@@ -92,12 +95,9 @@ export default function BlogSection() {
 
         {/* View all button */}
         <div className={`text-center mt-16 transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.8s' }}>
-          <button className="group px-10 py-4 border-2 border-black rounded-full font-medium relative overflow-hidden transition-all hover:scale-105 active:scale-95">
-            <span className="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-in-out" />
-            <span className="relative z-10 group-hover:text-white transition-colors duration-300">
-              Read All Articles →
-            </span>
-          </button>
+          <LiquidButton href="/blog" variant="outline" icon="→">
+            Read All Articles
+          </LiquidButton>
         </div>
       </div>
     </section>

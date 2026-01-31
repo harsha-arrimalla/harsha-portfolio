@@ -2,6 +2,8 @@
 
 import { useInView } from '@/hooks/useInView';
 import { useRef, useState } from 'react';
+import KineticText from '@/components/KineticText';
+import LiquidButton from '@/components/LiquidButton';
 
 export default function ContactForm() {
   const [ref, isInView] = useInView({ threshold: 0.1, rootMargin: '20% 0px' });
@@ -25,7 +27,7 @@ export default function ContactForm() {
           email: formState.email,
           message: formState.message,
           subject: `New Contact from ${formState.name} - Portfolio`,
-          from_name: 'Harsha Virat Portfolio',
+          from_name: 'Harsha Portfolio',
         }),
       });
 
@@ -61,7 +63,13 @@ export default function ContactForm() {
         <div
           className={`text-center mb-16 transition-all duration-700 reveal ${isInView ? 'active' : ''}`}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">Let’s build something meaningful.</h2>
+          <KineticText
+            className="text-4xl md:text-5xl font-bold mb-4"
+            type="word"
+            duration={0.6}
+          >
+            Let’s build something meaningful.
+          </KineticText>
           <p className="text-gray-600 text-lg">
             Ready to create intelligent, human-centered experiences?
           </p>
@@ -106,21 +114,18 @@ export default function ContactForm() {
             />
           </div>
 
-          <button
+          <LiquidButton
             type="submit"
             disabled={status === 'sending'}
-            className={`w-full md:w-auto px-12 py-4 rounded-full font-medium transition-all active:scale-95 hover:scale-[1.02] ${status === 'success'
-              ? 'bg-green-600 text-white'
-              : status === 'error'
-                ? 'bg-red-600 text-white'
-                : 'bg-black text-white hover:bg-gray-800'
-              }`}
+            variant={status === 'success' || status === 'error' ? 'primary' : 'primary'} // Simplified for refactor, logic below
+            className={`w-full md:w-auto ${status === 'success' ? '!bg-green-600' : status === 'error' ? '!bg-red-600' : ''}`}
+            size="lg"
           >
             {status === 'sending' && 'Sending...'}
             {status === 'success' && '✓ Message Sent!'}
             {status === 'error' && 'Error - Try Again'}
             {status === 'idle' && 'Send Message'}
-          </button>
+          </LiquidButton>
         </form>
 
         <div

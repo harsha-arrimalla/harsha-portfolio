@@ -9,11 +9,14 @@ echo "🚀 Setting up portfolio..."
 
 # Create .env.local if it doesn't exist
 if [ ! -f .env.local ]; then
-  echo "📝 Creating .env.local..."
+  echo "⚠️  .env.local not found!"
+  echo "📝 Creating template .env.local..."
   cat > .env.local << 'ENVEOF'
-GOOGLE_GEMINI_API_KEY=AIzaSyC91K6jPrRfi7oyyWStcFsPa_lSk67_aQM
+# Add your Google Gemini API key here
+# GOOGLE_GEMINI_API_KEY=your_api_key_here
 ENVEOF
-  echo "✅ .env.local created"
+  echo "❗ Please add your GOOGLE_GEMINI_API_KEY to .env.local before running."
+  exit 1
 else
   echo "✅ .env.local already exists"
 fi

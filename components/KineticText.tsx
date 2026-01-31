@@ -1,71 +1,95 @@
 'use client';
 
-import { useInView as useIntersection } from '@/hooks/useInView';
+import { motion, useInView, Variants } from 'framer-motion';
+import { useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 interface KineticTextProps {
-  text: string;
+  children: string;
   className?: string;
+  as?: React.ElementType;
+  type?: 'word' | 'char';
   delay?: number;
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+  duration?: number;
 }
 
 export default function KineticText({
-  text,
-  className = '',
+  children,
+  className,
+  as: Component = 'h2',
+  type = 'word',
   delay = 0,
-  as: Tag = 'h2'
+  duration = 0.8,
 }: KineticTextProps) {
-  const [ref, isInView] = useIntersection({ threshold: 0.1, once: true });
-  const words = text.split(' ');
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-10% 0px -10% 0px' });
+
+  const text = children;
+  // Split by specific delimiter based on type
+  const items = type === 'word' ? text.split(' ') : text.split('');
+
+  const container: Variants = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.05, delayChildren: delay * i },
+    }),
+  };
+
+  const child: Variants = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        type: 'spring',
+        damping: 12,
+        stiffness: 100,
+        duration: duration,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      filter: 'blur(10px)',
+      transition: {
+        type: 'spring',
+        damping: 12,
+        stiffness: 100,
+        duration: duration,
+      },
+    },
+  };
 
   return (
-    <Tag ref={ref} className={className}>
-      <span style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3em' }}>
-        {words.map((word, index) => (
-          <span
+    <Component
+      ref={ref}
+      className={cn('inline-block tracking-tight leading-tight', className)} // default styling
+      aria-label={text}
+    >
+      <motion.span
+        variants={container}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        className="inline-block" // Ensure container handles inline-block correctly
+      >
+        {items.map((item, index) => (
+          <motion.span
+            variants={child}
             key={index}
-            style={{
-              display: 'inline-block',
-              transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-              transitionDelay: `${delay + index * 80}ms`,
-              transform: isInView ? 'translateY(0)' : 'translateY(20px)',
-              opacity: isInView ? 1 : 0
-            }}
-            className="hover:-translate-y-1 hover:text-blue-500 transition-colors duration-200 cursor-default"
+            className="inline-block whitespace-pre"
           >
-            {word}
-          </span>
+            {item}
+            {/* If char mode, we might want to handle spaces explicitly if the split removed them, 
+                but text.split('') preserves spaces as separate items usually. 
+                Wait, 'word' split removes spaces. 'char' split preserves them.
+                Special handling for spaces in 'char' mode not needed as they are chars.
+                For 'word' mode, we need to re-add space logic or just use gaps.
+             */}
+            {type === 'word' && '\u00A0'}
+          </motion.span>
         ))}
-      </span>
-    </Tag>
-  );
-}
-
-// Utility component for letter-by-letter animation
-export function KineticLetters({
-  text,
-  className = '',
-  delay = 0
-}: { text: string; className?: string; delay?: number }) {
-  const [ref, isInView] = useIntersection({ threshold: 0.1, once: true });
-
-  return (
-    <span ref={ref} className={className}>
-      {text.split('').map((letter, index) => (
-        <span
-          key={index}
-          style={{
-            display: 'inline-block',
-            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-            transitionDelay: `${delay + index * 30}ms`,
-            transform: isInView ? 'translateY(0)' : 'translateY(50px)',
-            opacity: isInView ? 1 : 0
-          }}
-          className="hover:-translate-y-2 hover:scale-125 hover:text-blue-500 transition-all duration-200 cursor-default"
-        >
-          {letter === ' ' ? '\u00A0' : letter}
-        </span>
-      ))}
-    </span>
+      </motion.span>
+    </Component>
   );
 }

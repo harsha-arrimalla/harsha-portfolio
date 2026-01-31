@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useLoading } from './LoadingContext';
 
 export default function PageLoader({ children }: { children: React.ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setIsLoading } = useLoading();
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
 
