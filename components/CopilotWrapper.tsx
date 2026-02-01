@@ -20,12 +20,18 @@ function LuffySearchTrigger() {
     ];
 
     useEffect(() => {
+        const handleExternalOpen = () => setOpen(true);
+        window.addEventListener('open-luffy-chat', handleExternalOpen);
+
         if (open || isLoading) return;
         const interval = setInterval(() => {
             setCurrentPrompt((prev) => (prev + 1) % prompts.length);
         }, 4000);
-        return () => clearInterval(interval);
-    }, [open, isLoading, prompts.length]);
+        return () => {
+            clearInterval(interval);
+            window.removeEventListener('open-luffy-chat', handleExternalOpen);
+        };
+    }, [open, isLoading, prompts.length, setOpen]);
 
     if (open || isLoading) return null;
 

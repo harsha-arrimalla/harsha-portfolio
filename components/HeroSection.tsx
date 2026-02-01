@@ -106,7 +106,11 @@ export default function HeroSection() {
               View Work
             </LiquidButton>
 
-            <LiquidButton href="#contact" variant="outline" className="!px-8 md:!px-10 !py-3 md:!py-4 rounded-full text-sm font-bold border-2 border-black">
+            <LiquidButton
+              onClick={() => window.dispatchEvent(new CustomEvent('open-luffy-chat'))}
+              variant="outline"
+              className="!px-8 md:!px-10 !py-3 md:!py-4 rounded-full text-sm font-bold border-2 border-black"
+            >
               Ask my AI assistant
             </LiquidButton>
           </div>

@@ -160,6 +160,7 @@ export default function OilPaintBackground() {
   return (
     <canvas
       ref={canvasRef}
+      className="hidden lg:block"
       style={{
         position: 'fixed',
         top: 0,

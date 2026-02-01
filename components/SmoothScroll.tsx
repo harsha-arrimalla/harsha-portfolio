@@ -20,7 +20,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         duration: 0.1, // Almost instant (User Request)
         smoothWheel: true,
         wheelMultiplier: 1.0,
-        touchMultiplier: 2,
+        touchMultiplier: 1.5,
+        // Disable smooth scroll on mobile to fix the reporting "glitch" 
+        // Native mobile momentum is usually smoother than forced JS scroll on low-end devices
+        syncTouch: false,
       }}
     >
       {/* Progress bar */}

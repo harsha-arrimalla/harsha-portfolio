@@ -30,6 +30,7 @@ const SmoothScroll = dynamic(() => import('@/components/SmoothScroll'), { ssr: f
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false })
 const MouseFollower = dynamic(() => import('@/components/MouseFollower'), { ssr: false })
 const OilPaintBackground = dynamic(() => import('@/components/OilPaintBackground'), { ssr: false })
+const LoadingScreen = dynamic(() => import('@/components/LoadingScreen'), { ssr: false })
 const LoadingProvider = dynamic(() => import('@/components/LoadingContext').then(mod => mod.LoadingProvider), { ssr: false })
 
 export default function RootLayout({
@@ -48,6 +49,7 @@ export default function RootLayout({
       </head>
       <body>
         <LoadingProvider>
+          <LoadingScreen />
           <OilPaintBackground />
           <SmoothScroll>
             {/* Global Mouse Animations */}
