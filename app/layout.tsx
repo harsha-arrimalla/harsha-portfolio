@@ -2,18 +2,18 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Harsha — UI/UX Designer & AI – Full Stack Developer',
+  title: "Harsha's Portfolio",
   description: 'Designing AI experiences that users trust—from concept to code. Specializing in conversational AI, healthcare, and enterprise platforms.',
   keywords: ['UI/UX Designer', 'AI Developer', 'Full-Stack Developer', 'Conversational AI', 'Healthcare UX', 'Enterprise Design'],
   authors: [{ name: 'Harsha' }],
   openGraph: {
-    title: 'Harsha — UI/UX Designer & AI – Full Stack Developer',
+    title: "Harsha's Portfolio",
     description: 'Designing AI experiences that users trust—from concept to code',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Harsha — UI/UX Designer & AI – Full Stack Developer',
+    title: "Harsha's Portfolio",
     description: 'Designing AI experiences that users trust—from concept to code',
   },
   robots: {
