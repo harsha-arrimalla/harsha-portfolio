@@ -604,6 +604,8 @@ a.poweredBy,
   border: none !important;
   box-shadow: none !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  /* Ensure the outer popup doesn't block site interactions by default */
+  pointer-events: none !important;
 }
 
 /* Fix for mobile full-screen chat */
@@ -615,6 +617,8 @@ a.poweredBy,
     right: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    /* On mobile, this container is full-screen, so MUST be none when children are 0 opacity */
+    pointer-events: none !important;
   }
 }
 
@@ -876,6 +880,15 @@ body .copilotKitWindow {
   z-index: 100000 !important;
   display: flex !important;
   flex-direction: column !important;
+  /* Restore visibility toggle logic */
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+body .copilotKitWindow[style*="opacity: 0"],
+body .copilotKitWindow[style*="opacity:0"] {
+  pointer-events: none !important;
+  visibility: hidden !important;
+  display: none !important;
 }
 
 @media (max-width: 768px) {
@@ -884,6 +897,8 @@ body .copilotKitWindow {
     height: 100% !important;
     bottom: 0 !important;
     right: 0 !important;
+    left: 0 !important;
+    /* Force full width */
     border-radius: 0 !important;
     z-index: 100000 !important;
   }
