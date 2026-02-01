@@ -10,21 +10,63 @@ import { usePortfolioActions } from "@/lib/copilot-actions";
 function LuffySearchTrigger() {
     const { setOpen, open } = useChatContext();
     const { isLoading } = useLoading();
+    const [currentPrompt, setCurrentPrompt] = useState(0);
+
+    const prompts = [
+        "Ask about my skills",
+        "Show me my projects",
+        "What is my experience?",
+        "Talk to Luffy AI assistant"
+    ];
+
+    useEffect(() => {
+        if (open || isLoading) return;
+        const interval = setInterval(() => {
+            setCurrentPrompt((prev) => (prev + 1) % prompts.length);
+        }, 4000);
+        return () => clearInterval(interval);
+    }, [open, isLoading, prompts.length]);
 
     if (open || isLoading) return null;
 
     return (
         <div
-            className="luffy-search-trigger group"
+            className="luffy-search-trigger group relative h-16 flex items-center"
             onClick={() => setOpen(true)}
         >
-            <div className="absolute bottom-full right-0 mb-4 bg-white px-4 py-2 rounded-xl shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
-                <span className="text-sm font-urbanist font-semibold">Talk to Luffy</span>
+            {/* Suggested Question Bubble - Hidden on mobile to keep UI clean */}
+            <div className="absolute right-[calc(100%+16px)] hidden md:flex items-center pointer-events-none group-hover:scale-[1.02] transition-transform duration-300">
+                <div className="relative">
+                    {/* Main Bubble */}
+                    <div className="bg-white/95 backdrop-blur-lg px-5 py-3 rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.12)] border border-white/40 flex flex-col min-w-[180px]">
+                        <span className="text-[10px] text-gray-400 font-bold uppercase tracking-[0.15em] mb-1">
+                            Luffy's Headlines
+                        </span>
+                        <div className="h-5 overflow-hidden relative">
+                            <div
+                                className="transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1)"
+                                style={{ transform: `translateY(-${currentPrompt * 20}px)` }}
+                            >
+                                {prompts.map((p, i) => (
+                                    <div key={i} className="h-5 flex items-center">
+                                        <span className="text-[14px] font-display font-black text-[#1A1A1A] whitespace-nowrap leading-none">
+                                            {p}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Centered Pointer Arrow */}
+                    <div className="absolute top-1/2 -right-[6px] -translate-y-1/2 w-3 h-3 bg-white/95 rotate-45 border-r border-t border-white/40 shadow-sm"></div>
+                </div>
             </div>
 
-            <div className="w-16 h-16 bg-[#FCD34D] rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110 border-4 border-white">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22Z" stroke="#1A1A1A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <div className="w-16 h-16 bg-[#FCD34D] rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 hover:rotate-[15deg] hover:scale-110 border-4 border-white cursor-pointer active:scale-95 group relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/40 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 pointer-events-none"></div>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#1A1A1A] relative z-10">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                 </svg>
             </div>
         </div>

@@ -63,7 +63,7 @@ export default function Navigation() {
           {/* Desktop CTA */}
           <MagneticButton>
             <div className="hidden md:block">
-              <LiquidButton href="#contact" variant="primary" size="sm" className="shadow-lg hover:shadow-xl">
+              <LiquidButton href="#contact" variant="primary" size="sm" className="!bg-black !text-white !px-8 !py-3 rounded-full flex items-center gap-2 font-bold hover:scale-105 transition-transform">
                 Say Hi! 👋
               </LiquidButton>
             </div>
@@ -91,15 +91,15 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile Menu Panel Overlay */}
       <div
-        className={`fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 bg-black/60 backdrop-blur-md z-40 md:hidden transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
           }`}
         onClick={() => setIsOpen(false)}
       />
 
       <div
-        className={`fixed top-0 right-0 bottom-0 w-80 bg-white shadow-2xl z-40 md:hidden transition-transform duration-500 ease-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-white/95 backdrop-blur-2xl shadow-2xl z-40 md:hidden transition-transform duration-500 ease-out ${isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
       >
         <div className="p-8 pt-24">

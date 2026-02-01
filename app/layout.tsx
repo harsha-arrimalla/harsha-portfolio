@@ -22,12 +22,15 @@ export const metadata: Metadata = {
   },
 }
 
-import CopilotWrapper from '@/components/CopilotWrapper'
-import { LoadingProvider } from '@/components/LoadingContext'
-import SmoothScroll from '@/components/SmoothScroll'
-import CustomCursor from '@/components/CustomCursor'
-import MouseFollower from '@/components/MouseFollower'
-import OilPaintBackground from '@/components/OilPaintBackground'
+import dynamic from 'next/dynamic'
+
+// Dynamically import heavy client-side components to reduce initial bundle size
+const CopilotWrapper = dynamic(() => import('@/components/CopilotWrapper'), { ssr: false })
+const SmoothScroll = dynamic(() => import('@/components/SmoothScroll'), { ssr: false })
+const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false })
+const MouseFollower = dynamic(() => import('@/components/MouseFollower'), { ssr: false })
+const OilPaintBackground = dynamic(() => import('@/components/OilPaintBackground'), { ssr: false })
+const LoadingProvider = dynamic(() => import('@/components/LoadingContext').then(mod => mod.LoadingProvider), { ssr: false })
 
 export default function RootLayout({
   children,
