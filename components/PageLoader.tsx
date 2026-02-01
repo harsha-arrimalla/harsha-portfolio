@@ -9,22 +9,46 @@ export default function PageLoader({ children }: { children: React.ReactNode }) 
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    // Faster loading - complete in ~0.6 seconds
+    // 1. Wait for minimum time (smoothness)
+    const minTimePromise = new Promise(resolve => setTimeout(resolve, 800));
+
+    // 2. Wait for actual page load (resources)
+    const loadPromise = new Promise(resolve => {
+      if (document.readyState === 'complete') {
+        resolve(true);
+      } else {
+        window.addEventListener('load', () => resolve(true), { once: true });
+      }
+    });
+
+    // Wait for BOTH
+    Promise.all([minTimePromise, loadPromise]).then(() => {
+      setProgress(100);
+      setTimeout(() => {
+        setIsExiting(true);
+        setTimeout(() => setIsLoading(false), 300);
+      }, 200);
+    });
+
+    // Fallback: If page load hangs, force finish after 3s
+    const fallbackTimer = setTimeout(() => {
+      setProgress(100);
+      setIsExiting(true);
+      setTimeout(() => setIsLoading(false), 300);
+    }, 4000);
+
+    // Fake progress animation for visual feedback while waiting
     const interval = setInterval(() => {
       setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setIsExiting(true);
-            setTimeout(() => setIsLoading(false), 300); // Shorter exit
-          }, 200); // Shorter wait at 100%
-          return 100;
-        }
-        return prev + 25 + Math.random() * 15; // Increased step size
+        if (prev >= 90) return 90; // Hold at 90% until load completes
+        return prev + Math.random() * 5;
       });
-    }, 40);
+    }, 100);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(fallbackTimer);
+    }
   }, []);
 
   return (

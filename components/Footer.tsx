@@ -86,10 +86,9 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { href: 'https://linkedin.com/in/harshavirat', label: 'LinkedIn', icon: 'in' },
-    { href: 'https://github.com/harshavirat', label: 'GitHub', icon: 'gh' },
+    { href: 'https://www.linkedin.com/in/harshavardhan-arrimalla-a557141a2/', label: 'LinkedIn', icon: 'in' },
+    { href: 'https://github.com/harsha-arrimalla', label: 'GitHub', icon: 'gh' },
     { href: 'https://dribbble.com/harshavirat', label: 'Dribbble', icon: 'dr' },
-    { href: 'https://twitter.com/harshavirat', label: 'Twitter', icon: 'tw' },
   ];
 
   return (

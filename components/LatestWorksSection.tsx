@@ -114,12 +114,6 @@ export default function LatestWorksSection() {
           ))}
         </div>
 
-        {/* View all button */}
-        <div className={`text-center transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '0.8s' }}>
-          <LiquidButton href="/projects" variant="outline" icon="→">
-            View All Projects
-          </LiquidButton>
-        </div>
       </div>
     </section>
   );

@@ -9,10 +9,10 @@ export default function LoadingScreen() {
     const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        // Minimum loading time for the vibe
+        // Minimum loading time for the vibe - reduced for better performance
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 2500);
+        }, 1500);
 
         // Counter animation
         const interval = setInterval(() => {

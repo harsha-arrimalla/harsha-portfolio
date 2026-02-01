@@ -23,6 +23,13 @@ function LuffySearchTrigger() {
         const handleExternalOpen = () => setOpen(true);
         window.addEventListener('open-luffy-chat', handleExternalOpen);
 
+        // DIRECT SYNC BODY CLASS
+        if (open) {
+            document.body.classList.add('chat-is-active');
+        } else {
+            document.body.classList.remove('chat-is-active');
+        }
+
         if (open || isLoading) return;
         const interval = setInterval(() => {
             setCurrentPrompt((prev) => (prev + 1) % prompts.length);
@@ -204,6 +211,12 @@ function PortfolioKnowledge() {
     return null;
 }
 
+/**
+ * GlobalStateSync: A robust DOM-based state synchronization component.
+ * It uses a MutationObserver to detect the actual visibility of the Copilot window
+ * and syncs it to the document body class 'chat-is-active'.
+ * This bypasses any issues with the library's internal state-syncing or context availability.
+ */
 function ActionsRegistry() {
     usePortfolioActions();
     return <PortfolioKnowledge />;

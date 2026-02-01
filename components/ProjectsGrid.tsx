@@ -2,6 +2,7 @@
 
 import { useRef, useState, MouseEvent } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useInView } from '@/hooks/useInView';
 import KineticText from '@/components/KineticText';
 import LiquidButton from '@/components/LiquidButton';
@@ -115,15 +116,6 @@ export default function ProjectsGrid() {
           ))}
         </div>
 
-        {/* View all button */}
-        <div
-          className={`mt-12 md:mt-16 text-center transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-          style={{ transitionDelay: '0.3s' }}
-        >
-          <LiquidButton href="/projects" variant="outline" icon="→">
-            View All Projects
-          </LiquidButton>
-        </div>
       </div>
     </section>
   );
@@ -174,12 +166,14 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
             transform: 'translateZ(0)',
           }}
         >
-          {/* Full Background Image */}
           <div className="absolute inset-0 w-full h-full transition-transform duration-700 ease-out group-hover:scale-110">
-            <img
+            <Image
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
+              priority={index < 3}
             />
           </div>
 

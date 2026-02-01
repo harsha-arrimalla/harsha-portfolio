@@ -604,11 +604,10 @@ a.poweredBy,
   border: none !important;
   box-shadow: none !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  /* Ensure the outer popup doesn't block site interactions by default */
+  /* NUCLEAR FIX: Ensure outer popup never blocks clicks by default */
   pointer-events: none !important;
 }
 
-/* Fix for mobile full-screen chat */
 @media (max-width: 768px) {
 
   .copilotKitPopup,
@@ -617,15 +616,29 @@ a.poweredBy,
     right: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    /* On mobile, this container is full-screen, so MUST be none when children are 0 opacity */
     pointer-events: none !important;
+    background: transparent !important;
+  }
+
+  /* Internal window becomes interactive ONLY when body.chat-is-active is set */
+  .copilotKitWindow {
+    pointer-events: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    display: none !important;
+  }
+
+  body.chat-is-active .copilotKitWindow {
+    display: flex !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 
 .copilotKitWindow {
   background: #FFFFFF !important;
   border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  /* Rounded top, flat bottom for docked look */
   border-radius: 24px 24px 0 0 !important;
   box-shadow: var(--luffy-shadow) !important;
   overflow: hidden !important;
@@ -634,15 +647,17 @@ a.poweredBy,
   flex-direction: column !important;
   height: 100% !important;
   position: relative !important;
-  /* CRITICAL: Fix for invisible container blocking clicks */
-  pointer-events: auto !important;
+  /* Sync with body class */
+  pointer-events: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
   transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
-.copilotKitWindow[style*="opacity: 0"],
-.copilotKitWindow[style*="opacity:0"] {
-  pointer-events: none !important;
-  visibility: hidden !important;
+body.chat-is-active .copilotKitWindow {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 @media (max-width: 768px) {
@@ -877,18 +892,27 @@ body .copilotKitWindow {
   box-shadow: 0 5px 40px rgba(0, 0, 0, 0.15) !important;
   overflow: hidden !important;
   pointer-events: auto !important;
+  /* Only auto if visually present */
   z-index: 100000 !important;
   display: flex !important;
   flex-direction: column !important;
-  /* Restore visibility toggle logic */
   transition: opacity 0.3s ease, transform 0.3s ease !important;
 }
 
-body .copilotKitWindow[style*="opacity: 0"],
-body .copilotKitWindow[style*="opacity:0"] {
+/* STATE-LINKED BLOCKAGE FIX: Force removal from DOM interaction layer when closed */
+body:not(.chat-is-active) .copilotKitWindow {
   pointer-events: none !important;
   visibility: hidden !important;
   display: none !important;
+  opacity: 0 !important;
+}
+
+/* Ensure that when active, it is visible and interactive */
+body.chat-is-active .copilotKitWindow {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  display: flex !important;
+  opacity: 1 !important;
 }
 
 @media (max-width: 768px) {
@@ -898,7 +922,7 @@ body .copilotKitWindow[style*="opacity:0"] {
     bottom: 0 !important;
     right: 0 !important;
     left: 0 !important;
-    /* Force full width */
+    /* Force full width on mobile */
     border-radius: 0 !important;
     z-index: 100000 !important;
   }

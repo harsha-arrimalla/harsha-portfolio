@@ -3,6 +3,8 @@
 import { useInView as useIntersection } from '@/hooks/useInView';
 import Link from 'next/link';
 import Navigation from '@/components/Navigation';
+import BackButton from '@/components/BackButton';
+import Image from 'next/image';
 
 export default function MondeeCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -16,6 +18,7 @@ export default function MondeeCaseStudy() {
     return (
         <div className="min-h-screen bg-[#0A0B10] text-white">
             <Navigation />
+            <BackButton />
 
             {/* Hero Section */}
             <section
@@ -104,11 +107,13 @@ export default function MondeeCaseStudy() {
             {/* Visual Preview */}
             <section className="py-20 bg-white">
                 <div className="max-w-6xl mx-auto px-8">
-                    <div className="rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01]">
-                        <img
+                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01]">
+                        <Image
                             src="/images/projects/mondee.png"
                             alt="Mondee Interface Preview"
-                            className="w-full h-auto object-cover"
+                            fill
+                            className="object-cover"
+                            priority
                         />
                     </div>
                 </div>

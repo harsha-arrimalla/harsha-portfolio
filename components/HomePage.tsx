@@ -34,9 +34,7 @@ export default function HomePage() {
         <main className="relative min-h-screen">
           <Navigation />
 
-          <Section>
-            <HeroSection />
-          </Section>
+          <HeroSection />
 
           <Section>
             <NewAboutSection />
