@@ -767,12 +767,32 @@ body.chat-is-active .copilotKitWindow {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
-.copilotKitInput textarea {
+/* Nuclear fix for input visibility (Attempt 2) */
+.copilotKitInput textarea,
+.copilotKitInput input,
+.copilotKitWindow textarea,
+.copilotKitWindow input,
+.copilotKitPopup textarea,
+.copilotKitPopup input,
+[class*="copilotKitInput"] textarea,
+.copilotKitMessageInput textarea,
+textarea[placeholder*="Type"],
+input[placeholder*="Type"] {
   font-family: 'Urbanist', sans-serif !important;
-  font-size: 15px !important;
-  color: #1A1A1A !important;
-  font-weight: 500 !important;
-  padding: 0 12px !important;
+  font-size: 16px !important;
+  color: #000000 !important;
+  background-color: #FFFFFF !important;
+  /* Force white background */
+  background: #FFFFFF !important;
+  font-weight: 600 !important;
+  padding: 12px !important;
+  caret-color: #000000 !important;
+  opacity: 1 !important;
+  z-index: 9999 !important;
+  visibility: visible !important;
+  -webkit-text-fill-color: #000000 !important;
+  min-height: 48px !important;
+  border: 1px solid #e5e7eb !important;
 }
 
 .copilotKitInput textarea::placeholder {
