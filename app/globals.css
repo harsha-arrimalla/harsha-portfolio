@@ -767,6 +767,16 @@ body.chat-is-active .copilotKitWindow {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
 }
 
+/* Compact Input Container */
+.copilotKitInput {
+  min-height: 44px !important;
+  /* Reduced from 56px */
+  padding: 8px 16px !important;
+  /* Reduced padding */
+  border-radius: 999px !important;
+  /* Use pill shape for modern look */
+}
+
 /* Nuclear fix for input visibility (Attempt 2) */
 .copilotKitInput textarea,
 .copilotKitInput input,
@@ -779,23 +789,29 @@ body.chat-is-active .copilotKitWindow {
 textarea[placeholder*="Type"],
 input[placeholder*="Type"] {
   font-family: 'Urbanist', sans-serif !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
+  /* Slightly smaller text */
   color: #000000 !important;
   background-color: transparent !important;
-  /* Restore transparency */
   background: transparent !important;
-  font-weight: 600 !important;
-  padding: 12px 0px !important;
-  /* Remove horizontal padding to align with container */
+  font-weight: 500 !important;
+  padding: 2px 0px !important;
+  /* Minimal padding */
   caret-color: #000000 !important;
   opacity: 1 !important;
   z-index: 9999 !important;
   visibility: visible !important;
   -webkit-text-fill-color: #000000 !important;
-  min-height: 48px !important;
+  min-height: 24px !important;
+  /* Standard line height */
+  height: 24px !important;
+  /* Force initial height */
+  max-height: 120px !important;
+  /* Allow growth */
   border: none !important;
-  /* Remove inner border */
   outline: none !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
 }
 
 .copilotKitInput textarea::placeholder {
