@@ -12,7 +12,8 @@ import { rateLimit } from "@/lib/rate-limit";
 export const POST = async (req: NextRequest) => {
     // Basic IP-based rate limiting
     const ip = req.headers.get("x-forwarded-for") || "unknown";
-    const { success } = rateLimit(ip, { interval: 60 * 1000, limit: 20 }); // Limit: 20 messages per minute
+    // Limit: 20 messages per day (24 hours = 86400000 ms)
+    const { success } = rateLimit(ip, { interval: 24 * 60 * 60 * 1000, limit: 20 });
 
     if (!success) {
         return new Response(
