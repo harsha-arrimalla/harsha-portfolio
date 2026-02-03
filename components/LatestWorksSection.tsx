@@ -49,19 +49,16 @@ export default function LatestWorksSection() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="mb-20">
-          <div className={`flex items-center gap-4 mb-8 transition-all duration-1000 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div
-              className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-15' : 'w-0'}`}
-              style={{ width: isInView ? '60px' : '0px' }}
-            />
-            <span className="text-sm tracking-[0.3em] uppercase text-gray-500">Portfolio</span>
+        <div className="mb-16 md:mb-24">
+          <div className="flex items-center gap-6 mb-6">
+            <div className="h-[1px] bg-black w-12 md:w-20" />
+            <span className="text-xs tracking-[0.3em] uppercase font-bold text-gray-400">Portfolio</span>
           </div>
 
           <KineticText
-            className="text-5xl md:text-7xl font-black mb-6"
+            className="text-5xl md:text-8xl font-black tracking-tighter mb-6"
             type="char"
-            duration={0.6}
+            duration={0.8}
           >
             Latest Works
           </KineticText>

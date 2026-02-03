@@ -88,25 +88,19 @@ export default function ProjectsGrid() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section header */}
-        <div className="mb-12 md:mb-20">
-          <div
-            className={`flex items-center gap-4 mb-4 md:mb-8 transition-opacity duration-700 ${isInView ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <div
-              className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-[40px] md:w-[60px]' : 'w-0'}`}
-            />
-            <span className="text-xs md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase text-gray-500">Selected Work</span>
+        <div className="mb-16 md:mb-24">
+          <div className="flex items-center gap-6 mb-6">
+            <div className="h-[1px] bg-black w-12 md:w-20" />
+            <span className="text-xs tracking-[0.3em] uppercase font-bold text-gray-400">Selected Works</span>
           </div>
 
-          <div className="overflow-hidden px-1 pb-4">
-            <KineticText
-              className="text-4xl md:text-7xl lg:text-8xl font-black"
-              type="char"
-              duration={0.6}
-            >
-              Featured Projects
-            </KineticText>
-          </div>
+          <KineticText
+            className="text-5xl md:text-8xl font-black tracking-tighter text-black"
+            type="char"
+            duration={0.8}
+          >
+            Featured Projects
+          </KineticText>
         </div>
 
         {/* Projects grid */}
@@ -186,7 +180,7 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
           </div>
 
           {/* Content Container */}
-          <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col justify-end h-full z-10">
+          <div className="absolute inset-x-0 bottom-0 p-6 pr-20 md:pr-8 md:p-8 flex flex-col justify-end h-full z-10">
 
             {/* Top Badge: Project Number */}
             <div className="absolute top-4 left-4 md:top-6 md:left-6">

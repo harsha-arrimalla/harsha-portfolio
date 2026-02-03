@@ -26,18 +26,18 @@ export default function LiquidButton({
     const baseStyles = "relative inline-flex items-center justify-center font-medium rounded-full overflow-hidden transition-all duration-300 group active:scale-95";
 
     const variants = {
-        primary: "bg-black text-white hover:shadow-lg hover:-translate-y-1",
-        secondary: "bg-white/10 backdrop-blur-md border border-white/20 text-black hover:bg-white/20 hover:border-black/10 hover:-translate-y-1",
-        outline: "bg-transparent border-2 border-black text-black hover:bg-black hover:text-white hover:-translate-y-1",
+        primary: "bg-black text-white hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl border border-transparent",
+        secondary: "bg-white text-black border border-gray-200 hover:border-black hover:scale-105 active:scale-95 shadow-sm hover:shadow-md",
+        outline: "bg-transparent text-black border-2 border-black/10 hover:border-black hover:bg-black hover:text-white transition-colors duration-300",
         ghost: "bg-transparent text-black hover:bg-black/5 hover:-translate-y-0.5",
-        white: "bg-white text-black hover:shadow-lg hover:-translate-y-1 hover:text-white",
-        whiteOutline: "bg-transparent border-2 border-white text-white hover:bg-white hover:text-black hover:-translate-y-1",
+        white: "bg-white text-black hover:scale-105 active:scale-95 shadow-xl hover:shadow-2xl border border-transparent",
+        whiteOutline: "bg-transparent border-2 border-white/20 text-white hover:border-white hover:bg-white hover:text-black transition-colors duration-300",
     };
 
     const sizes = {
-        sm: "px-6 py-2 text-sm",
-        md: "px-8 py-4 text-base",
-        lg: "px-10 py-5 text-lg",
+        sm: "px-5 py-2.5 text-xs tracking-wide uppercase font-bold",
+        md: "px-8 py-4 text-sm tracking-wide uppercase font-bold",
+        lg: "px-10 py-5 text-base tracking-wide uppercase font-bold",
     };
 
     const classes = cn(
@@ -50,12 +50,9 @@ export default function LiquidButton({
 
     const content = (
         <>
-            {(variant === "primary" || variant === "white") && (
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            )}
-            <span className="relative z-10 flex items-center gap-2">
+            <span className="relative z-10 flex items-center gap-3">
                 {children}
-                {icon && <span className="inline-block transition-transform group-hover:translate-x-1">{icon}</span>}
+                {icon && <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">{icon}</span>}
             </span>
         </>
     );

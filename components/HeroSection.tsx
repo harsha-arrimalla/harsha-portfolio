@@ -81,62 +81,61 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         {/* Left Content (Text) */}
         <div ref={textRef} className="lg:col-span-7 xl:col-span-12 relative z-30 pointer-events-none *:pointer-events-auto mt-0 lg:mt-0 order-1">
-          <div className="h-[2px] bg-black mb-8 md:mb-12 w-[60px] md:w-[80px]" />
-
-          <div className="text-[11px] md:text-sm text-gray-400 mb-6 md:mb-8 tracking-[0.2em] md:tracking-[0.4em] uppercase font-bold">
+          <div className="text-[10px] md:text-xs text-gray-500 mb-6 md:mb-8 tracking-[0.3em] md:tracking-[0.5em] uppercase font-bold relative pl-12 md:pl-20">
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 w-8 md:w-16 h-[1px] bg-black"></span>
             Product Designer · AI & Systems UX
           </div>
 
-          <h1 className="text-[2.75rem] md:text-6xl lg:text-[5.5rem] font-black leading-[1.1] md:leading-[0.95] tracking-tight text-black mb-8">
+          <h1 className="text-[3rem] md:text-7xl lg:text-[6.5rem] font-black leading-[1] md:leading-[0.9] tracking-tighter text-black mb-8 relative z-20">
             Designing
-            <br />
-            intelligent
-            <br />
-            products
-            <br />
-            people trust.
+            <span className="block text-gray-300">Intelligent</span>
+            Products
+            <span className="block">People Trust.</span>
           </h1>
 
-          <p className="text-lg md:text-2xl text-gray-500 mb-12 max-w-xl leading-[1.625] md:leading-relaxed font-medium">
+          <p className="text-base md:text-xl text-gray-600 mb-12 max-w-lg leading-relaxed font-medium pl-1 border-l-2 border-gray-200 ml-1">
             AI-first UX for enterprise, travel, and healthcare platforms—focused on clarity, decision-making, and scale.
           </p>
 
-          <div ref={ctaRef} className="flex flex-wrap gap-4 md:gap-5 mt-4">
-            <LiquidButton href="#projects" variant="primary" icon="→" className="!px-8 md:!px-10 !py-3 md:!py-4 rounded-full text-sm font-bold">
+          <div ref={ctaRef} className="flex flex-col md:flex-row gap-4 mt-4 w-full md:w-auto items-start">
+            <LiquidButton href="#projects" variant="primary" icon="→" className="!w-full md:!w-auto justify-center shadow-2xl">
               View Work
             </LiquidButton>
 
             <LiquidButton
               onClick={() => window.dispatchEvent(new CustomEvent('open-luffy-chat'))}
               variant="outline"
-              className="!px-8 md:!px-10 !py-3 md:!py-4 rounded-full text-sm font-bold border-2 border-black"
+              className="!w-full md:!w-auto justify-center"
             >
-              Ask my AI assistant
+              Ask AI Assistant
             </LiquidButton>
           </div>
 
-          <p className="mt-10 text-[11px] md:text-xs text-gray-400 font-bold uppercase tracking-[0.15em] md:tracking-widest opacity-80">
-            Designed AI-powered products for enterprise travel and platform systems.
+          <p className="mt-12 text-[10px] text-gray-400 font-bold uppercase tracking-widest opacity-60">
+            Trusted by Enterprise Leaders
           </p>
         </div>
 
-        {/* Right Content (Image & Backdrop) */}
-        <div className="relative lg:absolute right-0 bottom-0 top-0 w-full lg:w-[65%] flex items-center justify-center lg:justify-end pointer-events-none overflow-visible order-2 lg:order-2 h-[400px] md:h-[500px] lg:h-full">
+        {/* Right Content (Image & Modern Backdrop) */}
+        <div className="relative lg:absolute right-0 bottom-0 top-0 w-full lg:w-[55%] flex items-center justify-center lg:justify-end pointer-events-none overflow-visible order-2 lg:order-2 h-[400px] md:h-[600px] lg:h-full mt-0 lg:mt-0">
 
-          {/* Purple Circular Backdrop - Responsive scaling */}
+          {/* Clean Modern Gradient - No Blobs */}
           <div
-            className="hero-backdrop absolute w-[280px] h-[280px] md:w-[450px] md:h-[450px] lg:w-[580px] lg:h-[580px] rounded-full bg-gradient-to-br from-[#6366f1] via-[#a855f7] to-[#d946ef] z-0 opacity-80 lg:opacity-90 blur-xl lg:blur-none"
+            className="hero-backdrop absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-gray-100 via-white to-transparent opacity-100 z-0"
             style={{
-              right: 'center',
+              right: '-10%',
               top: '50%',
               transform: 'translateY(-50%)',
             }}
           />
 
+          {/* Subtle Noise Texture */}
+          <div className="absolute inset-0 opacity-[0.05] z-0 mix-blend-multiply pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
           {/* Main Cutout Container */}
           <div
             ref={imageRef}
-            className="relative z-10 w-full h-[95%] md:h-[100%] flex items-end justify-center lg:justify-end pr-0 lg:pr-32"
+            className="relative z-10 w-full h-[95%] flex items-end justify-center lg:justify-end pr-0 lg:pr-24"
           >
             <div className="relative h-full flex items-end justify-center">
               <img
