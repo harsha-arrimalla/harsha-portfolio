@@ -1,23 +1,13 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { useInView } from '@/hooks/useInView';
-import OilPaintBackground from '@/components/OilPaintBackground';
 import BackButton from '@/components/BackButton';
-
-interface CaseStudyTheme {
-    primary: string;           // Main accent color (e.g., button backgrounds)
-    secondary: string;         // Secondary accent (e.g., gradients)
-    background: string;        // Page background
-    text: string;             // Main text color
-    muted: string;            // Secondary text
-    gradient: string;         // Hero gradient string
-    selection: string;        // Selection color
-}
+import type { CaseStudyTheme } from '@/lib/caseStudyTheme';
 
 interface CaseStudyDate {
     role: string;
@@ -125,17 +115,26 @@ export default function CaseStudyLayout({
                             ))}
                         </div>
 
-                        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-none mb-8">
+                        <p className="text-xs uppercase tracking-[0.4em] text-slate-400 mb-6">
+                            {meta.subtitle}
+                        </p>
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-tight mb-6">
                             {meta.title}
                         </h1>
 
-                        <p className="text-xl md:text-3xl font-light leading-relaxed max-w-4xl opacity-80 mb-16">
+                        <p className="text-lg md:text-2xl font-light leading-relaxed max-w-3xl text-slate-300 mb-12">
                             {meta.description}
                         </p>
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400">
+                            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 uppercase tracking-[0.2em]">
+                                Open to hiring
+                            </span>
+                            <span className="opacity-70">Let’s build your next product together.</span>
+                        </div>
                     </RevealSection>
 
                     {/* Project Details Grid */}
-                    <RevealSection className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-12">
+                    <RevealSection className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-12 mt-16">
                         <div>
                             <div className="text-xs uppercase tracking-widest opacity-50 mb-2">Role</div>
                             <div className="font-medium text-lg">{details.role}</div>
@@ -189,7 +188,7 @@ export default function CaseStudyLayout({
                             {section.title && (
                                 <div className="flex items-center gap-4 mb-16">
                                     <div className="h-px w-12 bg-current opacity-30" />
-                                    <h2 className="text-sm font-bold uppercase tracking-widest opacity-70">{section.title}</h2>
+                                    <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">{section.title}</h2>
                                 </div>
                             )}
                             {section.content}
@@ -197,6 +196,26 @@ export default function CaseStudyLayout({
                     </div>
                 </section>
             ))}
+
+            <section className="px-6 md:px-12 lg:px-24 pb-24">
+                <div className="max-w-7xl mx-auto">
+                    <div className="rounded-3xl border border-white/10 bg-white/5 px-8 py-12 text-center">
+                        <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Hiring</p>
+                        <h3 className="mt-4 text-3xl md:text-4xl font-semibold text-slate-50">
+                            Looking for a product designer who ships with clarity?
+                        </h3>
+                        <p className="mt-4 text-lg text-slate-400">
+                            Let’s connect and build a case study you can be proud of next.
+                        </p>
+                        <Link
+                            href="/#contact"
+                            className="mt-8 inline-flex items-center justify-center rounded-full border border-white/10 bg-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-slate-100 transition hover:bg-white/20"
+                        >
+                            Start a conversation
+                        </Link>
+                    </div>
+                </div>
+            </section>
 
             {/* Next Project Footer */}
             {nextProject && (
