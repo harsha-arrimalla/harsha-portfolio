@@ -1,6 +1,6 @@
 'use client';
 
-import Navigation from './Navigation';
+
 import HeroSection from './HeroSection';
 import NewAboutSection from './NewAboutSection';
 import ProjectsGrid from './ProjectsGrid';
@@ -32,7 +32,7 @@ export default function HomePage() {
     <>
       <PageLoader>
         <main className="relative min-h-screen">
-          <Navigation />
+
 
           <HeroSection />
 

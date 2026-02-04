@@ -152,10 +152,45 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
           opacity: isInView ? 1 : 0,
           translate: isInView ? '0 0' : '0 50px',
         }}
-        className="group cursor-pointer perspective-1000 block h-full transition-all duration-700 delay-[100ms]"
+        className="group cursor-pointer perspective-1000 block h-full transition-all duration-700 delay-[100ms] mb-8 md:mb-0"
       >
+        {/* Mobile: Editorial Layout (Image Top, Text Bottom) */}
+        <div className="md:hidden flex flex-col gap-4">
+          <div className="relative aspect-[4/3] w-full rounded-[20px] overflow-hidden bg-gray-100 shadow-sm">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority={index < 2}
+            />
+
+            {/* Mobile Badge */}
+            <div className="absolute top-3 left-3">
+              <div className="px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-[10px] font-bold text-white shadow-sm">
+                {project.number}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-start px-1">
+            <h3 className="text-2xl font-black text-black mb-1 leading-tight">
+              {project.title}
+            </h3>
+            <p className="text-gray-500 text-sm font-medium line-clamp-2 leading-relaxed mb-3">
+              {project.subtitle}
+            </p>
+            <div className="flex items-center gap-2 text-black text-xs font-bold uppercase tracking-wider">
+              View Case Study <span className="text-lg">→</span>
+            </div>
+          </div>
+        </div>
+
+
+        {/* Desktop: Immersive Overlay Card (Unchanged for Desktop) */}
         <div
-          className="relative aspect-[4/5] w-full rounded-[24px] md:rounded-[32px] overflow-hidden bg-gray-900 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-blue-500/10"
+          className="hidden md:block relative aspect-[4/5] w-full rounded-[32px] overflow-hidden bg-gray-900 shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-blue-500/10"
           style={{
             transform: 'translateZ(0)',
           }}
@@ -165,42 +200,42 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
               src={project.image}
               alt={project.title}
               fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 1200px) 50vw, 33vw"
               className="object-cover opacity-90 transition-opacity duration-500 group-hover:opacity-100"
               priority={index < 3}
             />
           </div>
 
-          {/* Liquid Gradient Overlay - Stronger on mobile for legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-100 md:opacity-80 transition-opacity duration-500 md:group-hover:opacity-90" />
+          {/* Liquid Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-90" />
 
-          {/* Glass Shine (Desktop only) */}
+          {/* Glass Shine */}
           <div className="hidden md:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-overlay">
             <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 transform -translate-x-full group-hover:animate-shine" />
           </div>
 
           {/* Content Container */}
-          <div className="absolute inset-x-0 bottom-0 p-6 pr-20 md:pr-8 md:p-8 flex flex-col justify-end h-full z-10">
+          <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full z-10">
 
             {/* Top Badge: Project Number */}
-            <div className="absolute top-4 left-4 md:top-6 md:left-6">
-              <div className="px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] md:text-xs font-medium text-white/90">
+            <div className="absolute top-6 left-6">
+              <div className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-medium text-white/90">
                 {project.number}
               </div>
             </div>
 
             {/* Main Text Content */}
-            <div className="transform transition-transform duration-500 ease-out md:group-hover:-translate-y-2">
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
+            <div className="transform transition-transform duration-500 ease-out group-hover:-translate-y-2">
+              <h3 className="text-3xl font-bold text-white mb-2 tracking-tight">
                 {project.title}
               </h3>
-              <p className="text-white/80 md:text-white/60 text-sm md:text-base font-medium line-clamp-2 mb-4 md:group-hover:text-white/80 transition-colors">
+              <p className="text-white/60 text-base font-medium line-clamp-2 mb-4 group-hover:text-white/80 transition-colors">
                 {project.subtitle}
               </p>
 
-              {/* Action Button - Always visible on mobile, reveal on hover on desktop */}
-              <div className="overflow-hidden h-10 md:h-0 md:group-hover:h-12 transition-[height] duration-300 ease-out">
-                <div className="flex items-center gap-2 text-white font-medium border-b border-white/40 pb-1 w-fit group-hover:border-white transition-colors cursor-pointer text-sm md:text-base">
+              {/* Action Button */}
+              <div className="overflow-hidden h-0 group-hover:h-12 transition-[height] duration-300 ease-out">
+                <div className="flex items-center gap-2 text-white font-medium border-b border-white/40 pb-1 w-fit group-hover:border-white transition-colors cursor-pointer text-base">
                   View Case Study
                   <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </div>

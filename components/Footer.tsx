@@ -181,7 +181,7 @@ export default function Footer() {
             <p className="text-[10px] text-gray-500 uppercase tracking-[0.3em]">Direct Communication</p>
             <a
               href="mailto:arrimallaharshavardhan@gmail.com"
-              className="text-lg font-bold hover:text-blue-400 transition-colors duration-300"
+              className="text-sm md:text-lg font-bold hover:text-blue-400 transition-colors duration-300 break-all md:break-normal text-center md:text-right"
             >
               arrimallaharshavardhan@gmail.com
             </a>

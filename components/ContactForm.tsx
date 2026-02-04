@@ -135,7 +135,7 @@ export default function ContactForm() {
             <p className="text-gray-600 mb-2">Or reach out directly:</p>
             <a
               href="mailto:arrimallaharshavardhan@gmail.com"
-              className="text-xl font-medium hover:text-blue-600 transition-colors block"
+              className="text-sm md:text-xl font-medium hover:text-blue-600 transition-colors block break-all"
             >
               arrimallaharshavardhan@gmail.com
             </a>

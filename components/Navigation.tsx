@@ -28,7 +28,7 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-500 ${scrolled
+        className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${scrolled
           ? 'bg-white/95 border-black/10 py-3 shadow-sm'
           : 'bg-white/80 border-black/5 py-4'
           }`}
