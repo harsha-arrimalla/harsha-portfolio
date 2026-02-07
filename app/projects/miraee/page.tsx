@@ -2,9 +2,8 @@
 
 import { useInView as useIntersection } from '@/hooks/useInView';
 import Link from 'next/link';
-import Navigation from '@/components/Navigation';
-import BackButton from '@/components/BackButton';
 import Image from 'next/image';
+import { AlertCircle } from 'lucide-react';
 
 export default function MiraeeCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -16,9 +15,7 @@ export default function MiraeeCaseStudy() {
     const [resultsRef, resultsInView] = useIntersection({ threshold: 0.1 });
 
     return (
-        <div className="min-h-screen bg-[#0A0B10] text-white">
-            <Navigation />
-            <BackButton />
+        <div className="min-h-screen bg-white text-black">
 
             {/* Hero Section */}
             <section
@@ -81,24 +78,24 @@ export default function MiraeeCaseStudy() {
             </section>
 
             {/* Project Info */}
-            <section className="py-12 border-y border-[#2A2A2A] bg-[#0F1117]">
+            <section className="py-12 border-y border-gray-100 bg-gray-50">
                 <div className="max-w-6xl mx-auto px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Role</div>
-                            <div className="text-sm font-medium">UI/UX · AI Product Designer</div>
+                            <div className="text-sm font-medium text-black">UI/UX · AI Product Designer</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Type</div>
-                            <div className="text-sm font-medium">Enterprise Travel</div>
+                            <div className="text-sm font-medium text-black">Enterprise Travel</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Status</div>
-                            <div className="text-sm font-medium">In Production</div>
+                            <div className="text-sm font-medium text-black">In Production</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Context</div>
-                            <div className="text-sm font-medium">Corporate Workspaces</div>
+                            <div className="text-sm font-medium text-black">Corporate Workspaces</div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +104,7 @@ export default function MiraeeCaseStudy() {
             {/* Visual Preview */}
             <section className="py-20 bg-white">
                 <div className="max-w-6xl mx-auto px-8">
-                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01]">
+                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01] border border-gray-100">
                         <Image
                             src="/images/projects/miraee.png"
                             alt="Miraee Interface Preview"
@@ -120,40 +117,40 @@ export default function MiraeeCaseStudy() {
             </section>
 
             {/* Context & Problem */}
-            <section ref={contextRef} className="py-32 px-8">
+            <section ref={contextRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-8">The Context</h2>
-                        <p className="text-xl text-gray-400 leading-relaxed mb-16">
+                        <h2 className="text-4xl font-bold mb-8 text-black">The Context</h2>
+                        <p className="text-xl text-gray-600 leading-relaxed mb-16">
                             Miraee is designed for corporate employees who frequently travel for meetings, client visits, and team offsites. It acts as a single system to plan travel, manage expenses, and capture outcomes for both employees and company heads.
                         </p>
                     </div>
 
                     <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
                         <div>
-                            <h3 className="text-2xl font-bold mb-4 text-red-400">The Problem</h3>
-                            <p className="text-gray-400 leading-relaxed italic mb-6">"Business travel was unsystematic and poorly governed."</p>
-                            <ul className="space-y-4 text-gray-400">
-                                <li className="flex gap-3">
-                                    <span className="text-red-400">🚩</span>
-                                    No clear hierarchy or planning for trips.
+                            <h3 className="text-2xl font-bold mb-4 text-red-500">The Problem</h3>
+                            <p className="text-gray-500 leading-relaxed italic mb-6">"Business travel was unsystematic and poorly governed."</p>
+                            <ul className="space-y-4 text-gray-600">
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />
+                                    <span>No clear hierarchy or planning for trips.</span>
                                 </li>
-                                <li className="flex gap-3">
-                                    <span className="text-red-400">🚩</span>
-                                    Unnecessary extensions (2-day trips becoming 6-day stays).
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />
+                                    <span>Unnecessary extensions (2-day trips becoming 6-day stays).</span>
                                 </li>
-                                <li className="flex gap-3">
-                                    <span className="text-red-400">🚩</span>
-                                    High costs without clear justification or outcomes.
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />
+                                    <span>High costs without clear justification or outcomes.</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold mb-4 text-blue-400">Core Insight</h3>
-                            <p className="text-gray-400 leading-relaxed">
+                            <h3 className="text-2xl font-bold mb-4 text-blue-500">Core Insight</h3>
+                            <p className="text-gray-600 leading-relaxed">
                                 The real problem wasn’t booking travel — it was **decision-making and accountability**. Company heads lacked visibility, and employees lacked a system that considered their comfort alongside policy.
                             </p>
-                            <p className="mt-4 text-gray-400 font-medium">
+                            <p className="mt-4 text-gray-800 font-medium">
                                 AI should act as a decision-support system, not just an automation tool.
                             </p>
                         </div>
@@ -162,28 +159,28 @@ export default function MiraeeCaseStudy() {
             </section>
 
             {/* The Solution */}
-            <section ref={solutionRef} className="py-32 px-8 bg-[#0F1117]">
+            <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-20">
-                        <h2 className="text-5xl font-bold mb-6">The Solution</h2>
-                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                        <h2 className="text-5xl font-bold mb-6 text-black">The Solution</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                             A balanced ecosystem that provides freedom for employees and control for management.
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-blue-500/50 transition-colors">
-                            <h3 className="text-2xl font-bold mb-6 text-blue-400">For Employees</h3>
-                            <ul className="space-y-4 text-gray-400">
+                        <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-blue-500/50 transition-colors shadow-sm">
+                            <h3 className="text-2xl font-bold mb-6 text-blue-500">For Employees</h3>
+                            <ul className="space-y-4 text-gray-600">
                                 <li>• Plan trips based on purpose</li>
                                 <li>• Independent booking (flights, hotels, cabs)</li>
                                 <li>• Manage all expenses in one place</li>
                                 <li>• Capture outcomes via voice or text</li>
                             </ul>
                         </div>
-                        <div className="p-10 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-purple-500/50 transition-colors">
-                            <h3 className="text-2xl font-bold mb-6 text-purple-400">For Company Heads</h3>
-                            <ul className="space-y-4 text-gray-400">
+                        <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-purple-500/50 transition-colors shadow-sm">
+                            <h3 className="text-2xl font-bold mb-6 text-purple-500">For Company Heads</h3>
+                            <ul className="space-y-4 text-gray-600">
                                 <li>• Track real-time travel costs</li>
                                 <li>• View trip outcomes, not just bills</li>
                                 <li>• Approve requests with full context</li>
@@ -195,24 +192,24 @@ export default function MiraeeCaseStudy() {
             </section>
 
             {/* How it Works */}
-            <section ref={processRef} className="py-32 px-8">
+            <section ref={processRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold mb-16 text-center">How Miraee Works</h2>
+                    <h2 className="text-4xl font-bold mb-16 text-center text-black">How Miraee Works</h2>
 
                     <div className="space-y-20">
                         <div className={`transition-all duration-1000 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0">1</div>
+                                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0">1</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Trip Initiation</h3>
-                                    <p className="text-gray-400 mb-4">Miraee uses a dual-mode approach to capture intent:</p>
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Trip Initiation</h3>
+                                    <p className="text-gray-600 mb-4">Miraee uses a dual-mode approach to capture intent:</p>
                                     <div className="grid md:grid-cols-2 gap-4">
-                                        <div className="bg-[#161821] p-4 rounded-xl border border-[#2A2A2A]">
-                                            <div className="font-bold text-sm mb-2 text-blue-300">Proactive</div>
+                                        <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                            <div className="font-bold text-sm mb-2 text-blue-600">Proactive</div>
                                             <p className="text-xs text-gray-500">Detects meetings via calendar and generates smart plans automatically.</p>
                                         </div>
-                                        <div className="bg-[#161821] p-4 rounded-xl border border-[#2A2A2A]">
-                                            <div className="font-bold text-sm mb-2 text-blue-300">Reactive</div>
+                                        <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
+                                            <div className="font-bold text-sm mb-2 text-blue-600">Reactive</div>
                                             <p className="text-xs text-gray-500">Employees start trips manually by entering intent and purpose.</p>
                                         </div>
                                     </div>
@@ -222,10 +219,10 @@ export default function MiraeeCaseStudy() {
 
                         <div className={`transition-all duration-1000 delay-150 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0">2</div>
+                                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0">2</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Planning & Policy Handling</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Planning & Policy Handling</h3>
+                                    <p className="text-gray-600">
                                         Miraee suggests plans that balance employee preferences with company policy. Within-policy bookings are confirmed instantly, while exceptions are routed for context-aware approval.
                                     </p>
                                 </div>
@@ -234,10 +231,10 @@ export default function MiraeeCaseStudy() {
 
                         <div className={`transition-all duration-1000 delay-300 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold shrink-0">3</div>
+                                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0">3</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Outcome Capture</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Outcome Capture</h3>
+                                    <p className="text-gray-600">
                                         Post-trip, employees record outcomes via text or voice. Miraee's AI summarizes these insights, updating the company dashboard to reflect the trip's actual value.
                                     </p>
                                 </div>
@@ -248,24 +245,24 @@ export default function MiraeeCaseStudy() {
             </section>
 
             {/* Impact */}
-            <section ref={resultsRef} className="py-32 px-8 bg-[#0F1117]">
+            <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16">Outcome & Impact</h2>
+                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome & Impact</h2>
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-2xl bg-gradient-to-br from-[#1E1E22] to-[#0F0F11] border border-[#2A2A2A]">
-                            <div className="text-5xl font-bold text-blue-400 mb-2">Live</div>
-                            <div className="text-xl font-semibold mb-2">In Production</div>
-                            <p className="text-gray-400 text-sm">Successfully deployed to corporate clients</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                            <div className="text-5xl font-bold text-blue-600 mb-2">Live</div>
+                            <div className="text-xl font-semibold mb-2 text-black">In Production</div>
+                            <p className="text-gray-500 text-sm">Successfully deployed to corporate clients</p>
                         </div>
-                        <div className="p-10 rounded-2xl bg-gradient-to-br from-[#1E1E22] to-[#0F0F11] border border-[#2A2A2A]">
-                            <div className="text-2xl font-bold text-gray-300 mb-2">Unbiased</div>
-                            <div className="text-xl font-semibold mb-2">Approval Flow</div>
-                            <p className="text-gray-400 text-sm">Transparent decision-making for management</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                            <div className="text-2xl font-bold text-gray-800 mb-2">Unbiased</div>
+                            <div className="text-xl font-semibold mb-2 text-black">Approval Flow</div>
+                            <p className="text-gray-500 text-sm">Transparent decision-making for management</p>
                         </div>
                     </div>
 
-                    <div className="mt-16 p-8 rounded-2xl bg-blue-500/5 border border-blue-500/20">
-                        <p className="text-lg text-blue-100 italic">
+                    <div className="mt-16 p-8 rounded-2xl bg-blue-50 border border-blue-100">
+                        <p className="text-lg text-blue-800 italic">
                             “Miraee connects business travel decisions with real outcomes using AI-assisted, conversational UX.”
                         </p>
                     </div>
@@ -273,17 +270,17 @@ export default function MiraeeCaseStudy() {
             </section>
 
             {/* Navigation */}
-            <section className="py-16 px-8 border-t border-[#2A2A2A]">
+            <section className="py-16 px-8 border-t border-gray-200 bg-white">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
                     <Link
                         href="/projects/hita"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-gray-500 hover:text-black transition-colors"
                     >
                         ← Previous: Hita
                     </Link>
                     <Link
                         href="/projects/aarna"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-gray-500 hover:text-black transition-colors"
                     >
                         Next: Aarna →
                     </Link>

@@ -3,11 +3,9 @@
 import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { useInView } from '@/hooks/useInView';
 import OilPaintBackground from '@/components/OilPaintBackground';
-import BackButton from '@/components/BackButton';
 
 interface CaseStudyTheme {
     primary: string;           // Main accent color (e.g., button backgrounds)
@@ -97,8 +95,6 @@ export default function CaseStudyLayout({
         }
       `}</style>
 
-            <Navigation />
-            <BackButton />
 
             {/* Scroll Progress Bar */}
             <div className="fixed top-0 left-0 h-1 z-50 transition-all duration-300" style={{ width: `${scrollProgress * 100}%`, background: theme.primary }} />

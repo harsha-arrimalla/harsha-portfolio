@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Navigation from '@/components/Navigation';
 import BackButton from '@/components/BackButton';
 import Image from 'next/image';
+import { AlertCircle } from 'lucide-react';
 
 export default function MondeeCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -16,7 +17,7 @@ export default function MondeeCaseStudy() {
     const [resultsRef, resultsInView] = useIntersection({ threshold: 0.1 });
 
     return (
-        <div className="min-h-screen bg-[#0A0B10] text-white">
+        <div className="min-h-screen bg-white text-black">
             <Navigation />
             <BackButton />
 
@@ -81,24 +82,24 @@ export default function MondeeCaseStudy() {
             </section>
 
             {/* Project Info */}
-            <section className="py-12 border-y border-[#2A2A2A] bg-[#0F1117]">
+            <section className="py-12 border-y border-gray-100 bg-gray-50">
                 <div className="max-w-6xl mx-auto px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Role</div>
-                            <div className="text-sm font-medium">UI/UX Designer</div>
+                            <div className="text-sm font-medium text-black">UI/UX Designer</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Type</div>
-                            <div className="text-sm font-medium">Enterprise Product</div>
+                            <div className="text-sm font-medium text-black">Enterprise Product</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Company</div>
-                            <div className="text-sm font-medium">Mondee</div>
+                            <div className="text-sm font-medium text-black">Mondee</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Focus</div>
-                            <div className="text-sm font-medium">Scalable Systems</div>
+                            <div className="text-sm font-medium text-black">Scalable Systems</div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +108,7 @@ export default function MondeeCaseStudy() {
             {/* Visual Preview */}
             <section className="py-20 bg-white">
                 <div className="max-w-6xl mx-auto px-8">
-                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01]">
+                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01] border border-gray-100">
                         <Image
                             src="/images/projects/mondee.png"
                             alt="Mondee Interface Preview"
@@ -120,11 +121,11 @@ export default function MondeeCaseStudy() {
             </section>
 
             {/* Context & Problem */}
-            <section ref={contextRef} className="py-32 px-8">
+            <section ref={contextRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-8">The Context</h2>
-                        <p className="text-xl text-gray-400 leading-relaxed mb-16">
+                        <h2 className="text-4xl font-bold mb-8 text-black">The Context</h2>
+                        <p className="text-xl text-gray-600 leading-relaxed mb-16">
                             Mondee is a global enterprise travel platform that supports complex travel bookings, partner integrations, and large-scale operational workflows. As a UI/UX Designer, I worked on improving clarity, usability, and consistency across enterprise-grade systems used by internal teams and partners.
                         </p>
                     </div>
@@ -132,28 +133,28 @@ export default function MondeeCaseStudy() {
                     <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
                         <div>
                             <h3 className="text-2xl font-bold mb-4 text-orange-400">The Problem</h3>
-                            <p className="text-gray-400 leading-relaxed italic mb-6">"Enterprise travel platforms face challenges very different from consumer apps."</p>
-                            <ul className="space-y-4 text-gray-400">
-                                <li className="flex gap-3">
-                                    <span className="text-orange-400">🚩</span>
-                                    Dense information and data-heavy screens causing cognitive overload.
+                            <p className="text-gray-500 leading-relaxed italic mb-6">"Enterprise travel platforms face challenges very different from consumer apps."</p>
+                            <ul className="space-y-4 text-gray-600">
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
+                                    <span>Dense information and data-heavy screens causing cognitive overload.</span>
                                 </li>
-                                <li className="flex gap-3">
-                                    <span className="text-orange-400">🚩</span>
-                                    Complex workflows with many operational edge cases.
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
+                                    <span>Complex workflows with many operational edge cases.</span>
                                 </li>
-                                <li className="flex gap-3">
-                                    <span className="text-orange-400">🚩</span>
-                                    High risk of errors due to poor UX clarity in high-pressure environments.
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
+                                    <span>High risk of errors due to poor UX clarity in high-pressure environments.</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold mb-4 text-orange-400">Core Insight</h3>
-                            <p className="text-gray-400 leading-relaxed">
+                            <h3 className="text-2xl font-bold mb-4 text-orange-500">Core Insight</h3>
+                            <p className="text-gray-600 leading-relaxed">
                                 Enterprise users don’t want more features — they want **clarity and predictability**. In high-pressure environments, clear hierarchy and consistency matter more than novelty. UX should reduce thinking, not add to it.
                             </p>
-                            <p className="mt-4 text-gray-400 font-medium italic">
+                            <p className="mt-4 text-gray-800 font-medium italic">
                                 Design for reliability, not just aesthetics.
                             </p>
                         </div>
@@ -162,48 +163,48 @@ export default function MondeeCaseStudy() {
             </section>
 
             {/* The Solution */}
-            <section ref={solutionRef} className="py-32 px-8 bg-[#0F1117]">
+            <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-20">
-                        <h2 className="text-5xl font-bold mb-6">The Solution</h2>
-                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                        <h2 className="text-5xl font-bold mb-6 text-black">The Solution</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                             Focusing on scalable UI patterns that enhance operational efficiency and system reliability.
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div className="p-8 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-orange-500/50 transition-colors">
-                            <h3 className="text-lg font-bold mb-3 text-orange-400">Operational Flow</h3>
-                            <p className="text-gray-400 text-sm">Simplifying complex travel operations into intuitive, predictable user flows.</p>
+                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
+                            <h3 className="text-lg font-bold mb-3 text-orange-500">Operational Flow</h3>
+                            <p className="text-gray-600 text-sm">Simplifying complex travel operations into intuitive, predictable user flows.</p>
                         </div>
-                        <div className="p-8 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-orange-500/50 transition-colors">
-                            <h3 className="text-lg font-bold mb-3 text-orange-400">Data Hierarchy</h3>
-                            <p className="text-gray-400 text-sm">Improving information density on screens to reduce eye strain and error rates.</p>
+                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
+                            <h3 className="text-lg font-bold mb-3 text-orange-500">Data Hierarchy</h3>
+                            <p className="text-gray-600 text-sm">Improving information density on screens to reduce eye strain and error rates.</p>
                         </div>
-                        <div className="p-8 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-orange-500/50 transition-colors">
-                            <h3 className="text-lg font-bold mb-3 text-orange-400">Pattern Consistency</h3>
-                            <p className="text-gray-400 text-sm">Creating universal UI components to reduce learning curves across modules.</p>
+                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
+                            <h3 className="text-lg font-bold mb-3 text-orange-500">Pattern Consistency</h3>
+                            <p className="text-gray-600 text-sm">Creating universal UI components to reduce learning curves across modules.</p>
                         </div>
-                        <div className="p-8 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-orange-500/50 transition-colors">
-                            <h3 className="text-lg font-bold mb-3 text-orange-400">System Alignment</h3>
-                            <p className="text-gray-400 text-sm">Ensuring design decisions respect backend logic and operational constraints.</p>
+                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
+                            <h3 className="text-lg font-bold mb-3 text-orange-500">System Alignment</h3>
+                            <p className="text-gray-600 text-sm">Ensuring design decisions respect backend logic and operational constraints.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* How it Works */}
-            <section ref={processRef} className="py-32 px-8">
+            <section ref={processRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold mb-16 text-center">Design Approach</h2>
+                    <h2 className="text-4xl font-bold mb-16 text-center text-black">Design Approach</h2>
 
                     <div className="space-y-20">
                         <div className={`transition-all duration-1000 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold shrink-0">1</div>
+                                <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center font-bold shrink-0">1</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Understanding Constraints</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Understanding Constraints</h3>
+                                    <p className="text-gray-600">
                                         Worked within existing system architecture while considering backend dependencies, ensuring that every design solution was practical and shippable.
                                     </p>
                                 </div>
@@ -212,10 +213,10 @@ export default function MondeeCaseStudy() {
 
                         <div className={`transition-all duration-1000 delay-150 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold shrink-0">2</div>
+                                <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center font-bold shrink-0">2</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Flow & Interaction Design</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Flow & Interaction Design</h3>
+                                    <p className="text-gray-600">
                                         Focused on simplified workflows that reduced unnecessary actions. Task completion efficiency was the primary metric for success in data-heavy screens.
                                     </p>
                                 </div>
@@ -224,10 +225,10 @@ export default function MondeeCaseStudy() {
 
                         <div className={`transition-all duration-1000 delay-300 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-orange-500/20 text-orange-400 flex items-center justify-center font-bold shrink-0">3</div>
+                                <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center font-bold shrink-0">3</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Stakeholder Collaboration</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Stakeholder Collaboration</h3>
+                                    <p className="text-gray-600">
                                         Iterated designs based on constant feedback from product managers, engineers, and operational stakeholders to balance speed, accuracy, and system flexibility.
                                     </p>
                                 </div>
@@ -238,22 +239,22 @@ export default function MondeeCaseStudy() {
             </section>
 
             {/* Impact */}
-            <section ref={resultsRef} className="py-32 px-8 bg-[#0F1117]">
+            <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16">Outcome & Impact</h2>
+                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome & Impact</h2>
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-2xl bg-gradient-to-br from-[#1E1E22] to-[#0F0F11] border border-[#2A2A2A]">
-                            <div className="text-xl font-bold text-orange-400 mb-2">Operational Efficiency</div>
-                            <p className="text-gray-400 text-sm">Reduced operational bottlenecks through clearer information hierarchy.</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                            <div className="text-xl font-bold text-orange-500 mb-2">Operational Efficiency</div>
+                            <p className="text-gray-500 text-sm">Reduced operational bottlenecks through clearer information hierarchy.</p>
                         </div>
-                        <div className="p-10 rounded-2xl bg-gradient-to-br from-[#1E1E22] to-[#0F0F11] border border-[#2A2A2A]">
-                            <div className="text-xl font-bold text-gray-300 mb-2">System Consistency</div>
-                            <p className="text-gray-400 text-sm">Contributed to a more unified user experience across diverse platform modules.</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                            <div className="text-xl font-bold text-gray-800 mb-2">System Consistency</div>
+                            <p className="text-gray-500 text-sm">Contributed to a more unified user experience across diverse platform modules.</p>
                         </div>
                     </div>
 
-                    <div className="mt-16 p-8 rounded-2xl bg-orange-500/5 border border-orange-500/20">
-                        <p className="text-lg text-orange-100 italic">
+                    <div className="mt-16 p-8 rounded-2xl bg-orange-50 border border-orange-100">
+                        <p className="text-lg text-orange-800 italic">
                             “Designing reliable, scalable UX for enterprise travel systems under real-world constraints.”
                         </p>
                     </div>
@@ -261,17 +262,17 @@ export default function MondeeCaseStudy() {
             </section>
 
             {/* Navigation */}
-            <section className="py-16 px-8 border-t border-[#2A2A2A]">
+            <section className="py-16 px-8 border-t border-gray-200 bg-white">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
                     <Link
                         href="/projects/pranik"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-gray-500 hover:text-black transition-colors"
                     >
                         ← Previous: Pranik
                     </Link>
                     <Link
                         href="/"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-gray-500 hover:text-black transition-colors"
                     >
                         Back to Work →
                     </Link>

@@ -2,9 +2,8 @@
 
 import { useInView as useIntersection } from '@/hooks/useInView';
 import Link from 'next/link';
-import Navigation from '@/components/Navigation';
-import BackButton from '@/components/BackButton';
 import Image from 'next/image';
+import { AlertCircle } from 'lucide-react';
 
 export default function HitaCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -16,9 +15,7 @@ export default function HitaCaseStudy() {
     const [resultsRef, resultsInView] = useIntersection({ threshold: 0.1 });
 
     return (
-        <div className="min-h-screen bg-[#0A0B10] text-white">
-            <Navigation />
-            <BackButton />
+        <div className="min-h-screen bg-white text-black">
 
             {/* Hero Section */}
             <section
@@ -81,24 +78,24 @@ export default function HitaCaseStudy() {
             </section>
 
             {/* Project Info */}
-            <section className="py-12 border-y border-[#2A2A2A] bg-[#0F1117]">
+            <section className="py-12 border-y border-gray-100 bg-gray-50">
                 <div className="max-w-6xl mx-auto px-8">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Role</div>
-                            <div className="text-sm font-medium">Product Designer · AI Builder</div>
+                            <div className="text-sm font-medium text-black">Product Designer · AI Builder</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Timeline</div>
-                            <div className="text-sm font-medium">Designed & Built in 3-4 Days</div>
+                            <div className="text-sm font-medium text-black">Designed & Built in 3-4 Days</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Type</div>
-                            <div className="text-sm font-medium">Personal Product / R&D</div>
+                            <div className="text-sm font-medium text-black">Personal Product / R&D</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Focus</div>
-                            <div className="text-sm font-medium">Conversational UX</div>
+                            <div className="text-sm font-medium text-black">Conversational UX</div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +104,7 @@ export default function HitaCaseStudy() {
             {/* Visual Preview */}
             <section className="py-20 bg-white">
                 <div className="max-w-6xl mx-auto px-8">
-                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01]">
+                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01] border border-gray-100">
                         <Image
                             src="/images/projects/hita.png"
                             alt="Hita Interface Preview"
@@ -120,11 +117,11 @@ export default function HitaCaseStudy() {
             </section>
 
             {/* Context & Problem */}
-            <section ref={contextRef} className="py-32 px-8">
+            <section ref={contextRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-8">The Context</h2>
-                        <p className="text-xl text-gray-400 leading-relaxed mb-16">
+                        <h2 className="text-4xl font-bold mb-8 text-black">The Context</h2>
+                        <p className="text-xl text-gray-600 leading-relaxed mb-16">
                             Hita is a self-initiated product where I designed and built the entire app end-to-end in just 4 days. The goal was to explore how conversational AI could replace rigid, form-heavy trip-planning tools with something that accounts for heat, rain, and real-world fatigue.
                         </p>
                     </div>
@@ -132,28 +129,28 @@ export default function HitaCaseStudy() {
                     <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
                         <div>
                             <h3 className="text-2xl font-bold mb-4 text-orange-400">The Problem</h3>
-                            <p className="text-gray-400 leading-relaxed italic mb-6">"Most travel tools feel form-heavy and mechanical."</p>
-                            <ul className="space-y-4 text-gray-400">
-                                <li className="flex gap-3">
-                                    <span className="text-orange-400">🚩</span>
-                                    Rigid itineraries that don't adapt to weather or mood.
+                            <p className="text-gray-500 leading-relaxed italic mb-6">"Most travel tools feel form-heavy and mechanical."</p>
+                            <ul className="space-y-4 text-gray-600">
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
+                                    <span>Rigid itineraries that don't adapt to weather or mood.</span>
                                 </li>
-                                <li className="flex gap-3">
-                                    <span className="text-orange-400">🚩</span>
-                                    Impersonal and transactional booking flows.
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
+                                    <span>Impersonal and transactional booking flows.</span>
                                 </li>
-                                <li className="flex gap-3">
-                                    <span className="text-orange-400">🚩</span>
-                                    Too many exhausting decisions required upfront.
+                                <li className="flex gap-3 items-start">
+                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
+                                    <span>Too many exhausting decisions required upfront.</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold mb-4 text-indigo-400">Core Insight</h3>
-                            <p className="text-gray-400 leading-relaxed">
+                            <h3 className="text-2xl font-bold mb-4 text-indigo-500">Core Insight</h3>
+                            <p className="text-gray-600 leading-relaxed">
                                 Trip planning is not configuration — it’s conversation. People don't think in dates and checkboxes; they think in intents like **"We'll go out in the evening when it's cooler."**
                             </p>
-                            <p className="mt-4 text-gray-400 font-medium italic">
+                            <p className="mt-4 text-gray-800 font-medium italic">
                                 AI should act as a travel buddy, not a rules engine.
                             </p>
                         </div>
@@ -162,44 +159,44 @@ export default function HitaCaseStudy() {
             </section>
 
             {/* The Solution */}
-            <section ref={solutionRef} className="py-32 px-8 bg-[#0F1117]">
+            <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center mb-20">
-                        <h2 className="text-5xl font-bold mb-6">The Solution</h2>
-                        <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                        <h2 className="text-5xl font-bold mb-6 text-black">The Solution</h2>
+                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                             A conversation-first experience that understands intent and adapts on the fly.
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">
-                        <div className="p-10 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-indigo-500/50 transition-colors">
-                            <h3 className="text-xl font-bold mb-4 text-indigo-400">Intent Detection</h3>
-                            <p className="text-gray-400 text-sm">Understands natural language "friend-like" requests instead of rigid filters.</p>
+                        <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-indigo-500/50 transition-colors shadow-sm">
+                            <h3 className="text-xl font-bold mb-4 text-indigo-500">Intent Detection</h3>
+                            <p className="text-gray-600 text-sm">Understands natural language "friend-like" requests instead of rigid filters.</p>
                         </div>
-                        <div className="p-10 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-blue-500/50 transition-colors">
-                            <h3 className="text-xl font-bold mb-4 text-blue-400">Context Awareness</h3>
-                            <p className="text-gray-400 text-sm">Adapts suggestions based on weather, time of day, and predicted user fatigue.</p>
+                        <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-blue-500/50 transition-colors shadow-sm">
+                            <h3 className="text-xl font-bold mb-4 text-blue-500">Context Awareness</h3>
+                            <p className="text-gray-600 text-sm">Adapts suggestions based on weather, time of day, and predicted user fatigue.</p>
                         </div>
-                        <div className="p-10 rounded-3xl bg-[#161821] border border-[#2A2A2A] hover:border-purple-500/50 transition-colors">
-                            <h3 className="text-xl font-bold mb-4 text-purple-400">Dynamic Evolution</h3>
-                            <p className="text-gray-400 text-sm">The plan evolves through casual conversation rather than static screens.</p>
+                        <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-purple-500/50 transition-colors shadow-sm">
+                            <h3 className="text-xl font-bold mb-4 text-purple-500">Dynamic Evolution</h3>
+                            <p className="text-gray-600 text-sm">The plan evolves through casual conversation rather than static screens.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* How it Works */}
-            <section ref={processRef} className="py-32 px-8">
+            <section ref={processRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold mb-16 text-center">Execution & Design</h2>
+                    <h2 className="text-4xl font-bold mb-16 text-center text-black">Execution & Design</h2>
 
                     <div className="space-y-20">
                         <div className={`transition-all duration-1000 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">1</div>
+                                <div className="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold shrink-0">1</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Conversation First</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Conversation First</h3>
+                                    <p className="text-gray-600">
                                         I replaced complex setup forms with a single chat interface. This reduces cognitive load and allows the AI to extract context naturally.
                                     </p>
                                 </div>
@@ -208,10 +205,10 @@ export default function HitaCaseStudy() {
 
                         <div className={`transition-all duration-1000 delay-150 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">2</div>
+                                <div className="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold shrink-0">2</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Contextual Scheduling</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Contextual Scheduling</h3>
+                                    <p className="text-gray-600">
                                         Unlike rigid calendars, Hita suggests activities based on real-world constraints—like suggesting indoor activities during afternoon heat or local snacks nearby when time is short.
                                     </p>
                                 </div>
@@ -220,10 +217,10 @@ export default function HitaCaseStudy() {
 
                         <div className={`transition-all duration-1000 delay-300 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
                             <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">3</div>
+                                <div className="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold shrink-0">3</div>
                                 <div>
-                                    <h3 className="text-2xl font-bold mb-4">Speed + Clarity</h3>
-                                    <p className="text-gray-400">
+                                    <h3 className="text-2xl font-bold mb-4 text-black">Speed + Clarity</h3>
+                                    <p className="text-gray-600">
                                         This was a 4-day build covering UX flows, AI behavior, and app structure. The goal was to prove that conversation is a powerful interface when designed intentionally.
                                     </p>
                                 </div>
@@ -234,22 +231,22 @@ export default function HitaCaseStudy() {
             </section>
 
             {/* Impact */}
-            <section ref={resultsRef} className="py-32 px-8 bg-[#0F1117]">
+            <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16">Outcome</h2>
+                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome</h2>
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-2xl bg-gradient-to-br from-[#1E1E22] to-[#0F0F11] border border-[#2A2A2A]">
-                            <div className="text-xl font-bold text-indigo-400 mb-2">Proof of Concept</div>
-                            <p className="text-gray-400 text-sm italic">"Demonstrated how AI can make planning feel human."</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                            <div className="text-xl font-bold text-indigo-500 mb-2">Proof of Concept</div>
+                            <p className="text-gray-500 text-sm italic">"Demonstrated how AI can make planning feel human."</p>
                         </div>
-                        <div className="p-10 rounded-2xl bg-gradient-to-br from-[#1E1E22] to-[#0F0F11] border border-[#2A2A2A]">
-                            <div className="text-xl font-bold text-gray-300 mb-2">Fast Validation</div>
-                            <p className="text-gray-400 text-sm">Validated that user trust increases with contextual reasoning.</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                            <div className="text-xl font-bold text-gray-800 mb-2">Fast Validation</div>
+                            <p className="text-gray-500 text-sm">Validated that user trust increases with contextual reasoning.</p>
                         </div>
                     </div>
 
-                    <div className="mt-16 p-8 rounded-2xl bg-indigo-500/5 border border-indigo-500/20">
-                        <p className="text-lg text-indigo-100 italic">
+                    <div className="mt-16 p-8 rounded-2xl bg-indigo-50 border border-indigo-100">
+                        <p className="text-lg text-indigo-800 italic">
                             “Hita explores how conversational AI can make travel planning feel human, flexible, and effortless.”
                         </p>
                     </div>
@@ -257,17 +254,17 @@ export default function HitaCaseStudy() {
             </section>
 
             {/* Navigation */}
-            <section className="py-16 px-8 border-t border-[#2A2A2A]">
+            <section className="py-16 px-8 border-t border-gray-200 bg-white">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
                     <Link
                         href="/"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-gray-500 hover:text-black transition-colors"
                     >
                         ← Back to Work
                     </Link>
                     <Link
                         href="/projects/miraee"
-                        className="text-gray-400 hover:text-white transition-colors"
+                        className="text-gray-500 hover:text-black transition-colors"
                     >
                         Next: Miraee →
                     </Link>

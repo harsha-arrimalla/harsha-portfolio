@@ -86,10 +86,10 @@ export default function HeroSection() {
             Product Designer · AI & Systems UX
           </div>
 
-          <h1 className="text-[3rem] md:text-7xl lg:text-[6.5rem] font-black leading-[1] md:leading-[0.9] tracking-tighter text-black mb-8 relative z-20">
-            Designing
+          <h1 className="text-[3.5rem] md:text-7xl lg:text-[6rem] font-black leading-[0.95] tracking-tighter text-black mb-8 relative z-20">
+            <span className="block">Designing</span>
             <span className="block text-gray-300">Intelligent</span>
-            Products
+            <span className="block">Products</span>
             <span className="block">People Trust.</span>
           </h1>
 

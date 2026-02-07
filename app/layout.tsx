@@ -33,6 +33,7 @@ const OilPaintBackground = dynamic(() => import('@/components/OilPaintBackground
 const LoadingScreen = dynamic(() => import('@/components/LoadingScreen'), { ssr: false })
 const LoadingProvider = dynamic(() => import('@/components/LoadingContext').then(mod => mod.LoadingProvider), { ssr: false })
 const Navigation = dynamic(() => import('@/components/Navigation'), { ssr: false })
+const BackButton = dynamic(() => import('@/components/BackButton'), { ssr: false })
 
 export default function RootLayout({
   children,
@@ -53,6 +54,7 @@ export default function RootLayout({
           <LoadingScreen />
           <OilPaintBackground />
           <Navigation />
+          <BackButton />
           <SmoothScroll>
             {/* Global Mouse Animations */}
             <CustomCursor />
