@@ -6,9 +6,9 @@ export default function AarnaCaseStudy() {
   const theme = {
     primary: '#3B82F6',   // Bright Blue
     secondary: '#14B8A6', // Teal
-    background: '#0B0F19', // Deep Navy/Black
-    text: '#F8FAFC',       // Off-white
-    muted: '#94A3B8',      // Slate-400
+    background: '#FFFFFF', // Clean White
+    text: '#0F172A',       // Slate-900 (Dark)
+    muted: '#475569',      // Slate-600 (Muted)
     gradient: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 70%), radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.15), transparent 50%)',
     selection: '#3B82F6'
   };
@@ -39,17 +39,17 @@ export default function AarnaCaseStudy() {
           id: 'context',
           content: (
             <div className="grid md:grid-cols-2 gap-16 items-start">
-              <h3 className="text-4xl font-bold leading-tight">
+              <h3 className="text-4xl font-bold leading-tight text-slate-900">
                 Forms were failing users. Experience creation was chaos.
               </h3>
-              <div className="space-y-6 text-lg text-slate-300 font-light leading-relaxed">
+              <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed">
                 <p>
                   Aarna is designed for creators who want to host services and manage digital stores.
                   However, the existing entry barrier was massive: inconsistent formats (PDFs, raw text),
                   high drop-off rates on complex forms, and a moderation nightmare for admins.
                 </p>
                 <p>
-                  <strong className="text-white">The Core Insight:</strong> Brief forms aren't enough. Users don't know *how* to sell themselves.
+                  <strong className="text-slate-900">The Core Insight:</strong> Brief forms aren't enough. Users don't know *how* to sell themselves.
                   AI needed to bridge the gap between "I do this" and a sellable product listing.
                 </p>
               </div>
@@ -59,12 +59,12 @@ export default function AarnaCaseStudy() {
         {
           id: 'solution',
           title: 'The Solution',
-          className: 'bg-white/5',
+          className: 'bg-slate-50',
           content: (
             <div>
               <div className="text-center max-w-3xl mx-auto mb-20">
-                <h3 className="text-5xl font-bold mb-6">Conversational Creation</h3>
-                <p className="text-xl text-slate-400">
+                <h3 className="text-5xl font-bold mb-6 text-slate-900">Conversational Creation</h3>
+                <p className="text-xl text-slate-600">
                   Replacing static inputs with an intelligent, guided dialogue that learns from the user.
                 </p>
               </div>
@@ -75,10 +75,10 @@ export default function AarnaCaseStudy() {
                   { title: "Generate & Verify", desc: "OCR extracts data from brochure uploads to prefill drafts.", icon: "⚡" },
                   { title: "Quality Gate", desc: "Automated scoring ensures listings meet platform standards.", icon: "🛡️" }
                 ].map((card, i) => (
-                  <div key={i} className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
+                  <div key={i} className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-blue-500/50 transition-colors shadow-sm">
                     <div className="text-4xl mb-6">{card.icon}</div>
-                    <h4 className="text-xl font-bold mb-3 text-white">{card.title}</h4>
-                    <p className="text-slate-400 leading-relaxed">{card.desc}</p>
+                    <h4 className="text-xl font-bold mb-3 text-slate-900">{card.title}</h4>
+                    <p className="text-slate-600 leading-relaxed text-sm">{card.desc}</p>
                   </div>
                 ))}
               </div>
@@ -108,12 +108,12 @@ export default function AarnaCaseStudy() {
                 }
               ].map((item, i) => (
                 <div key={i} className="flex flex-col md:flex-row gap-8 md:gap-20 items-start group">
-                  <div className="text-8xl font-black text-white/5 group-hover:text-blue-500/20 transition-colors">
+                  <div className="text-8xl font-black text-slate-100 group-hover:text-blue-500/20 transition-colors">
                     {item.step}
                   </div>
                   <div className="pt-4 max-w-xl">
-                    <h4 className="text-3xl font-bold mb-4">{item.title}</h4>
-                    <p className="text-xl text-slate-400 leading-relaxed">{item.text}</p>
+                    <h4 className="text-3xl font-bold mb-4 text-slate-900">{item.title}</h4>
+                    <p className="text-xl text-slate-600 leading-relaxed font-light">{item.text}</p>
                   </div>
                 </div>
               ))}
@@ -123,21 +123,21 @@ export default function AarnaCaseStudy() {
         {
           id: 'impact',
           title: 'Impact',
-          className: 'bg-blue-600',
+          className: 'bg-blue-600 text-white',
           content: (
             <div className="text-center">
               <div className="grid md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/20">
                 <div>
                   <div className="text-6xl font-black mb-2">3x</div>
-                  <div className="text-blue-200 font-medium tracking-wide">Listing Volume</div>
+                  <div className="text-blue-100/80 font-medium tracking-wide">Listing Volume</div>
                 </div>
                 <div>
                   <div className="text-6xl font-black mb-2">-40%</div>
-                  <div className="text-blue-200 font-medium tracking-wide">Drop-off Rate</div>
+                  <div className="text-blue-100/80 font-medium tracking-wide">Drop-off Rate</div>
                 </div>
                 <div>
                   <div className="text-6xl font-black mb-2">10k+</div>
-                  <div className="text-blue-200 font-medium tracking-wide">Active Users</div>
+                  <div className="text-blue-100/80 font-medium tracking-wide">Active Users</div>
                 </div>
               </div>
             </div>

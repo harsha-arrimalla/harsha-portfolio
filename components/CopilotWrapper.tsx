@@ -7,6 +7,22 @@ import { useLoading } from "./LoadingContext";
 import "@copilotkit/react-ui/styles.css";
 import { usePortfolioActions } from "@/lib/copilot-actions";
 
+function hasRegisteredAgents(payload: unknown): boolean {
+    if (!payload || typeof payload !== "object") return false;
+
+    const data = payload as Record<string, unknown>;
+    const directAgents = data.agents;
+    if (Array.isArray(directAgents) && directAgents.length > 0) return true;
+
+    const nestedRuntime = data.runtime;
+    if (nestedRuntime && typeof nestedRuntime === "object") {
+        const runtimeAgents = (nestedRuntime as Record<string, unknown>).agents;
+        if (Array.isArray(runtimeAgents) && runtimeAgents.length > 0) return true;
+    }
+
+    return false;
+}
+
 function LuffySearchTrigger() {
     const { setOpen, open } = useChatContext();
     const { isLoading } = useLoading();
@@ -227,6 +243,38 @@ export default function CopilotWrapper({
 }: {
     children: React.ReactNode;
 }) {
+    const [isRuntimeReady, setIsRuntimeReady] = useState(false);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        const verifyRuntime = async () => {
+            try {
+                const response = await fetch("/api/copilotkit/info", { method: "GET" });
+                if (!response.ok) {
+                    if (!cancelled) setIsRuntimeReady(false);
+                    return;
+                }
+
+                const payload: unknown = await response.json();
+                if (!cancelled) {
+                    setIsRuntimeReady(hasRegisteredAgents(payload));
+                }
+            } catch {
+                if (!cancelled) setIsRuntimeReady(false);
+            }
+        };
+
+        verifyRuntime();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    if (!isRuntimeReady) {
+        return <>{children}</>;
+    }
+
     return (
         <CopilotKit
             runtimeUrl="/api/copilotkit"

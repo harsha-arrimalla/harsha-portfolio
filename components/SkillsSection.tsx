@@ -4,121 +4,132 @@ import { useRef, useState, useEffect } from 'react';
 import { useInView } from '@/hooks/useInView';
 import KineticText from '@/components/KineticText';
 
-const skillCategories = [
+const expertise = [
   {
-    title: 'Design & 3D',
-    color: 'from-blue-500 to-cyan-400',
-    skills: ['Figma', 'Framer', 'Adobe XD', 'Photoshop', 'Blender', 'Spline', 'Three.js'],
+    number: '01',
+    title: 'Design',
+    description: 'End-to-end product design — from research and wireframes to high-fidelity prototypes and design systems.',
+    tools: ['Figma', 'Framer', 'Adobe XD', 'Photoshop', 'Spline'],
+    accent: '#3B82F6',
   },
   {
+    number: '02',
     title: 'Development',
-    color: 'from-purple-500 to-pink-400',
-    skills: ['React.js', 'Next.js', 'JavaScript', 'HTML', 'CSS', 'Framer Motion', 'Git'],
+    description: 'Building production-ready interfaces with modern frameworks, animations, and responsive architectures.',
+    tools: ['React', 'Next.js', 'TypeScript', 'Tailwind', 'GSAP', 'Framer Motion'],
+    accent: '#A855F7',
   },
   {
-    title: 'AI & UX Strategy',
-    color: 'from-orange-500 to-red-400',
-    skills: ['Conversational UX', 'AI Interaction Design', 'AI agents', 'Prompt design', 'UX Flow Mapping'],
-  },
-  {
-    title: 'Tools & Systems',
-    color: 'from-green-500 to-teal-400',
-    skills: ['Cursor', 'Vercel', 'Render', 'Design Systems', 'Prototype', 'Wireframe'],
+    number: '03',
+    title: 'AI & Strategy',
+    description: 'Designing conversational interfaces, AI agents, and intelligent workflows that humans actually trust.',
+    tools: ['Conversational UX', 'AI Agents', 'Prompt Design', 'UX Research', 'Systems Thinking'],
+    accent: '#F97316',
   },
 ];
 
 export default function SkillsSection() {
-  const [ref, isInView] = useInView({ threshold: 0.1, rootMargin: '20% 0px' });
-  const containerRef = useRef<HTMLElement>(null);
-  const [scrollYProgress, setScrollYProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const progress = Math.max(0, Math.min(1, (viewportHeight - rect.top) / (rect.height + viewportHeight)));
-      setScrollYProgress(progress);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const y = 100 - scrollYProgress * 200;
+  const [ref, isInView] = useInView({ threshold: 0.05, rootMargin: '10% 0px' });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section ref={containerRef} className="py-32 md:py-40 px-6 md:px-12 lg:px-24 bg-white relative overflow-hidden">
-      {/* Background elements */}
+    <section className="py-32 md:py-40 px-6 md:px-12 lg:px-24 bg-[#FAFAFA] relative overflow-hidden">
+      {/* Background grid */}
       <div
-        style={{ transform: `translateY(${y}px)`, transition: 'transform 0.1s linear' }}
-        className="absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.4) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
       />
 
       <div ref={ref} className="max-w-7xl mx-auto relative z-10">
-        {/* Section header */}
-        <div className="mb-20">
-          <div className={`flex items-center gap-4 mb-8 reveal ${isInView ? 'active' : ''}`}>
-            <div
-              className={`h-[2px] bg-black transition-all duration-700 ${isInView ? 'w-15' : 'w-0'}`}
-              style={{ width: isInView ? '60px' : '0px' }}
-            />
-            <span className="text-sm tracking-[0.3em] uppercase text-gray-500">Expertise</span>
+        {/* Header */}
+        <div className="mb-20 md:mb-28">
+          <div className={`flex items-center gap-4 mb-8 transition-all duration-700 ${isInView ? 'opacity-100' : 'opacity-0'}`}>
+            <div className="h-[1px] bg-black" style={{ width: isInView ? '60px' : '0px', transition: 'width 0.7s ease' }} />
+            <span className="text-[10px] tracking-[0.4em] uppercase font-bold text-gray-400">What I Do</span>
           </div>
 
           <KineticText
-            className="text-5xl md:text-7xl font-black mb-6"
-            type="char"
-            duration={0.6}
-            delay={0.1}
+            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter"
+            type="word"
+            duration={0.8}
           >
-            Skills & Tools
+            Expertise
           </KineticText>
-          <p className={`text-xl text-gray-500 max-w-2xl mx-auto reveal ${isInView ? 'active delay-200' : ''}`}>
-            Technologies and methodologies I use to bring ideas to life
-          </p>
         </div>
 
-        {/* Skills grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
+        {/* Expertise rows */}
+        <div className="space-y-0">
+          {expertise.map((item, index) => (
             <div
-              key={category.title}
-              className={`bg-gray-50 rounded-3xl p-8 transition-all hover:shadow-xl hover:-translate-y-2 group reveal ${isInView ? 'active' : ''}`}
-              style={{ transitionDelay: `${0.1 + categoryIndex * 0.1}s` }}
+              key={item.number}
+              className={`group border-t border-gray-200 transition-all duration-700 ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              style={{ transitionDelay: `${0.15 + index * 0.1}s` }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Category header */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className={`w-3 h-8 rounded-full bg-gradient-to-b ${category.color}`} />
-                <h3 className="text-2xl font-bold">{category.title}</h3>
+              <div className="py-10 md:py-14 grid grid-cols-12 gap-4 md:gap-8 items-start cursor-default">
+                {/* Number */}
+                <div className="col-span-2 md:col-span-1">
+                  <span
+                    className="text-sm font-bold transition-colors duration-500"
+                    style={{ color: hoveredIndex === index ? item.accent : '#9CA3AF' }}
+                  >
+                    {item.number}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <div className="col-span-10 md:col-span-3">
+                  <h3 className="text-3xl md:text-5xl font-black tracking-tight text-black group-hover:translate-x-2 transition-transform duration-500">
+                    {item.title}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <div className="col-span-12 md:col-span-4 mt-4 md:mt-0">
+                  <p className="text-gray-500 text-base leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                {/* Tools */}
+                <div className="col-span-12 md:col-span-4 mt-4 md:mt-0">
+                  <div className="flex flex-wrap gap-2">
+                    {item.tools.map((tool, toolIndex) => (
+                      <span
+                        key={tool}
+                        className="text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-full border transition-all duration-500"
+                        style={{
+                          borderColor: hoveredIndex === index ? item.accent + '40' : '#E5E7EB',
+                          backgroundColor: hoveredIndex === index ? item.accent + '08' : 'white',
+                          color: hoveredIndex === index ? item.accent : '#6B7280',
+                          transitionDelay: `${toolIndex * 0.03}s`,
+                        }}
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              {/* Skills */}
-              <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill, skillIndex) => (
-                  <div
-                    key={skill}
-                    className={`px-5 py-2.5 bg-white rounded-full text-sm font-medium shadow-sm cursor-default transition-all border border-gray-100 hover:scale-110 hover:bg-black hover:text-white reveal ${isInView ? 'active' : ''}`}
-                    style={{ transitionDelay: `${0.2 + categoryIndex * 0.05 + skillIndex * 0.02}s` }}
-                  >
-                    {skill}
-                  </div>
-                ))}
-              </div>
+              {/* Accent line on hover */}
+              <div
+                className="h-[2px] transition-all duration-700 ease-out"
+                style={{
+                  backgroundColor: item.accent,
+                  transform: hoveredIndex === index ? 'scaleX(1)' : 'scaleX(0)',
+                  transformOrigin: 'left',
+                }}
+              />
             </div>
           ))}
-        </div>
 
-        {/* Animated marquee of skills */}
-        <div className={`mt-20 overflow-hidden reveal ${isInView ? 'active delay-300' : ''}`}>
-          <div className="animate-marquee">
-            {[...skillCategories.flatMap(c => c.skills), ...skillCategories.flatMap(c => c.skills), ...skillCategories.flatMap(c => c.skills)].map((skill, i) => (
-              <span key={i} className="text-6xl md:text-8xl font-black text-gray-100 mx-4">
-                {skill}
-              </span>
-            ))}
-          </div>
+          {/* Bottom border */}
+          <div className="border-t border-gray-200" />
         </div>
       </div>
     </section>

@@ -76,6 +76,19 @@ export default function ProjectsGrid() {
       number: '05',
       link: '/projects/mondee'
     },
+    {
+      title: 'Qualifyze',
+      subtitle: 'Supplier qualification UX case study',
+      image: '/images/projects/qualifyze_logo.png',
+      color: 'from-emerald-600 to-teal-500',
+      bg: 'bg-white',
+      textColor: 'text-black',
+      subTextColor: 'text-gray-600',
+      badgeBg: 'bg-black/5',
+      badgeText: 'text-gray-500',
+      number: '06',
+      link: '/projects/qualifyze'
+    },
   ];
 
   // Consistent smooth easing
@@ -139,18 +152,24 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
   const cardRef = useRef<HTMLDivElement>(null);
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [glarePos, setGlarePos] = useState({ x: 50, y: 50 });
 
   // Determine if it's a touch device (simple check)
   const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current || isTouch) return; // Disable hover tilt on touch
+    if (!cardRef.current || isTouch) return;
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const x = (e.clientX - centerX) / 20;
-    const y = (e.clientY - centerY) / 20;
+    const x = (e.clientX - centerX) / 25;
+    const y = (e.clientY - centerY) / 25;
     setRotation({ x: -y, y: x });
+
+    // Glare position
+    const gx = ((e.clientX - rect.left) / rect.width) * 100;
+    const gy = ((e.clientY - rect.top) / rect.height) * 100;
+    setGlarePos({ x: gx, y: gy });
   };
 
   const handleMouseLeave = () => {
@@ -159,7 +178,7 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
   };
 
   return (
-    <Link href={project.link || '#'}>
+    <Link href={project.link || '#'} data-cursor="View">
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -172,7 +191,8 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
             ? 'opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), translate 0.7s cubic-bezier(0.23, 1, 0.32, 1)'
             : 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), translate 0.7s cubic-bezier(0.23, 1, 0.32, 1)',
           opacity: isInView ? 1 : 0,
-          translate: isInView ? '0 0' : '0 50px',
+          translate: isInView ? '0 0' : '0 60px',
+          transitionDelay: `${index * 0.12}s`,
         }}
         className="group cursor-pointer perspective-1000 block h-full mb-8 md:mb-0"
       >
@@ -214,7 +234,7 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
         </div>
 
 
-        {/* Desktop: Immersive Overlay Card (Unchanged for Desktop) */}
+        {/* Desktop: Immersive Overlay Card */}
         <div
           className={`hidden md:block relative aspect-[4/5] w-full rounded-[32px] overflow-hidden shadow-xl transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-blue-500/10 ${project.bg} border border-black/5`}
           style={{
@@ -234,7 +254,15 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
             </div>
           </div>
 
-          {/* Liquid Gradient Overlay */}
+          {/* Glare / Shine effect on hover */}
+          {isHovered && !isTouch && (
+            <div
+              className="absolute inset-0 pointer-events-none z-20 transition-opacity duration-300"
+              style={{
+                background: `radial-gradient(circle at ${glarePos.x}% ${glarePos.y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`,
+              }}
+            />
+          )}
 
 
           {/* Subtle Gradient Overlay for Content Legibility */}
@@ -273,4 +301,3 @@ function ProjectCard({ project, index, isInView }: { project: any; index: number
     </Link>
   );
 }
-

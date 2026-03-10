@@ -28,11 +28,10 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     >
       {/* Progress bar */}
       <div
-        className="fixed top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 origin-left z-[100] pointer-events-none"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-black via-gray-600 to-black origin-left z-[100] pointer-events-none"
         style={{
           transform: `scaleX(${scrollProgress / 100})`,
           transformOrigin: 'left',
-          // No transition on the bar itself, let Lenis handle the smoothness
         }}
       />
       {children}

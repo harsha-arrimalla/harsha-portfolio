@@ -6,6 +6,10 @@ export const metadata: Metadata = {
   description: 'Designing AI experiences that users trust—from concept to code. Specializing in conversational AI, healthcare, and enterprise platforms.',
   keywords: ['UI/UX Designer', 'AI Developer', 'Full-Stack Developer', 'Conversational AI', 'Healthcare UX', 'Enterprise Design'],
   authors: [{ name: 'Harsha' }],
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+  },
   openGraph: {
     title: "Harsha's Portfolio",
     description: 'Designing AI experiences that users trust—from concept to code',
@@ -22,6 +26,7 @@ export const metadata: Metadata = {
   },
 }
 
+import { LoadingProvider } from '@/components/LoadingContext'
 import dynamic from 'next/dynamic'
 
 // Dynamically import heavy client-side components to reduce initial bundle size
@@ -31,7 +36,6 @@ const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: f
 const MouseFollower = dynamic(() => import('@/components/MouseFollower'), { ssr: false })
 const OilPaintBackground = dynamic(() => import('@/components/OilPaintBackground'), { ssr: false })
 const LoadingScreen = dynamic(() => import('@/components/LoadingScreen'), { ssr: false })
-const LoadingProvider = dynamic(() => import('@/components/LoadingContext').then(mod => mod.LoadingProvider), { ssr: false })
 const Navigation = dynamic(() => import('@/components/Navigation'), { ssr: false })
 const BackButton = dynamic(() => import('@/components/BackButton'), { ssr: false })
 

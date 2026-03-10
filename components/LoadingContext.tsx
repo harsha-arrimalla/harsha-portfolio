@@ -22,7 +22,8 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
 export function useLoading() {
     const context = useContext(LoadingContext);
     if (context === undefined) {
-        throw new Error("useLoading must be used within a LoadingProvider");
+        // Graceful fallback instead of crashing — treat as "not loading"
+        return { isLoading: false, setIsLoading: () => {} } as LoadingContextType;
     }
     return context;
 }
