@@ -6,10 +6,6 @@ export const metadata: Metadata = {
   description: 'Designing AI experiences that users trust—from concept to code. Specializing in conversational AI, healthcare, and enterprise platforms.',
   keywords: ['UI/UX Designer', 'AI Developer', 'Full-Stack Developer', 'Conversational AI', 'Healthcare UX', 'Enterprise Design'],
   authors: [{ name: 'Harsha' }],
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-  },
   openGraph: {
     title: "Harsha's Portfolio",
     description: 'Designing AI experiences that users trust—from concept to code',
