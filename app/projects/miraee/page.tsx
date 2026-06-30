@@ -4,6 +4,35 @@ import { useInView as useIntersection } from '@/hooks/useInView';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AlertCircle } from 'lucide-react';
+import { useState } from 'react';
+
+const designScreens = [
+    {
+        group: 'AI Conversation',
+        screens: [
+            { src: '/images/projects/miraee/01-ai-avatar.png', title: 'AI Avatar', desc: 'Voice-powered AI assistant with natural conversation' },
+            { src: '/images/projects/miraee/02-ai-avatar-flights.png', title: 'Avatar + Flight Results', desc: 'AI surfaces best flights within the conversation' },
+        ],
+    },
+    {
+        group: 'Booking Flow',
+        screens: [
+            { src: '/images/projects/miraee/03-flight-search.png', title: 'Flight Search', desc: 'AI-curated flight options with rewards and filters' },
+            { src: '/images/projects/miraee/04-hotel-search.png', title: 'Hotel Search', desc: 'Policy-aware hotel recommendations with ratings' },
+            { src: '/images/projects/miraee/05-car-rental.png', title: 'Car Rental', desc: 'Smart car picks based on location and travel policy' },
+            { src: '/images/projects/miraee/06-booking-confirmed.png', title: 'Booking Confirmed', desc: 'Unified confirmation with flight, hotel, and transfer' },
+        ],
+    },
+    {
+        group: 'Management',
+        screens: [
+            { src: '/images/projects/miraee/07-expense-management.png', title: 'Expense Management', desc: 'Policy compliance tracking and receipt uploads' },
+            { src: '/images/projects/miraee/08-my-trips.png', title: 'My Trips', desc: 'Active, pending, and past trips with outcome tracking' },
+            { src: '/images/projects/miraee/09-approvals.png', title: 'Approvals', desc: 'AI-assisted approval flow for managers' },
+            { src: '/images/projects/miraee/10-notifications.png', title: 'Notifications', desc: 'Smart alerts for bookings, expenses, and approvals' },
+        ],
+    },
+];
 
 export default function MiraeeCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -13,6 +42,9 @@ export default function MiraeeCaseStudy() {
     const [solutionRef, solutionInView] = useIntersection({ threshold: 0.1 });
     const [processRef, processInView] = useIntersection({ threshold: 0.1 });
     const [resultsRef, resultsInView] = useIntersection({ threshold: 0.1 });
+    const [screensRef, screensInView] = useIntersection({ threshold: 0.05 });
+    const [activeGroup, setActiveGroup] = useState('AI Conversation');
+
 
     return (
         <div className="min-h-screen bg-white text-black">
@@ -242,6 +274,84 @@ export default function MiraeeCaseStudy() {
                         </div>
                     </div>
                 </div>
+            </section>
+
+            {/* Design Screens Gallery */}
+            <section ref={screensRef} className="py-32 px-8 bg-white border-t border-gray-100">
+                <div className="max-w-6xl mx-auto">
+                    <div className={`text-center mb-16 transition-all duration-1000 ${screensInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+                        <span className="text-sm font-medium text-blue-600 uppercase tracking-[0.3em] mb-4 block">End-to-End Design</span>
+                        <h2 className="text-5xl font-bold mb-6 text-black">The Screens</h2>
+                        <p className="text-xl text-gray-500 max-w-2xl mx-auto">
+                            A complete mobile experience — from AI conversation to booking, expenses, and approvals.
+                        </p>
+                    </div>
+
+                    {/* Group Tabs */}
+                    <div className={`flex justify-center gap-3 mb-16 transition-all duration-1000 delay-150 ${screensInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                        {designScreens.map((group) => (
+                            <button
+                                key={group.group}
+                                onClick={() => setActiveGroup(group.group)}
+                                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
+                                    activeGroup === group.group
+                                        ? 'bg-black text-white shadow-lg scale-105'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                }`}
+                            >
+                                {group.group}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Screens Grid */}
+                    {designScreens.map((group) => (
+                        <div
+                            key={group.group}
+                            className={`transition-all duration-500 ${
+                                activeGroup === group.group ? 'block' : 'hidden'
+                            }`}
+                        >
+                            <div className={`grid gap-8 ${
+                                group.screens.length <= 2
+                                    ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto'
+                                    : 'grid-cols-2 lg:grid-cols-4'
+                            }`}>
+                                {group.screens.map((screen, i) => (
+                                    <div
+                                        key={screen.title}
+                                        className={`group transition-all duration-700 ${
+                                            screensInView
+                                                ? 'opacity-100 translate-y-0'
+                                                : 'opacity-0 translate-y-12'
+                                        }`}
+                                        style={{ transitionDelay: `${200 + i * 100}ms` }}
+                                    >
+                                        <div
+                                            className="relative aspect-[9/19.5] rounded-[24px] overflow-hidden bg-gray-50 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-500 hover:scale-[1.02]"
+                                        >
+                                            <Image
+                                                src={screen.src}
+                                                alt={screen.title}
+                                                fill
+                                                className="object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                            <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                <p className="text-white text-xs font-medium">{screen.desc}</p>
+                                            </div>
+                                        </div>
+                                        <div className="mt-4 text-center">
+                                            <h4 className="text-sm font-semibold text-black">{screen.title}</h4>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+
             </section>
 
             {/* Impact */}
