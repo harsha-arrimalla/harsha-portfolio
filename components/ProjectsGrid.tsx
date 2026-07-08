@@ -79,7 +79,7 @@ export default function ProjectsGrid() {
     {
       title: 'Equora',
       subtitle: 'Self-custody crypto wallet — friction proportional to irreversibility',
-      image: '/images/projects/equora/flow/04-home.png',
+      image: '/images/projects/equora_logo.png',
       color: 'from-green-500 to-emerald-400',
       bg: 'bg-[#09090B]',
       textColor: 'text-white',
