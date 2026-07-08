@@ -12,21 +12,8 @@ export default function ProjectsGrid() {
 
   const projects = [
     {
-      title: 'Hita',
-      subtitle: 'AI Travel Companion with Autonomous Agency',
-      image: '/images/projects/hita_logo.png',
-      color: 'from-blue-600 to-indigo-500',
-      bg: 'bg-white',
-      textColor: 'text-black',
-      subTextColor: 'text-gray-600',
-      badgeBg: 'bg-black/5',
-      badgeText: 'text-gray-500',
-      number: '01',
-      link: '/projects/hita'
-    },
-    {
       title: 'Miraee',
-      subtitle: 'AI-powered travel companion',
+      subtitle: 'Shipped AI travel assistant — search, policy, booking & recovery in one conversation',
       image: '/images/projects/miraee_logo.png',
       color: 'from-orange-500 to-amber-400',
       bg: 'bg-white',
@@ -34,12 +21,12 @@ export default function ProjectsGrid() {
       subTextColor: 'text-gray-600',
       badgeBg: 'bg-black/5',
       badgeText: 'text-gray-500',
-      number: '02',
+      number: '01',
       link: '/projects/miraee'
     },
     {
       title: 'Aarna',
-      subtitle: 'AI Assistant for creating travel experiences',
+      subtitle: '3× listings, −40% drop-off, 10K+ users on an AI travel marketplace',
       image: '/images/projects/aarna_logo.png',
       color: 'from-lime-500 to-green-400',
       bg: 'bg-black',
@@ -47,12 +34,25 @@ export default function ProjectsGrid() {
       subTextColor: 'text-white/60',
       badgeBg: 'bg-white/10',
       badgeText: 'text-white/70',
-      number: '03',
+      number: '02',
       link: '/projects/aarna'
     },
     {
+      title: 'Hita',
+      subtitle: 'Self-initiated: a 12-agent AI travel companion, designed and built solo',
+      image: '/images/projects/hita_logo.png',
+      color: 'from-blue-600 to-indigo-500',
+      bg: 'bg-white',
+      textColor: 'text-black',
+      subTextColor: 'text-gray-600',
+      badgeBg: 'bg-black/5',
+      badgeText: 'text-gray-500',
+      number: '03',
+      link: '/projects/hita'
+    },
+    {
       title: 'Pranik',
-      subtitle: 'AI healthcare companion focused on trust',
+      subtitle: 'AI healthcare companion — from symptom chat to real-doctor handoff',
       image: '/images/projects/pranik_logo.png',
       color: 'from-orange-500 to-brown-400',
       bg: 'bg-[#F9F6F2]',
@@ -65,7 +65,7 @@ export default function ProjectsGrid() {
     },
     {
       title: 'Mondee',
-      subtitle: 'Enterprise travel & hospitality platforms',
+      subtitle: 'Enterprise travel platforms — dense agent workflows made scannable',
       image: '/images/projects/mondee_logo_v2.png',
       color: 'from-orange-500 to-red-400',
       bg: 'bg-[#0F172A]',
@@ -77,8 +77,21 @@ export default function ProjectsGrid() {
       link: '/projects/mondee'
     },
     {
+      title: 'Equora',
+      subtitle: 'Self-custody crypto wallet — friction proportional to irreversibility',
+      image: '/images/projects/equora/flow/04-home.png',
+      color: 'from-green-500 to-emerald-400',
+      bg: 'bg-[#09090B]',
+      textColor: 'text-white',
+      subTextColor: 'text-white/60',
+      badgeBg: 'bg-white/10',
+      badgeText: 'text-white/70',
+      number: '06',
+      link: '/projects/equora'
+    },
+    {
       title: 'Qualifyze',
-      subtitle: 'Supplier qualification UX case study',
+      subtitle: 'Supplier qualification — enterprise B2B UX case study',
       image: '/images/projects/qualifyze_logo.png',
       color: 'from-emerald-600 to-teal-500',
       bg: 'bg-white',
@@ -86,7 +99,7 @@ export default function ProjectsGrid() {
       subTextColor: 'text-gray-600',
       badgeBg: 'bg-black/5',
       badgeText: 'text-gray-500',
-      number: '06',
+      number: '07',
       link: '/projects/qualifyze'
     },
   ];

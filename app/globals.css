@@ -1098,3 +1098,11 @@ body .copilotKitMessagesContainer {
 .copilotKitButton {
   display: none !important;
 }
+/* Hide horizontal scrollbar on flow galleries while keeping scrollability */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

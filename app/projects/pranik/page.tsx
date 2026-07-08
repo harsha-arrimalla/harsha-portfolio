@@ -1,6 +1,82 @@
 'use client';
 
 import CaseStudyLayout from '@/components/CaseStudyLayout';
+import FlowGallery, { FlowStep } from '@/components/FlowGallery';
+
+const flowSteps: FlowStep[] = [
+    {
+        src: '/images/projects/pranik/flow/01-onboarding.png',
+        title: 'Onboarding',
+        desc: 'A calm, low-jargon welcome that sets expectations: companion first, clinical tool second.',
+        phase: 'Enter',
+    },
+    {
+        src: '/images/projects/pranik/flow/02-signup.png',
+        title: 'Sign Up',
+        desc: 'Mobile-first sign-up asking only what care actually requires — trust starts with restraint.',
+        phase: 'Enter',
+    },
+    {
+        src: '/images/projects/pranik/flow/03-home.png',
+        title: 'Health Home',
+        desc: 'An in-depth summary of your medical history — reports, readings, and lifestyle guidance in plain language.',
+        phase: 'Understand',
+    },
+    {
+        src: '/images/projects/pranik/flow/04-ai-chat.png',
+        title: 'AI Chat',
+        desc: 'Users describe symptoms in their own words. No dropdown taxonomies — just "I feel dizzy."',
+        phase: 'Converse',
+    },
+    {
+        src: '/images/projects/pranik/flow/05-ai-chat-text.png',
+        title: 'Progressive Disclosure',
+        desc: 'The assistant reveals information step-by-step, checking understanding before adding complexity.',
+        phase: 'Converse',
+    },
+    {
+        src: '/images/projects/pranik/flow/06-select-avatar.png',
+        title: 'Choose Your Companion',
+        desc: 'Users pick the avatar they\'re most comfortable confiding in — tone and persona are a health feature.',
+        phase: 'Converse',
+    },
+    {
+        src: '/images/projects/pranik/flow/07-avatar-chat-overview.png',
+        title: 'Avatar Conversation',
+        desc: 'A face-to-face conversational mode for users who find typing about health intimidating.',
+        phase: 'Converse',
+    },
+    {
+        src: '/images/projects/pranik/flow/08-avatar-chat.png',
+        title: 'Guided Voice Dialogue',
+        desc: 'The avatar leads with questions and reassurance, mirroring how a good nurse triages.',
+        phase: 'Converse',
+    },
+    {
+        src: '/images/projects/pranik/flow/09-doctor-detail.png',
+        title: 'Doctor Handoff',
+        desc: 'When AI reaches its limits, the app hands off to a real doctor with full context — no dead ends.',
+        phase: 'Act',
+    },
+    {
+        src: '/images/projects/pranik/flow/10-appointments.png',
+        title: 'Appointments',
+        desc: 'Upcoming and past visits in one place, closing the loop between conversation and care.',
+        phase: 'Act',
+    },
+    {
+        src: '/images/projects/pranik/flow/11-reminders.png',
+        title: 'Reminders',
+        desc: 'Medication and follow-up reminders keep the companion useful between episodes of concern.',
+        phase: 'Act',
+    },
+    {
+        src: '/images/projects/pranik/flow/12-scanning.png',
+        title: 'Report Scanning',
+        desc: 'Scan a lab report and get it decoded into plain language — the jargon translator in action.',
+        phase: 'Understand',
+    },
+];
 
 export default function PranikCaseStudy() {
   const theme = {
@@ -118,6 +194,19 @@ export default function PranikCaseStudy() {
                 </div>
               ))}
             </div>
+          )
+        },
+        {
+          id: 'flow',
+          className: 'bg-slate-50',
+          content: (
+            <FlowGallery
+              eyebrow="Complete End-to-End Flow"
+              title="From first hello to real care"
+              description="The full journey as designed: a gentle entry, a home that decodes your health history, three ways to talk about symptoms — text, avatar, and voice — and a clean handoff to real doctors, appointments, and reminders."
+              steps={flowSteps}
+              accent="#7C3AED"
+            />
           )
         },
         {

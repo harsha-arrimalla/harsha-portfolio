@@ -3,48 +3,133 @@
 import { useInView as useIntersection } from '@/hooks/useInView';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AlertCircle } from 'lucide-react';
-import { useState } from 'react';
+import { AlertCircle, ShieldCheck, Lock } from 'lucide-react';
+import FlowGallery, { FlowStep } from '@/components/FlowGallery';
 
-const designScreens = [
+const ACCENT = '#EA580C'; // orange-600 — Miraee brand accent
+
+const flowSteps: FlowStep[] = [
     {
-        group: 'AI Conversation',
-        screens: [
-            { src: '/images/projects/miraee/01-ai-avatar.png', title: 'AI Avatar', desc: 'Voice-powered AI assistant with natural conversation' },
-            { src: '/images/projects/miraee/02-ai-avatar-flights.png', title: 'Avatar + Flight Results', desc: 'AI surfaces best flights within the conversation' },
-        ],
+        src: '/images/projects/miraee/flow/02-flight-search-card.png',
+        title: 'Conversational Flight Search',
+        desc: 'The assistant answers intent in-line with curated flight cards and a "Price to Beat" anchor, so users judge every option against a benchmark.',
+        phase: 'Search',
     },
     {
-        group: 'Booking Flow',
-        screens: [
-            { src: '/images/projects/miraee/03-flight-search.png', title: 'Flight Search', desc: 'AI-curated flight options with rewards and filters' },
-            { src: '/images/projects/miraee/04-hotel-search.png', title: 'Hotel Search', desc: 'Policy-aware hotel recommendations with ratings' },
-            { src: '/images/projects/miraee/05-car-rental.png', title: 'Car Rental', desc: 'Smart car picks based on location and travel policy' },
-            { src: '/images/projects/miraee/06-booking-confirmed.png', title: 'Booking Confirmed', desc: 'Unified confirmation with flight, hotel, and transfer' },
-        ],
+        src: '/images/projects/miraee/flow/04-flight-details.png',
+        title: 'Flight Details, Expanded In-Place',
+        desc: 'Full fare, baggage, and segment details expand inside the conversation — no context switch to a separate results site.',
+        phase: 'Search',
     },
     {
-        group: 'Management',
-        screens: [
-            { src: '/images/projects/miraee/07-expense-management.png', title: 'Expense Management', desc: 'Policy compliance tracking and receipt uploads' },
-            { src: '/images/projects/miraee/08-my-trips.png', title: 'My Trips', desc: 'Active, pending, and past trips with outcome tracking' },
-            { src: '/images/projects/miraee/09-approvals.png', title: 'Approvals', desc: 'AI-assisted approval flow for managers' },
-            { src: '/images/projects/miraee/10-notifications.png', title: 'Notifications', desc: 'Smart alerts for bookings, expenses, and approvals' },
-        ],
+        src: '/images/projects/miraee/flow/05-reason-for-selection.png',
+        title: 'Policy Check & Reasoning',
+        desc: 'When the only viable option is out of policy, the assistant explains exactly why, shows the cost delta, and routes an approval — before booking.',
+        phase: 'Govern',
+    },
+    {
+        src: '/images/projects/miraee/flow/06-addons-chat.png',
+        title: 'Add-ons in the Same Thread',
+        desc: 'Seat, insurance, and trip-protection add-ons are offered as compact cards inside the chat instead of an upsell funnel.',
+        phase: 'Refine',
+    },
+    {
+        src: '/images/projects/miraee/flow/07-hotel-options.png',
+        title: 'Hotel Options Overlay',
+        desc: 'Hotels follow the same card grammar as flights — one pattern to learn, policy state visible on every option.',
+        phase: 'Refine',
+    },
+    {
+        src: '/images/projects/miraee/flow/08-hotel-map-view.png',
+        title: 'Hotel Map View',
+        desc: 'A map overlay grounds hotel choices in distance to the actual meeting location — the thing corporate travelers really optimize for.',
+        phase: 'Refine',
+    },
+    {
+        src: '/images/projects/miraee/flow/01-chat-intent.png',
+        title: 'Group Booking Summary in Chat',
+        desc: 'For team trips, the assistant assembles the entire multi-traveler booking into one reviewable summary within the conversation.',
+        phase: 'Book',
+    },
+    {
+        src: '/images/projects/miraee/flow/09-booking-summary.png',
+        title: 'The Booking Summary Card',
+        desc: 'One card holds the whole trip — flight, hotel, car, add-ons — each line item carrying its own policy state and price.',
+        phase: 'Book',
+    },
+    {
+        src: '/images/projects/miraee/flow/10-all-items-approved.png',
+        title: 'Approval, With Reasons',
+        desc: 'Approvals show the manager\'s reasoning and conditions ("client-facing trip, this trip only"), not just a green tick.',
+        phase: 'Govern',
+    },
+    {
+        src: '/images/projects/miraee/flow/11-cancellation-failed.png',
+        title: 'When Payment Fails',
+        desc: 'Failure states separate the conversation from the agent activity stream: what failed, what\'s paid, what\'s pending, and what the agent is retrying.',
+        phase: 'Recover',
+    },
+    {
+        src: '/images/projects/miraee/flow/03-workspace-flights.png',
+        title: 'Workspace View',
+        desc: 'A persistent workspace holds structured trip state next to the chat, so long conversations never bury the actual booking.',
+        phase: 'System',
+    },
+    {
+        src: '/images/projects/miraee/flow/12-light-theme.png',
+        title: 'Theming & Accessibility',
+        desc: 'The full component system works in light and dark themes with WCAG-AA contrast on every conversational surface.',
+        phase: 'System',
+    },
+];
+
+const patterns = [
+    {
+        title: '"Price to Beat" — an anchor, not a filter',
+        image: '/images/projects/miraee/flow/02-flight-search-card.png',
+        problem: 'Corporate travelers don\'t want 200 flight results. They want to know: is this a fair price?',
+        decision:
+            'I put a single benchmark price — the "Price to Beat" — inline at the top of the results conversation instead of burying comparison in a separate matrix screen. Every card is judged against one number.',
+        tradeoff:
+            'I chose an inline anchor over a full comparison table because in a chat surface, horizontal comparison collapses on mobile. The anchor keeps the decision one-dimensional: beat it, or justify it.',
+    },
+    {
+        title: 'The Booking Summary card system',
+        image: '/images/projects/miraee/flow/09-booking-summary.png',
+        problem: 'A trip is many bookings — flight, hotel, car, add-ons — but the traveler and the approver both think of it as one thing.',
+        decision:
+            'One collapsible card holds the entire trip. Each line item carries its own policy chip (in policy / out of policy / flex), so the summary doubles as the compliance view.',
+        tradeoff:
+            'Line items expand in place rather than deep-linking to sub-screens. That costs some detail density but means the confirm action never leaves the user\'s sight.',
+    },
+    {
+        title: 'Policy transparency — the trust layer',
+        image: '/images/projects/miraee/flow/05-reason-for-selection.png',
+        problem: 'AI that silently books (or silently blocks) destroys trust on the first exception.',
+        decision:
+            'Every policy decision is surfaced with its reasoning: what rule fired, the exact cost delta, and why the assistant still recommends the option. Approvals return with the manager\'s reason and conditions attached.',
+        tradeoff:
+            'Showing reasoning adds vertical bulk to the chat. I accepted that cost on exception paths only — the happy path stays terse, the exception path over-explains. That asymmetry is deliberate.',
+    },
+    {
+        title: 'Designing for failure',
+        image: '/images/projects/miraee/flow/11-cancellation-failed.png',
+        problem: 'Multi-step agent bookings fail in the middle: one of three bookings succeeds, payment locks, providers time out.',
+        decision:
+            'Failures split into two channels — the conversation explains the human consequence (what\'s paid, what\'s pending), while a separate agent activity stream shows what the system is doing about it ("retrying payment… attempting again automatically").',
+        tradeoff:
+            'Separating conversation from activity stream duplicates some status information, but merging them made the chat read like a server log. Humans get the summary; the stream is there for the skeptical.',
     },
 ];
 
 export default function MiraeeCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
-    const [overviewRef, overviewInView] = useIntersection({ threshold: 0.1 });
     const [contextRef, contextInView] = useIntersection({ threshold: 0.1 });
     const [problemRef, problemInView] = useIntersection({ threshold: 0.1 });
-    const [solutionRef, solutionInView] = useIntersection({ threshold: 0.1 });
-    const [processRef, processInView] = useIntersection({ threshold: 0.1 });
+    const [ownedRef, ownedInView] = useIntersection({ threshold: 0.1 });
+    const [patternsRef, patternsInView] = useIntersection({ threshold: 0.05 });
     const [resultsRef, resultsInView] = useIntersection({ threshold: 0.1 });
-    const [screensRef, screensInView] = useIntersection({ threshold: 0.05 });
-    const [activeGroup, setActiveGroup] = useState('AI Conversation');
-
+    const [reflectionRef, reflectionInView] = useIntersection({ threshold: 0.1 });
 
     return (
         <div className="min-h-screen bg-white text-black">
@@ -54,36 +139,25 @@ export default function MiraeeCaseStudy() {
                 ref={heroRef}
                 className="relative h-screen flex items-center justify-center overflow-hidden bg-white text-black"
             >
-                {/* Animated gradient orbs */}
-                <div
-                    className="absolute top-20 left-10 w-[500px] h-[500px] bg-gradient-to-r from-blue-200/30 to-purple-200/30 rounded-full blur-3xl animate-float-slow"
-                />
-                <div
-                    className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-gradient-to-r from-pink-200/30 to-orange-200/30 rounded-full blur-3xl animate-float-slower"
-                />
+                <div className="absolute top-20 left-10 w-[500px] h-[500px] bg-gradient-to-r from-orange-200/30 to-amber-200/30 rounded-full blur-3xl animate-float-slow" />
+                <div className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-gradient-to-r from-pink-200/30 to-orange-200/30 rounded-full blur-3xl animate-float-slower" />
 
                 <div
                     className={`max-w-6xl mx-auto px-8 text-center z-10 transition-all duration-1000 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
                 >
                     <div className="flex justify-center mb-8">
-                        <div
-                            className={`h-[2px] bg-black transition-all duration-1000 ${heroInView ? 'w-16' : 'w-0'}`}
-                        />
+                        <div className={`h-[2px] bg-black transition-all duration-1000 ${heroInView ? 'w-16' : 'w-0'}`} />
                     </div>
 
-                    <span
-                        className={`block text-sm font-medium text-gray-500 uppercase tracking-[0.3em] mb-6 animate-fade-in-right ${heroInView ? 'opacity-100' : 'opacity-0'}`}
-                    >
-                        AI Product · Enterprise Travel
+                    <span className={`block text-sm font-medium text-gray-500 uppercase tracking-[0.3em] mb-6 animate-fade-in-right ${heroInView ? 'opacity-100' : 'opacity-0'}`}>
+                        Flagship Case Study · AI Travel Assistant · Shipped
                     </span>
 
-                    <h1
-                        className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[0.95] tracking-tight text-black"
-                    >
+                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[0.95] tracking-tight text-black">
                         {'Miraee'.split('').map((char, i) => (
                             <span
                                 key={i}
-                                className={`inline-block transition-all duration-300 hover:text-blue-600 hover:-translate-y-2 ${heroInView ? 'animate-slide-up' : 'opacity-0'}`}
+                                className={`inline-block transition-all duration-300 hover:text-orange-600 hover:-translate-y-2 ${heroInView ? 'animate-slide-up' : 'opacity-0'}`}
                                 style={{ animationDelay: `${i * 0.05}s` }}
                             >
                                 {char}
@@ -95,18 +169,16 @@ export default function MiraeeCaseStudy() {
                         className={`text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed animate-slide-up ${heroInView ? 'active' : ''}`}
                         style={{ animationDelay: '0.4s' }}
                     >
-                        AI-powered travel companion for corporate employees that brings structure, transparency, and outcomes to business travel.
+                        Designing an AI travel assistant where corporate travel — search, policy,
+                        booking, approval, and recovery — happens inside one conversation.
                     </p>
                 </div>
 
-                {/* Scroll indicator */}
                 <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-1000 ${heroInView ? 'opacity-50' : 'opacity-0'}`}>
                     <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center pt-2">
                         <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
                     </div>
                 </div>
-
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 pointer-events-none" />
             </section>
 
             {/* Project Info */}
@@ -115,11 +187,11 @@ export default function MiraeeCaseStudy() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Role</div>
-                            <div className="text-sm font-medium text-black">UI/UX · AI Product Designer</div>
+                            <div className="text-sm font-medium text-black">Product Designer — AI &amp; Conversational UX</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Type</div>
-                            <div className="text-sm font-medium text-black">Enterprise Travel</div>
+                            <div className="text-sm font-medium text-black">Enterprise Travel · Mobile</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Status</div>
@@ -133,54 +205,59 @@ export default function MiraeeCaseStudy() {
                 </div>
             </section>
 
-            {/* Visual Preview */}
-            <section className="py-20 bg-white">
-                <div className="max-w-6xl mx-auto px-8">
-                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01] border border-gray-100">
-                        <Image
-                            src="/images/projects/miraee.png"
-                            alt="Miraee Interface Preview"
-                            fill
-                            className="object-cover"
-                            priority
-                        />
+            {/* NDA note */}
+            <section className="py-6 bg-white">
+                <div className="max-w-4xl mx-auto px-8">
+                    <div className="flex items-start gap-4 p-6 rounded-2xl bg-amber-50 border border-amber-200">
+                        <Lock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+                        <p className="text-sm text-amber-900 leading-relaxed">
+                            <strong>A note on confidentiality.</strong> Miraee is company work and parts of it are
+                            covered by NDA. The screens below are recreated for portfolio use, proprietary numbers
+                            and unreleased features are omitted, and I describe patterns rather than internal data.
+                            A deeper walkthrough is available on request.
+                        </p>
                     </div>
                 </div>
             </section>
 
             {/* Context & Problem */}
-            <section ref={contextRef} className="py-32 px-8 bg-white">
+            <section ref={contextRef} className="py-24 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
                         <h2 className="text-4xl font-bold mb-8 text-black">The Context</h2>
                         <p className="text-xl text-gray-600 leading-relaxed mb-16">
-                            Miraee is designed for corporate employees who frequently travel for meetings, client visits, and team offsites. It acts as a single system to plan travel, manage expenses, and capture outcomes for both employees and company heads.
+                            Miraee is an AI assistant for corporate employees who travel for meetings, client
+                            visits, and offsites. Instead of a booking site plus an expense tool plus an approval
+                            email chain, the entire trip lives in one conversational surface — for the traveler
+                            and for the people governing the budget.
                         </p>
                     </div>
 
                     <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
                         <div>
                             <h3 className="text-2xl font-bold mb-4 text-red-500">The Problem</h3>
-                            <p className="text-gray-500 leading-relaxed italic mb-6">"Business travel was unsystematic and poorly governed."</p>
+                            <p className="text-gray-500 leading-relaxed italic mb-6">&quot;Business travel was unsystematic and poorly governed.&quot;</p>
                             <ul className="space-y-4 text-gray-600">
                                 <li className="flex gap-3 items-start">
                                     <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />
-                                    <span>No clear hierarchy or planning for trips.</span>
+                                    <span>Booking, policy, and approval lived in different tools with no shared context.</span>
                                 </li>
                                 <li className="flex gap-3 items-start">
                                     <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />
-                                    <span>Unnecessary extensions (2-day trips becoming 6-day stays).</span>
+                                    <span>Policy was enforced after the fact — travelers found out a booking was non-compliant when finance rejected it.</span>
                                 </li>
                                 <li className="flex gap-3 items-start">
                                     <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-1" />
-                                    <span>High costs without clear justification or outcomes.</span>
+                                    <span>High costs without clear justification, and approvers deciding with zero context.</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold mb-4 text-blue-500">Core Insight</h3>
+                            <h3 className="text-2xl font-bold mb-4 text-orange-600">Core Insight</h3>
                             <p className="text-gray-600 leading-relaxed">
-                                The real problem wasn’t booking travel — it was **decision-making and accountability**. Company heads lacked visibility, and employees lacked a system that considered their comfort alongside policy.
+                                The real problem wasn&apos;t booking travel — it was <strong className="text-gray-900">decision-making and accountability</strong>.
+                                If the assistant could carry policy, price context, and approval reasoning
+                                <em> inside</em> the conversation, both sides could trust the outcome.
                             </p>
                             <p className="mt-4 text-gray-800 font-medium">
                                 AI should act as a decision-support system, not just an automation tool.
@@ -190,191 +267,152 @@ export default function MiraeeCaseStudy() {
                 </div>
             </section>
 
-            {/* The Solution */}
-            <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
-                <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-20">
-                        <h2 className="text-5xl font-bold mb-6 text-black">The Solution</h2>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            A balanced ecosystem that provides freedom for employees and control for management.
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-blue-500/50 transition-colors shadow-sm">
-                            <h3 className="text-2xl font-bold mb-6 text-blue-500">For Employees</h3>
-                            <ul className="space-y-4 text-gray-600">
-                                <li>• Plan trips based on purpose</li>
-                                <li>• Independent booking (flights, hotels, cabs)</li>
-                                <li>• Manage all expenses in one place</li>
-                                <li>• Capture outcomes via voice or text</li>
-                            </ul>
-                        </div>
-                        <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-purple-500/50 transition-colors shadow-sm">
-                            <h3 className="text-2xl font-bold mb-6 text-purple-500">For Company Heads</h3>
-                            <ul className="space-y-4 text-gray-600">
-                                <li>• Track real-time travel costs</li>
-                                <li>• View trip outcomes, not just bills</li>
-                                <li>• Approve requests with full context</li>
-                                <li>• Measure real ROI of business travel</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* How it Works */}
-            <section ref={processRef} className="py-32 px-8 bg-white">
+            {/* What I owned */}
+            <section ref={ownedRef} className="py-24 px-8 bg-gray-50 border-y border-gray-100">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold mb-16 text-center text-black">How Miraee Works</h2>
-
-                    <div className="space-y-20">
-                        <div className={`transition-all duration-1000 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                            <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0">1</div>
-                                <div>
-                                    <h3 className="text-2xl font-bold mb-4 text-black">Trip Initiation</h3>
-                                    <p className="text-gray-600 mb-4">Miraee uses a dual-mode approach to capture intent:</p>
-                                    <div className="grid md:grid-cols-2 gap-4">
-                                        <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                            <div className="font-bold text-sm mb-2 text-blue-600">Proactive</div>
-                                            <p className="text-xs text-gray-500">Detects meetings via calendar and generates smart plans automatically.</p>
-                                        </div>
-                                        <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                            <div className="font-bold text-sm mb-2 text-blue-600">Reactive</div>
-                                            <p className="text-xs text-gray-500">Employees start trips manually by entering intent and purpose.</p>
-                                        </div>
-                                    </div>
+                    <div className={`transition-all duration-1000 reveal ${ownedInView ? 'active' : ''}`}>
+                        <h2 className="text-4xl font-bold mb-10 text-black">What I Owned</h2>
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {[
+                                {
+                                    title: 'The conversational booking experience',
+                                    desc: 'End-to-end interaction design of the chat surface — flight, hotel, and car search cards, overlays, add-ons, and the booking summary system.',
+                                },
+                                {
+                                    title: 'The policy & trust layer',
+                                    desc: 'How policy checks, out-of-policy reasoning, approvals, and exceptions are surfaced in conversation — designed with PM and engineering against real policy rules.',
+                                },
+                                {
+                                    title: 'Failure & recovery states',
+                                    desc: 'The messy middle: partial bookings, payment failures, cancellations, and the agent activity stream that shows what the system is doing about them.',
+                                },
+                            ].map((item) => (
+                                <div key={item.title} className="p-7 rounded-2xl bg-white border border-gray-200 shadow-sm">
+                                    <ShieldCheck className="w-6 h-6 text-orange-600 mb-4" />
+                                    <h3 className="font-bold text-black mb-2">{item.title}</h3>
+                                    <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
                                 </div>
-                            </div>
+                            ))}
                         </div>
-
-                        <div className={`transition-all duration-1000 delay-150 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                            <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0">2</div>
-                                <div>
-                                    <h3 className="text-2xl font-bold mb-4 text-black">Planning & Policy Handling</h3>
-                                    <p className="text-gray-600">
-                                        Miraee suggests plans that balance employee preferences with company policy. Within-policy bookings are confirmed instantly, while exceptions are routed for context-aware approval.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`transition-all duration-1000 delay-300 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                            <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold shrink-0">3</div>
-                                <div>
-                                    <h3 className="text-2xl font-bold mb-4 text-black">Outcome Capture</h3>
-                                    <p className="text-gray-600">
-                                        Post-trip, employees record outcomes via text or voice. Miraee's AI summarizes these insights, updating the company dashboard to reflect the trip's actual value.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                        <p className="mt-8 text-sm text-gray-500">
+                            I worked alongside product, engineering, and the AI team; conversational
+                            architecture and model behavior were shared decisions — the interaction patterns
+                            and visual system below are mine.
+                        </p>
                     </div>
                 </div>
             </section>
 
-            {/* Design Screens Gallery */}
-            <section ref={screensRef} className="py-32 px-8 bg-white border-t border-gray-100">
+            {/* Pattern teardowns */}
+            <section ref={patternsRef} className="py-28 px-8 bg-white">
                 <div className="max-w-6xl mx-auto">
-                    <div className={`text-center mb-16 transition-all duration-1000 ${screensInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
-                        <span className="text-sm font-medium text-blue-600 uppercase tracking-[0.3em] mb-4 block">End-to-End Design</span>
-                        <h2 className="text-5xl font-bold mb-6 text-black">The Screens</h2>
-                        <p className="text-xl text-gray-500 max-w-2xl mx-auto">
-                            A complete mobile experience — from AI conversation to booking, expenses, and approvals.
+                    <div className={`max-w-3xl mb-20 transition-all duration-1000 ${patternsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                        <span className="block text-xs font-bold uppercase tracking-[0.3em] mb-4 text-orange-600">Key Decisions</span>
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">Four patterns that carry the product</h2>
+                        <p className="text-lg text-gray-500 leading-relaxed">
+                            Each pattern below states the problem, the decision, and the tradeoff I made —
+                            because in AI UX the interesting part is never the happy path.
                         </p>
                     </div>
 
-                    {/* Group Tabs */}
-                    <div className={`flex justify-center gap-3 mb-16 transition-all duration-1000 delay-150 ${screensInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                        {designScreens.map((group) => (
-                            <button
-                                key={group.group}
-                                onClick={() => setActiveGroup(group.group)}
-                                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
-                                    activeGroup === group.group
-                                        ? 'bg-black text-white shadow-lg scale-105'
-                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                                }`}
+                    <div className="space-y-24">
+                        {patterns.map((pattern, i) => (
+                            <div
+                                key={pattern.title}
+                                className={`grid md:grid-cols-2 gap-10 md:gap-16 items-center ${i % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}
                             >
-                                {group.group}
-                            </button>
+                                <div className="relative aspect-[9/16] max-w-[340px] mx-auto w-full rounded-[28px] overflow-hidden border border-gray-200 bg-gray-50 shadow-lg">
+                                    <Image
+                                        src={pattern.image}
+                                        alt={pattern.title}
+                                        fill
+                                        sizes="(max-width: 768px) 90vw, 340px"
+                                        className="object-cover object-top"
+                                    />
+                                </div>
+                                <div>
+                                    <span className="text-sm font-black text-orange-600 tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                                    <h3 className="text-2xl md:text-3xl font-bold mt-2 mb-6 text-black">{pattern.title}</h3>
+                                    <dl className="space-y-5">
+                                        <div>
+                                            <dt className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1.5">Problem</dt>
+                                            <dd className="text-gray-600 leading-relaxed">{pattern.problem}</dd>
+                                        </div>
+                                        <div>
+                                            <dt className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1.5">Decision</dt>
+                                            <dd className="text-gray-600 leading-relaxed">{pattern.decision}</dd>
+                                        </div>
+                                        <div>
+                                            <dt className="text-xs font-bold uppercase tracking-widest text-orange-600/70 mb-1.5">Tradeoff</dt>
+                                            <dd className="text-gray-700 leading-relaxed font-medium">{pattern.tradeoff}</dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </div>
                         ))}
                     </div>
-
-                    {/* Screens Grid */}
-                    {designScreens.map((group) => (
-                        <div
-                            key={group.group}
-                            className={`transition-all duration-500 ${
-                                activeGroup === group.group ? 'block' : 'hidden'
-                            }`}
-                        >
-                            <div className={`grid gap-8 ${
-                                group.screens.length <= 2
-                                    ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto'
-                                    : 'grid-cols-2 lg:grid-cols-4'
-                            }`}>
-                                {group.screens.map((screen, i) => (
-                                    <div
-                                        key={screen.title}
-                                        className={`group transition-all duration-700 ${
-                                            screensInView
-                                                ? 'opacity-100 translate-y-0'
-                                                : 'opacity-0 translate-y-12'
-                                        }`}
-                                        style={{ transitionDelay: `${200 + i * 100}ms` }}
-                                    >
-                                        <div
-                                            className="relative aspect-[9/19.5] rounded-[24px] overflow-hidden bg-gray-50 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-500 hover:scale-[1.02]"
-                                        >
-                                            <Image
-                                                src={screen.src}
-                                                alt={screen.title}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                            <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                                <p className="text-white text-xs font-medium">{screen.desc}</p>
-                                            </div>
-                                        </div>
-                                        <div className="mt-4 text-center">
-                                            <h4 className="text-sm font-semibold text-black">{screen.title}</h4>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
                 </div>
+            </section>
 
-
+            {/* Complete E2E flow */}
+            <section className="py-28 px-8 bg-gray-50 border-y border-gray-100 overflow-hidden">
+                <div className="max-w-6xl mx-auto">
+                    <FlowGallery
+                        eyebrow="Complete End-to-End Flow"
+                        title="From intent to recovery, in one conversation"
+                        description="The full journey as shipped: search with a price anchor, refine with add-ons and hotels, book through the summary card, govern through policy and approvals — and recover when the real world fails mid-booking."
+                        steps={flowSteps}
+                        accent={ACCENT}
+                    />
+                </div>
             </section>
 
             {/* Impact */}
-            <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
+            <section ref={resultsRef} className="py-28 px-8 bg-white">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome & Impact</h2>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div className="text-5xl font-bold text-blue-600 mb-2">Live</div>
-                            <div className="text-xl font-semibold mb-2 text-black">In Production</div>
-                            <p className="text-gray-500 text-sm">Successfully deployed to corporate clients</p>
+                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome &amp; Impact</h2>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="p-10 rounded-2xl bg-gray-50 border border-gray-200">
+                            <div className="text-4xl font-black text-orange-600 mb-2">Shipped</div>
+                            <div className="text-lg font-semibold mb-2 text-black">In Production</div>
+                            <p className="text-gray-500 text-sm">Live with corporate clients. Adoption and cost metrics are NDA-restricted — happy to discuss in a walkthrough.</p>
                         </div>
-                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div className="text-2xl font-bold text-gray-800 mb-2">Unbiased</div>
-                            <div className="text-xl font-semibold mb-2 text-black">Approval Flow</div>
-                            <p className="text-gray-500 text-sm">Transparent decision-making for management</p>
+                        <div className="p-10 rounded-2xl bg-gray-50 border border-gray-200">
+                            <div className="text-4xl font-black text-black mb-2">1 System</div>
+                            <div className="text-lg font-semibold mb-2 text-black">Card Grammar</div>
+                            <p className="text-gray-500 text-sm">Flights, hotels, cars, add-ons, and approvals share one component grammar — new booking types slot in without new patterns.</p>
+                        </div>
+                        <div className="p-10 rounded-2xl bg-gray-50 border border-gray-200">
+                            <div className="text-4xl font-black text-black mb-2">0 Silent</div>
+                            <div className="text-lg font-semibold mb-2 text-black">Policy Decisions</div>
+                            <p className="text-gray-500 text-sm">Every block, exception, and approval carries visible reasoning — the trust layer is the product.</p>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <div className="mt-16 p-8 rounded-2xl bg-blue-50 border border-blue-100">
-                        <p className="text-lg text-blue-800 italic">
-                            “Miraee connects business travel decisions with real outcomes using AI-assisted, conversational UX.”
-                        </p>
+            {/* Reflection */}
+            <section ref={reflectionRef} className="py-28 px-8 bg-gray-50 border-t border-gray-100">
+                <div className="max-w-3xl mx-auto">
+                    <div className={`transition-all duration-1000 reveal ${reflectionInView ? 'active' : ''}`}>
+                        <h2 className="text-4xl font-bold mb-10 text-black">What I&apos;d Do Differently</h2>
+                        <ul className="space-y-6 text-lg text-gray-600 leading-relaxed">
+                            <li>
+                                <strong className="text-black">Design the failure states first.</strong> I designed the
+                                happy path, then retrofitted recovery. The payment-failure work ended up defining the
+                                product&apos;s trust model — it should have been the starting point.
+                            </li>
+                            <li>
+                                <strong className="text-black">Prototype with the real model earlier.</strong> Static
+                                mocks hid how variable AI responses stretch card layouts. Testing with live model output
+                                sooner would have saved a layout-system rework.
+                            </li>
+                            <li>
+                                <strong className="text-black">Push harder on the approver&apos;s side.</strong> Most of my
+                                iteration budget went to the traveler. The approval experience shipped well, but it
+                                deserved the same depth of exception-path design.
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -382,16 +420,10 @@ export default function MiraeeCaseStudy() {
             {/* Navigation */}
             <section className="py-16 px-8 border-t border-gray-200 bg-white">
                 <div className="max-w-4xl mx-auto flex justify-between items-center">
-                    <Link
-                        href="/projects/hita"
-                        className="text-gray-500 hover:text-black transition-colors"
-                    >
+                    <Link href="/projects/hita" className="text-gray-500 hover:text-black transition-colors">
                         ← Previous: Hita
                     </Link>
-                    <Link
-                        href="/projects/aarna"
-                        className="text-gray-500 hover:text-black transition-colors"
-                    >
+                    <Link href="/projects/aarna" className="text-gray-500 hover:text-black transition-colors">
                         Next: Aarna →
                     </Link>
                 </div>

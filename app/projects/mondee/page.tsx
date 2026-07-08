@@ -6,6 +6,42 @@ import Navigation from '@/components/Navigation';
 import BackButton from '@/components/BackButton';
 import Image from 'next/image';
 import { AlertCircle } from 'lucide-react';
+import FlowGallery, { FlowStep } from '@/components/FlowGallery';
+
+const flowSteps: FlowStep[] = [
+    {
+        src: '/images/projects/mondee/flow/01-home.jpg',
+        title: 'Marketplace Home',
+        desc: 'The entry point for travel agents and partners — search, deals, and account context organized for daily high-volume use rather than one-off consumer browsing.',
+        phase: 'Discover',
+        w: 2430,
+        h: 1350,
+    },
+    {
+        src: '/images/projects/mondee/flow/02-search-results.png',
+        title: 'Flight Search Results',
+        desc: 'Dense fare data restructured with a strict hierarchy: airline, times, and net fare scannable in one pass, with commissions and fare rules a click deep instead of cluttering every row.',
+        phase: 'Search',
+        w: 2790,
+        h: 1667,
+    },
+    {
+        src: '/images/projects/mondee/flow/03-flexible-ticket.png',
+        title: 'Flexible Ticket Options',
+        desc: 'Fare flexibility — changes, cancellations, protection — surfaced as a comparable choice at decision time, reducing the support tickets caused by opaque fare rules.',
+        phase: 'Decide',
+        w: 2790,
+        h: 1667,
+    },
+    {
+        src: '/images/projects/mondee/flow/04-packages.png',
+        title: 'Packages',
+        desc: 'Multi-component packages built on the same layout grammar as flights, so agents carry one mental model across product lines.',
+        phase: 'Extend',
+        w: 2790,
+        h: 1620,
+    },
+];
 
 export default function MondeeCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -238,6 +274,20 @@ export default function MondeeCaseStudy() {
                 </div>
             </section>
 
+            {/* End-to-End Flow */}
+            <section className="py-32 px-8 bg-gray-50 border-t border-gray-100 overflow-hidden">
+                <div className="max-w-6xl mx-auto">
+                    <FlowGallery
+                        eyebrow="Complete End-to-End Flow"
+                        title="The agent booking journey"
+                        description="Key surfaces from the shipped platform: home, search, fare flexibility, and packages — each redesigned around scan speed and error prevention for users who do this hundreds of times a day."
+                        steps={flowSteps}
+                        variant="desktop"
+                        accent="#EA580C"
+                    />
+                </div>
+            </section>
+
             {/* Impact */}
             <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-4xl mx-auto text-center">
@@ -271,10 +321,10 @@ export default function MondeeCaseStudy() {
                         ← Previous: Pranik
                     </Link>
                     <Link
-                        href="/"
+                        href="/projects/equora"
                         className="text-gray-500 hover:text-black transition-colors"
                     >
-                        Back to Work →
+                        Next: Equora →
                     </Link>
                 </div>
             </section>

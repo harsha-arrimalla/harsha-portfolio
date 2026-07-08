@@ -2,19 +2,19 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: "Harsha's Portfolio",
-  description: 'Designing AI experiences that users trust—from concept to code. Specializing in conversational AI, healthcare, and enterprise platforms.',
-  keywords: ['UI/UX Designer', 'AI Developer', 'Full-Stack Developer', 'Conversational AI', 'Healthcare UX', 'Enterprise Design'],
-  authors: [{ name: 'Harsha' }],
+  title: 'Harsha Arrimalla — AI Product Design Engineer',
+  description: 'AI product design engineer who ships. I design and build AI-native, conversational, and multi-agent experiences end-to-end — shipped enterprise AI travel assistants, a 10K+ user marketplace, and solo full-stack AI products.',
+  keywords: ['AI Product Designer', 'Design Engineer', 'Conversational AI', 'Agentic UX', 'Multi-Agent UX', 'Product Designer', 'AI UX'],
+  authors: [{ name: 'Harsha Arrimalla' }],
   openGraph: {
-    title: "Harsha's Portfolio",
-    description: 'Designing AI experiences that users trust—from concept to code',
+    title: 'Harsha Arrimalla — AI Product Design Engineer',
+    description: 'I design and ship AI-native, conversational, and multi-agent experiences end-to-end.',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Harsha's Portfolio",
-    description: 'Designing AI experiences that users trust—from concept to code',
+    title: 'Harsha Arrimalla — AI Product Design Engineer',
+    description: 'I design and ship AI-native, conversational, and multi-agent experiences end-to-end.',
   },
   robots: {
     index: true,
@@ -25,9 +25,13 @@ export const metadata: Metadata = {
 import { LoadingProvider } from '@/components/LoadingContext'
 import dynamic from 'next/dynamic'
 
-// Dynamically import heavy client-side components to reduce initial bundle size
-const CopilotWrapper = dynamic(() => import('@/components/CopilotWrapper'), { ssr: false })
-const SmoothScroll = dynamic(() => import('@/components/SmoothScroll'), { ssr: false })
+// CopilotWrapper and SmoothScroll wrap the page content, so they must be
+// statically imported — a dynamic ssr:false import here would strip every page
+// out of the server-rendered HTML (blank first paint, nothing for crawlers).
+import CopilotWrapper from '@/components/CopilotWrapper'
+import SmoothScroll from '@/components/SmoothScroll'
+
+// Dynamically import heavy client-side overlays to reduce initial bundle size
 const CustomCursor = dynamic(() => import('@/components/CustomCursor'), { ssr: false })
 const MouseFollower = dynamic(() => import('@/components/MouseFollower'), { ssr: false })
 const OilPaintBackground = dynamic(() => import('@/components/OilPaintBackground'), { ssr: false })

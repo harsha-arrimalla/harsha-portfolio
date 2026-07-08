@@ -202,7 +202,7 @@ export default function HeroSection() {
 
           {/* Subtitle */}
           <p className="hero-subtitle text-base md:text-lg text-gray-500 mb-10 max-w-lg leading-relaxed font-medium pl-1 border-l-2 border-gray-200 ml-1">
-            AI-first UX for enterprise, travel, and healthcare platforms—focused on clarity, decision-making, and scale.
+            AI product design engineer — I design and ship AI-native, conversational, and multi-agent experiences end-to-end, from Figma to production code.
           </p>
 
           {/* CTAs */}
