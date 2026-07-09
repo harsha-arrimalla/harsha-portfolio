@@ -189,6 +189,104 @@ export default function HitaCaseStudy() {
                 </div>
             </section>
 
+            {/* The 12-agent architecture */}
+            <section className="py-28 px-8 bg-[#0B0B14] text-white overflow-hidden">
+                <div className="max-w-6xl mx-auto">
+                    <SectionHeading
+                        kicker="The System"
+                        title="Twelve agents, one conversation"
+                        description="Under the single chat surface, Hita runs an orchestrator that routes each turn to specialized agents. The user never sees the machinery — they see one companion that happens to know flights, weather, budgets, and when to say no."
+                    />
+
+                    {/* Orchestrator */}
+                    <div className="rounded-2xl border border-indigo-400/40 bg-indigo-500/10 px-6 py-5 text-center mb-4">
+                        <div className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-300 mb-1">Orchestrator</div>
+                        <p className="text-sm text-white/60">Parses each turn, routes to agents, merges their outputs into one reply</p>
+                    </div>
+                    <div className="flex justify-center mb-4" aria-hidden="true">
+                        <div className="w-px h-6 bg-indigo-400/40" />
+                    </div>
+
+                    {/* Agent lanes */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+                        {[
+                            {
+                                lane: 'Understand',
+                                agents: [
+                                    ['Intent Parser', 'Turns "somewhere cool this evening" into structured intent'],
+                                    ['Context & Memory', 'Carries the trip state and past preferences across turns'],
+                                    ['Preference Profile', 'Learns pace, budget comfort, and food constraints'],
+                                ],
+                            },
+                            {
+                                lane: 'Plan',
+                                agents: [
+                                    ['Itinerary Planner', 'Builds and re-sequences the day around fixed anchors'],
+                                    ['Weather & Time', 'Shifts outdoor plans around heat, rain, and daylight'],
+                                    ['Local Discovery', 'Finds places and experiences near the current plan'],
+                                ],
+                            },
+                            {
+                                lane: 'Act',
+                                agents: [
+                                    ['Flights', 'Searches and holds flight options'],
+                                    ['Stays', 'Matches stays to location, budget, and vibe'],
+                                    ['Transport', 'Plans the last mile between plan items'],
+                                ],
+                            },
+                            {
+                                lane: 'Trust',
+                                agents: [
+                                    ['Budget Guard', 'Tracks spend against the stated budget before booking'],
+                                    ['Safety & Guardrails', 'Blocks hallucinated places and impossible routings'],
+                                    ['Summarizer', 'Compresses agent activity into the reply the user reads'],
+                                ],
+                            },
+                        ].map((lane) => (
+                            <div key={lane.lane} className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                                <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-indigo-300/80 mb-3 text-center">{lane.lane}</div>
+                                <div className="space-y-3">
+                                    {lane.agents.map(([name, desc]) => (
+                                        <div key={name} className="rounded-xl border border-white/10 bg-white/[0.05] px-3.5 py-3">
+                                            <div className="text-sm font-bold text-white mb-0.5">{name}</div>
+                                            <div className="text-[11px] leading-relaxed text-white/50">{desc}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Conversation vs activity + stack */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+                            <h3 className="text-lg font-bold mb-3 text-white">Conversation ≠ activity stream</h3>
+                            <p className="text-sm text-white/60 leading-relaxed">
+                                The chat only ever shows the Summarizer&apos;s human-readable reply. What the twelve
+                                agents actually did each turn lives in a separate activity layer — inspectable when
+                                you want proof, invisible when you want a friend. Merging the two made every answer
+                                read like a server log; separating them is the core trust decision of the product.
+                            </p>
+                        </div>
+                        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+                            <h3 className="text-lg font-bold mb-3 text-white">Designed and built solo</h3>
+                            <p className="text-sm text-white/60 leading-relaxed mb-4">
+                                The whole system — design, frontend, backend, and agent orchestration — is my own
+                                build, shipped with an AI-first workflow (Claude Code for scaffolding and iteration,
+                                Figma for the design system).
+                            </p>
+                            <div className="flex flex-wrap gap-2">
+                                {['Next.js 15', 'Expo React Native', 'Fastify', 'Supabase', 'Claude API', 'Claude Code'].map((t) => (
+                                    <span key={t} className="text-[11px] font-semibold px-3 py-1.5 rounded-full border border-indigo-400/30 bg-indigo-500/10 text-indigo-200">
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* How it Works */}
             <section ref={processRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">

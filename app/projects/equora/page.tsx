@@ -2,6 +2,7 @@
 
 import CaseStudyLayout from '@/components/CaseStudyLayout';
 import FlowGallery, { FlowStep } from '@/components/FlowGallery';
+import IterationStrip from '@/components/IterationStrip';
 
 const ACCENT = '#22C55E';
 
@@ -150,6 +151,46 @@ export default function EquoraCaseStudy() {
                                 </div>
                             ))}
                             </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 'explorations',
+                    title: 'The Process',
+                    className: 'bg-zinc-950',
+                    content: (
+                        <div>
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-white">Four takes on the home screen</h3>
+                            <IterationStrip
+                                dark
+                                intro="The home screen decides whether the wallet reads calm or chaotic, so it was designed as four competing layouts — same data, different answers to what deserves the most weight: the balance, the address, or the actions."
+                                items={[
+                                    {
+                                        src: '/images/projects/equora/explorations/home-alt1.png',
+                                        label: 'Direction A',
+                                        verdict: 'Compact balance with underline tabs — the densest option, strongest for frequent traders, weakest for first-time holders.',
+                                        status: 'explored',
+                                    },
+                                    {
+                                        src: '/images/projects/equora/explorations/home-alt2.png',
+                                        label: 'Direction B',
+                                        verdict: 'Wallet address promoted beside the balance with pill tabs — great for power users who copy addresses daily, noise for everyone else.',
+                                        status: 'killed',
+                                    },
+                                    {
+                                        src: '/images/projects/equora/explorations/home-alt3.png',
+                                        label: 'Direction C',
+                                        verdict: 'Centered balance with change badge and boxed action tiles — the calmest hierarchy, but the tiles ate vertical space above the token list.',
+                                        status: 'evolved',
+                                    },
+                                    {
+                                        src: '/images/projects/equora/flow/04-home.png',
+                                        label: 'Shipped',
+                                        verdict: 'The shipped screen keeps Direction C\'s balance-first calm with A\'s compact action row — value first, tokens second, address one tap away.',
+                                        status: 'shipped',
+                                    },
+                                ]}
+                            />
                         </div>
                     )
                 },

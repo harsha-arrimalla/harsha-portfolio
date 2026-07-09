@@ -197,6 +197,34 @@ export default function MondeeCaseStudy() {
                 </div>
             </section>
 
+            {/* What I owned */}
+            <section className="py-24 px-8 bg-white border-t border-gray-100">
+                <div className="max-w-4xl mx-auto">
+                    <SectionHeading kicker="My Role" title="What I owned" />
+                    <div className="grid md:grid-cols-3 gap-6">
+                        {[
+                            {
+                                title: 'The booking surfaces',
+                                desc: 'Search results, fare flexibility, and packages — the screens agents live in all day, redesigned around scan speed and error prevention.',
+                            },
+                            {
+                                title: 'Pattern consistency',
+                                desc: 'One layout grammar across product lines so a new module never means a new mental model — components specified with engineers, not thrown over the wall.',
+                            },
+                            {
+                                title: 'Working inside constraints',
+                                desc: 'Every decision negotiated against backend dependencies and operational edge cases with PMs, engineers, and ops stakeholders — shippable beat ideal.',
+                            },
+                        ].map((item) => (
+                            <div key={item.title} className="p-7 rounded-2xl bg-gray-50 border border-gray-200">
+                                <h3 className="font-bold text-black mb-2">{item.title}</h3>
+                                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* The Solution */}
             <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
                 <div className="max-w-6xl mx-auto">

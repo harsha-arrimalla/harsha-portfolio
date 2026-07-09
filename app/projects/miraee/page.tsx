@@ -7,6 +7,7 @@ import FlowGallery, { FlowStep } from '@/components/FlowGallery';
 import CaseStudyNav from '@/components/CaseStudyNav';
 import Footer from '@/components/Footer';
 import SectionHeading from '@/components/SectionHeading';
+import IterationStrip from '@/components/IterationStrip';
 
 const ACCENT = '#EA580C'; // orange-600 — Miraee brand accent
 
@@ -299,6 +300,69 @@ export default function MiraeeCaseStudy() {
                             architecture and model behavior were shared decisions — the interaction patterns
                             and visual system below are mine.
                         </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* The messy middle — working iterations */}
+            <section className="py-28 px-8 bg-white">
+                <div className="max-w-6xl mx-auto">
+                    <SectionHeading
+                        kicker="The Process"
+                        title="The messy middle"
+                        description="AI products don't fail in polished mockups — they fail in the turns between them. Two threads of working material: the intake conversation that shapes every trip, and the failure family that ended up defining the trust model."
+                    />
+
+                    <div className="space-y-20">
+                        <IterationStrip
+                            heading="Scripting the conversation before the UI"
+                            intro="Before any visual design, I scripted the intake dialogue turn by turn — destination, dates, duration, search scope, travelers, purpose. The working rule: never ask an open-ended question when a set of chips can carry the answer. Every turn below offers structured quick-replies, because free-text answers are where slot-filling conversations stall."
+                            items={[
+                                {
+                                    src: '/images/projects/miraee/iterations/flight-options-v1.png',
+                                    label: 'Turns 1–3',
+                                    verdict: 'Destination, dates, and duration — each confirmed back to the user before moving on, so a wrong assumption never travels three turns deep.',
+                                    status: 'evolved',
+                                },
+                                {
+                                    src: '/images/projects/miraee/iterations/flight-options-v2.png',
+                                    label: 'Traveler count',
+                                    verdict: 'The clarifying turn: group trips need explicit traveler counts (adults, children, infants) before search — asking later invalidates results.',
+                                    status: 'evolved',
+                                },
+                                {
+                                    src: '/images/projects/miraee/iterations/flight-options-v3.png',
+                                    label: 'Trip purpose',
+                                    verdict: 'Purpose ("client meeting" vs "offsite") became an intake question once we realized policy rules depend on it — it gates the whole downstream flow.',
+                                    status: 'shipped',
+                                },
+                            ]}
+                        />
+
+                        <IterationStrip
+                            heading="The failure family"
+                            intro="Multi-step agent bookings fail partially: one of three items succeeds, payment locks, a provider times out. I designed failure as a severity ladder rather than one generic error — each level answers what's paid, what's pending, and what happens next."
+                            items={[
+                                {
+                                    src: '/images/projects/miraee/iterations/failure-v2.png',
+                                    label: 'Total failure',
+                                    verdict: 'Nothing booked: a single failed state, total amount held, and the agent stream showing the automatic retry.',
+                                    status: 'evolved',
+                                },
+                                {
+                                    src: '/images/projects/miraee/iterations/failure-v1.png',
+                                    label: 'Partial failure',
+                                    verdict: 'The hard case — flight succeeded, hotel failed, retry exhausted. Per-item states, paid vs. pending split, and escalation to a human support agent.',
+                                    status: 'evolved',
+                                },
+                                {
+                                    src: '/images/projects/miraee/flow/11-cancellation-failed.png',
+                                    label: 'Shipped state',
+                                    verdict: 'The final model: conversation explains the human consequence, the agent activity stream shows the recovery work — two channels, one truth.',
+                                    status: 'shipped',
+                                },
+                            ]}
+                        />
                     </div>
                 </div>
             </section>

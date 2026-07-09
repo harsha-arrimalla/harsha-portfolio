@@ -2,6 +2,7 @@
 
 import CaseStudyLayout from '@/components/CaseStudyLayout';
 import FlowGallery, { FlowStep } from '@/components/FlowGallery';
+import IterationStrip from '@/components/IterationStrip';
 
 const ACCENT = '#3B82F6';
 
@@ -169,6 +170,37 @@ export default function AarnaCaseStudy() {
                     )
                 },
                 {
+                    id: 'role',
+                    title: 'My Role',
+                    className: 'bg-white',
+                    content: (
+                        <div>
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-slate-900">What I owned</h3>
+                            <div className="grid md:grid-cols-3 gap-6">
+                                {[
+                                    {
+                                        title: 'Product design lead',
+                                        desc: 'Led design across both sides of the marketplace as one of two designers, owning the end-to-end experience from creator intake to traveler booking.',
+                                    },
+                                    {
+                                        title: 'The conversational systems',
+                                        desc: 'Designed the guided creation dialogue for creators and the Abhee discovery-and-planning conversation for travelers — one grammar, two audiences.',
+                                    },
+                                    {
+                                        title: 'Shipping with the team',
+                                        desc: 'Worked directly with four engineers on what the AI could reliably extract and generate, and with the second designer on the visual system and listing surfaces.',
+                                    },
+                                ].map((item) => (
+                                    <div key={item.title} className="p-7 rounded-2xl bg-slate-50 border border-slate-200">
+                                        <h4 className="font-bold text-slate-900 mb-2">{item.title}</h4>
+                                        <p className="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )
+                },
+                {
                     id: 'creator-side',
                     title: 'The Solution · Supply Side',
                     className: 'bg-slate-50',
@@ -194,6 +226,44 @@ export default function AarnaCaseStudy() {
                                     </div>
                                 ))}
                             </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 'explorations',
+                    title: 'The Process',
+                    content: (
+                        <div>
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-slate-900">Three directions for Discover</h3>
+                            <IterationStrip
+                                intro="Discover is where an undecided traveler either engages or leaves, so it got real alternatives — not one direction polished four times. Each was a different answer to the same question: what should an AI assistant lead with when the user doesn't know what they want yet?"
+                                items={[
+                                    {
+                                        src: '/images/projects/aarna/iterations/discover-v1.jpg',
+                                        label: 'Mood-first feed',
+                                        verdict: '"What\'s the vibe today?" — mood chips scope the feed before any inventory shows. Strongest at turning a fuzzy state of mind into a filter.',
+                                        status: 'evolved',
+                                    },
+                                    {
+                                        src: '/images/projects/aarna/iterations/discover-v2.jpg',
+                                        label: 'Proactive planner',
+                                        verdict: '"Feeling bored? 3 ways to own your day" — the assistant proposes ready plans unprompted. Great for empty-state moments; too pushy as the default screen.',
+                                        status: 'evolved',
+                                    },
+                                    {
+                                        src: '/images/projects/aarna/iterations/discover-v3.jpg',
+                                        label: 'Avatar companion',
+                                        verdict: 'A full-screen visual companion fronting discovery. Charismatic, but it hid inventory behind conversation and raised latency and cost — cut from Discover, kept for chat.',
+                                        status: 'killed',
+                                    },
+                                    {
+                                        src: '/images/projects/aarna/flow/02-discover.jpg',
+                                        label: 'Shipped',
+                                        verdict: 'The shipped feed blends the first two: mood-scoped curation with proactive suggestion moments, and the companion one tap away instead of in front.',
+                                        status: 'shipped',
+                                    },
+                                ]}
+                            />
                         </div>
                     )
                 },

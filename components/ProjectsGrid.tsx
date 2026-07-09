@@ -149,15 +149,66 @@ export default function ProjectsGrid() {
           </KineticText>
         </div>
 
-        {/* Projects grid */}
+        {/* Featured case studies — the three deep ones */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, index) => (
+          {projects.slice(0, 3).map((project, index) => (
             <ProjectCard key={index} project={project} index={index} isInView={isInView} />
           ))}
         </div>
 
+        {/* More work — secondary tier, kept deliberately lighter */}
+        <div className="mt-20 md:mt-28">
+          <div className="flex items-center gap-6 mb-10">
+            <div className="h-[1px] bg-black/20 w-12 md:w-20" />
+            <span className="text-xs tracking-[0.3em] uppercase font-bold text-gray-400">More Work</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            {projects.slice(3).map((project, index) => (
+              <CompactProjectCard key={project.title} project={project} index={index} isInView={isInView} />
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
+  );
+}
+
+function CompactProjectCard({ project, index, isInView }: { project: any; index: number; isInView: boolean }) {
+  return (
+    <Link href={project.link || '#'} data-cursor="View">
+      <div
+        className="group flex items-center gap-5 p-5 md:p-6 rounded-3xl border border-black/5 bg-white shadow-sm hover:shadow-xl hover:border-black/10 transition-all duration-500 cursor-pointer"
+        style={{
+          opacity: isInView ? 1 : 0,
+          translate: isInView ? '0 0' : '0 40px',
+          transition: 'opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1), translate 0.7s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s, border-color 0.5s',
+          transitionDelay: `${0.4 + index * 0.08}s`,
+        }}
+      >
+        <div className={`relative w-20 h-20 md:w-24 md:h-24 shrink-0 rounded-2xl overflow-hidden border border-black/5 ${project.bg}`}>
+          <div className="absolute inset-0 p-3">
+            <div className="relative w-full h-full">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                sizes="96px"
+                className="object-contain transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-baseline gap-3 mb-1">
+            <span className="text-[10px] font-bold text-gray-300">{project.number}</span>
+            <h3 className="text-xl md:text-2xl font-black text-black tracking-tight">{project.title}</h3>
+          </div>
+          <p className="text-gray-500 text-sm font-medium leading-relaxed line-clamp-2">{project.subtitle}</p>
+        </div>
+        <span className="text-black text-xl shrink-0 transition-transform duration-300 group-hover:translate-x-1">→</span>
+      </div>
+    </Link>
   );
 }
 
