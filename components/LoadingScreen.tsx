@@ -9,12 +9,12 @@ export default function LoadingScreen() {
     const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        // Minimum loading time for the vibe - reduced for better performance
+        // Minimum loading time for the vibe — keep short; the exit fade adds ~0.5s on top
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 1500);
+        }, 900);
 
-        // Counter animation
+        // Counter animation — reaches 100% just before the screen exits
         const interval = setInterval(() => {
             setCounter((prev) => {
                 if (prev >= 100) {
@@ -23,7 +23,7 @@ export default function LoadingScreen() {
                 }
                 return prev + 1;
             });
-        }, 20);
+        }, 8);
 
         return () => {
             clearTimeout(timer);
@@ -39,7 +39,7 @@ export default function LoadingScreen() {
                     initial={{ opacity: 1 }}
                     exit={{
                         opacity: 0,
-                        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+                        transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
                     }}
                 >
                     {/* Centered Logo/Name */}
@@ -59,7 +59,7 @@ export default function LoadingScreen() {
                                 className="absolute inset-0 bg-black origin-left"
                                 initial={{ scaleX: 0 }}
                                 animate={{ scaleX: 1 }}
-                                transition={{ duration: 2.2, ease: "easeInOut" }}
+                                transition={{ duration: 0.85, ease: "easeInOut" }}
                             />
                         </div>
 

@@ -271,21 +271,24 @@ export default function CopilotWrapper({
         };
     }, []);
 
-    if (!isRuntimeReady) {
-        return <>{children}</>;
-    }
-
+    // children must stay OUTSIDE the CopilotKit provider and at a stable
+    // position in the tree. When isRuntimeReady flips after the /info fetch,
+    // wrapping children in a new parent element re-parents them and React
+    // unmounts/remounts the entire page — every intro animation replays and
+    // the site visibly "loads again". Only the popup needs the provider.
     return (
-        <CopilotKit
-            runtimeUrl="/api/copilotkit"
-            showDevConsole={false}
-            // @ts-ignore
-            showAnnouncement={false}
-            enableInspector={false}
-        >
-            <ActionsRegistry />
+        <>
             {children}
-            <CopilotPopup
+            {isRuntimeReady && (
+                <CopilotKit
+                    runtimeUrl="/api/copilotkit"
+                    showDevConsole={false}
+                    // @ts-ignore
+                    showAnnouncement={false}
+                    enableInspector={false}
+                >
+                    <ActionsRegistry />
+                    <CopilotPopup
                 instructions="You are Luffy, Harsha's personal portfolio assistant.
                 
                 STRICT GUARDRAILS:
@@ -311,6 +314,8 @@ export default function CopilotWrapper({
                 Header={LuffyChatHeader}
                 className="luffy-theme-popup"
             />
-        </CopilotKit>
+                </CopilotKit>
+            )}
+        </>
     );
 }

@@ -9,7 +9,7 @@ export default function PageLoader({ children }: { children: React.ReactNode }) 
 
   return (
     <div
-      className={`transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+      className={`transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
         !isLoading
           ? 'opacity-100 translate-y-0 blur-0'
           : 'opacity-0 translate-y-8 blur-sm pointer-events-none'
