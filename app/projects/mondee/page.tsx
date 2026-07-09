@@ -1,12 +1,11 @@
 'use client';
 
 import { useInView as useIntersection } from '@/hooks/useInView';
-import Link from 'next/link';
-import Navigation from '@/components/Navigation';
-import BackButton from '@/components/BackButton';
 import Image from 'next/image';
 import { AlertCircle } from 'lucide-react';
 import FlowGallery, { FlowStep } from '@/components/FlowGallery';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import Footer from '@/components/Footer';
 
 const flowSteps: FlowStep[] = [
     {
@@ -54,8 +53,6 @@ export default function MondeeCaseStudy() {
 
     return (
         <div className="min-h-screen bg-white text-black">
-            <Navigation />
-            <BackButton />
 
             {/* Hero Section */}
             <section
@@ -130,12 +127,12 @@ export default function MondeeCaseStudy() {
                             <div className="text-sm font-medium text-black">Enterprise Product</div>
                         </div>
                         <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Company</div>
-                            <div className="text-sm font-medium text-black">Mondee</div>
+                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Status</div>
+                            <div className="text-sm font-medium text-black">Shipped</div>
                         </div>
                         <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Focus</div>
-                            <div className="text-sm font-medium text-black">Scalable Systems</div>
+                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Context</div>
+                            <div className="text-sm font-medium text-black">Mondee · Company Work</div>
                         </div>
                     </div>
                 </div>
@@ -311,23 +308,10 @@ export default function MondeeCaseStudy() {
                 </div>
             </section>
 
-            {/* Navigation */}
-            <section className="py-16 px-8 border-t border-gray-200 bg-white">
-                <div className="max-w-4xl mx-auto flex justify-between items-center">
-                    <Link
-                        href="/projects/pranik"
-                        className="text-gray-500 hover:text-black transition-colors"
-                    >
-                        ← Previous: Pranik
-                    </Link>
-                    <Link
-                        href="/projects/equora"
-                        className="text-gray-500 hover:text-black transition-colors"
-                    >
-                        Next: Equora →
-                    </Link>
-                </div>
-            </section>
+            {/* Previous / Next Navigation */}
+            <CaseStudyNav current="mondee" />
+
+            <Footer />
         </div>
     );
 }

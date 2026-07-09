@@ -35,7 +35,7 @@ export default function QualifyzeCaseStudy() {
       meta={meta}
       details={details}
       heroImage="/images/projects/qualifyze.png"
-      nextProject={{ title: 'Hita', href: '/projects/hita' }}
+      slug="qualifyze"
       sections={[
         {
           id: 'context',

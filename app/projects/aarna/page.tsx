@@ -105,7 +105,7 @@ export default function AarnaCaseStudy() {
             meta={meta}
             details={details}
             heroImage="/images/projects/aarna.png"
-            nextProject={{ title: 'Pranik', href: '/projects/pranik' }}
+            slug="aarna"
             sections={[
                 {
                     id: 'impact',

@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
+import CaseStudyNav from '@/components/CaseStudyNav';
 import { useInView } from '@/hooks/useInView';
 import OilPaintBackground from '@/components/OilPaintBackground';
 
@@ -41,10 +42,8 @@ interface CaseStudyProps {
         content: React.ReactNode;
         className?: string; // Custom class for section background
     }[];
-    nextProject?: {
-        title: string;
-        href: string;
-    };
+    /** Case study slug — drives the shared previous/next navigation footer */
+    slug: string;
 }
 
 // Fade-in Section Component
@@ -64,7 +63,7 @@ export default function CaseStudyLayout({
     heroImage,
     heroVideo,
     sections,
-    nextProject
+    slug
 }: CaseStudyProps) {
     const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -131,7 +130,7 @@ export default function CaseStudyLayout({
                     </RevealSection>
 
                     {/* Project Details Grid */}
-                    <RevealSection className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-12">
+                    <RevealSection className="grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-gray-500/30 pt-12">
                         <div>
                             <div className="text-xs uppercase tracking-widest opacity-50 mb-2">Role</div>
                             <div className="font-medium text-lg">{details.role}</div>
@@ -194,20 +193,8 @@ export default function CaseStudyLayout({
                 </section>
             ))}
 
-            {/* Next Project Footer */}
-            {nextProject && (
-                <section className="py-32 px-6 md:px-12 bg-black text-white relative overflow-hidden group cursor-pointer">
-                    <Link href={nextProject.href} className="absolute inset-0 z-20" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-purple-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                    <div className="max-w-7xl mx-auto relative z-10 text-center">
-                        <p className="text-sm uppercase tracking-widest text-gray-500 mb-4">Next Case Study</p>
-                        <h2 className="text-6xl md:text-8xl font-black group-hover:scale-105 transition-transform duration-500">
-                            {nextProject.title}
-                        </h2>
-                    </div>
-                </section>
-            )}
+            {/* Previous / Next Navigation */}
+            <CaseStudyNav current={slug} />
 
             <Footer />
         </div>

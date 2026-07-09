@@ -105,7 +105,7 @@ export default function EquoraCaseStudy() {
             meta={meta}
             details={details}
             heroImage="/images/projects/equora/hero.jpg"
-            nextProject={{ title: 'Qualifyze', href: '/projects/qualifyze' }}
+            slug="equora"
             sections={[
                 {
                     id: 'context',

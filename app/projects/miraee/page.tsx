@@ -1,10 +1,11 @@
 'use client';
 
 import { useInView as useIntersection } from '@/hooks/useInView';
-import Link from 'next/link';
 import Image from 'next/image';
 import { AlertCircle, ShieldCheck, Lock } from 'lucide-react';
 import FlowGallery, { FlowStep } from '@/components/FlowGallery';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import Footer from '@/components/Footer';
 
 const ACCENT = '#EA580C'; // orange-600 — Miraee brand accent
 
@@ -417,17 +418,10 @@ export default function MiraeeCaseStudy() {
                 </div>
             </section>
 
-            {/* Navigation */}
-            <section className="py-16 px-8 border-t border-gray-200 bg-white">
-                <div className="max-w-4xl mx-auto flex justify-between items-center">
-                    <Link href="/projects/hita" className="text-gray-500 hover:text-black transition-colors">
-                        ← Previous: Hita
-                    </Link>
-                    <Link href="/projects/aarna" className="text-gray-500 hover:text-black transition-colors">
-                        Next: Aarna →
-                    </Link>
-                </div>
-            </section>
+            {/* Previous / Next Navigation */}
+            <CaseStudyNav current="miraee" />
+
+            <Footer />
         </div>
     );
 }

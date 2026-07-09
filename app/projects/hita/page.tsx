@@ -1,9 +1,10 @@
 'use client';
 
 import { useInView as useIntersection } from '@/hooks/useInView';
-import Link from 'next/link';
 import Image from 'next/image';
 import { AlertCircle } from 'lucide-react';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import Footer from '@/components/Footer';
 
 export default function HitaCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -42,7 +43,7 @@ export default function HitaCaseStudy() {
                     <span
                         className={`block text-sm font-medium text-gray-500 uppercase tracking-[0.3em] mb-6 animate-fade-in-right ${heroInView ? 'opacity-100' : 'opacity-0'}`}
                     >
-                        Personal Product · AI Travel Tech
+                        Self-Initiated Side Project · AI Travel · Not a Mondee Product
                     </span>
 
                     <h1
@@ -86,16 +87,16 @@ export default function HitaCaseStudy() {
                             <div className="text-sm font-medium text-black">Product Designer · AI Builder</div>
                         </div>
                         <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Timeline</div>
-                            <div className="text-sm font-medium text-black">Designed & Built in 3-4 Days</div>
-                        </div>
-                        <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Type</div>
-                            <div className="text-sm font-medium text-black">Personal Product / R&D</div>
+                            <div className="text-sm font-medium text-black">Self-Initiated Product</div>
                         </div>
                         <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Focus</div>
-                            <div className="text-sm font-medium text-black">Conversational UX</div>
+                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Status</div>
+                            <div className="text-sm font-medium text-black">Working Prototype</div>
+                        </div>
+                        <div>
+                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Context</div>
+                            <div className="text-sm font-medium text-black">Built End-to-End in 4 Days</div>
                         </div>
                     </div>
                 </div>
@@ -253,23 +254,10 @@ export default function HitaCaseStudy() {
                 </div>
             </section>
 
-            {/* Navigation */}
-            <section className="py-16 px-8 border-t border-gray-200 bg-white">
-                <div className="max-w-4xl mx-auto flex justify-between items-center">
-                    <Link
-                        href="/"
-                        className="text-gray-500 hover:text-black transition-colors"
-                    >
-                        ← Back to Work
-                    </Link>
-                    <Link
-                        href="/projects/miraee"
-                        className="text-gray-500 hover:text-black transition-colors"
-                    >
-                        Next: Miraee →
-                    </Link>
-                </div>
-            </section>
+            {/* Previous / Next Navigation */}
+            <CaseStudyNav current="hita" />
+
+            <Footer />
         </div>
     );
 }

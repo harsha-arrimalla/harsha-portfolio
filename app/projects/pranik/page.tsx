@@ -109,7 +109,7 @@ export default function PranikCaseStudy() {
       meta={meta}
       details={details}
       heroImage="/images/projects/pranik.png"
-      nextProject={{ title: 'Mondee', href: '/projects/mondee' }}
+      slug="pranik"
       sections={[
         {
           id: 'context',
