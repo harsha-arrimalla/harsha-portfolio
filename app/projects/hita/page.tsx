@@ -97,7 +97,7 @@ export default function HitaCaseStudy() {
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Context</div>
-                            <div className="text-sm font-medium text-black">Built End-to-End in 4 Days</div>
+                            <div className="text-sm font-medium text-black">MVP in ~6 Days, Evolving Since</div>
                         </div>
                     </div>
                 </div>
@@ -124,8 +124,8 @@ export default function HitaCaseStudy() {
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
                         <SectionHeading
                             kicker="The Context"
-                            title="Designed and built end-to-end in four days"
-                            description="Hita is a self-initiated product where I designed and built the entire app end-to-end in just 4 days. The goal was to explore how conversational AI could replace rigid, form-heavy trip-planning tools with something that accounts for heat, rain, and real-world fatigue."
+                            title="An MVP designed and built solo in six days"
+                            description="Hita is a self-initiated product where I designed and built the entire app end-to-end — a working MVP in roughly six days, and evolving since. The goal was to explore how conversational AI could replace rigid, form-heavy trip-planning tools with something that accounts for heat, rain, and real-world fatigue."
                         />
                     </div>
 
@@ -198,48 +198,46 @@ export default function HitaCaseStudy() {
                         description="Under the single chat surface, Hita runs an orchestrator that routes each turn to specialized agents. The user never sees the machinery — they see one companion that happens to know flights, weather, budgets, and when to say no."
                     />
 
-                    {/* Orchestrator */}
+                    {/* Entry point */}
                     <div className="rounded-2xl border border-indigo-400/40 bg-indigo-500/10 px-6 py-5 text-center mb-4">
-                        <div className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-300 mb-1">Orchestrator</div>
-                        <p className="text-sm text-white/60">Parses each turn, routes to agents, merges their outputs into one reply</p>
+                        <div className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-300 mb-1">Intent Classifier</div>
+                        <p className="text-sm text-white/60">Routes every message to the right specialist agents</p>
                     </div>
                     <div className="flex justify-center mb-4" aria-hidden="true">
                         <div className="w-px h-6 bg-indigo-400/40" />
                     </div>
 
                     {/* Agent lanes */}
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                         {[
                             {
                                 lane: 'Understand',
                                 agents: [
-                                    ['Intent Parser', 'Turns "somewhere cool this evening" into structured intent'],
-                                    ['Context & Memory', 'Carries the trip state and past preferences across turns'],
-                                    ['Preference Profile', 'Learns pace, budget comfort, and food constraints'],
+                                    ['Memory Agent', 'Preferences and trip history, carried across every conversation'],
+                                    ['Voice Agent', 'Speech in and out — the hands-free travel mode'],
+                                    ['Heart Agent', 'Tone, empathy, and traveler mood — how Hita says things'],
                                 ],
                             },
                             {
                                 lane: 'Plan',
                                 agents: [
-                                    ['Itinerary Planner', 'Builds and re-sequences the day around fixed anchors'],
-                                    ['Weather & Time', 'Shifts outdoor plans around heat, rain, and daylight'],
-                                    ['Local Discovery', 'Finds places and experiences near the current plan'],
+                                    ['Itinerary Agent', 'Generates and re-sequences the day plan'],
+                                    ['Geo Agent', 'Location context and hidden-gem discovery'],
+                                    ['Weather Agent', 'Conditions and plan adjustments around heat and rain'],
                                 ],
                             },
                             {
-                                lane: 'Act',
+                                lane: 'Move & Money',
                                 agents: [
-                                    ['Flights', 'Searches and holds flight options'],
-                                    ['Stays', 'Matches stays to location, budget, and vibe'],
-                                    ['Transport', 'Plans the last mile between plan items'],
+                                    ['Transit Agent', 'Routes and last-mile options between plan items'],
+                                    ['Fare Guard', 'Price watch and rebooking triggers'],
                                 ],
                             },
                             {
-                                lane: 'Trust',
+                                lane: 'Safety',
                                 agents: [
-                                    ['Budget Guard', 'Tracks spend against the stated budget before booking'],
-                                    ['Safety & Guardrails', 'Blocks hallucinated places and impossible routings'],
-                                    ['Summarizer', 'Compresses agent activity into the reply the user reads'],
+                                    ['Safety Agent', 'Risk flags, area advisories, and emergency handling'],
+                                    ['Family Share Agent', 'Live location sharing with trusted contacts'],
                                 ],
                             },
                         ].map((lane) => (
@@ -257,15 +255,24 @@ export default function HitaCaseStudy() {
                         ))}
                     </div>
 
+                    {/* Composer */}
+                    <div className="flex justify-center mb-4" aria-hidden="true">
+                        <div className="w-px h-6 bg-indigo-400/40" />
+                    </div>
+                    <div className="rounded-2xl border border-indigo-400/40 bg-indigo-500/10 px-6 py-5 text-center mb-12">
+                        <div className="text-xs font-bold uppercase tracking-[0.3em] text-indigo-300 mb-1">Hita Brain</div>
+                        <p className="text-sm text-white/60">The orchestrator — merges every agent&apos;s output and composes the single reply the user reads</p>
+                    </div>
+
                     {/* Conversation vs activity + stack */}
                     <div className="grid md:grid-cols-2 gap-6">
                         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
                             <h3 className="text-lg font-bold mb-3 text-white">Conversation ≠ activity stream</h3>
                             <p className="text-sm text-white/60 leading-relaxed">
-                                The chat only ever shows the Summarizer&apos;s human-readable reply. What the twelve
-                                agents actually did each turn lives in a separate activity layer — inspectable when
-                                you want proof, invisible when you want a friend. Merging the two made every answer
-                                read like a server log; separating them is the core trust decision of the product.
+                                The chat only ever shows Hita Brain&apos;s composed reply. What the specialist agents
+                                actually did each turn lives in a separate activity layer — inspectable when you want
+                                proof, invisible when you want a friend. Merging the two made every answer read like
+                                a server log; separating them is the core trust decision of the product.
                             </p>
                         </div>
                         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
@@ -276,7 +283,7 @@ export default function HitaCaseStudy() {
                                 Figma for the design system).
                             </p>
                             <div className="flex flex-wrap gap-2">
-                                {['Next.js 15', 'Expo React Native', 'Fastify', 'Supabase', 'Claude API', 'Claude Code'].map((t) => (
+                                {['Next.js 15', 'Expo React Native', 'Fastify', 'Supabase', 'Claude API', 'Razorpay', 'Claude Code'].map((t) => (
                                     <span key={t} className="text-[11px] font-semibold px-3 py-1.5 rounded-full border border-indigo-400/30 bg-indigo-500/10 text-indigo-200">
                                         {t}
                                     </span>
@@ -323,7 +330,7 @@ export default function HitaCaseStudy() {
                                 <div>
                                     <h3 className="text-2xl font-bold mb-4 text-black">Speed + Clarity</h3>
                                     <p className="text-gray-600">
-                                        This was a 4-day build covering UX flows, AI behavior, and app structure. The goal was to prove that conversation is a powerful interface when designed intentionally.
+                                        The MVP was a ~6-day build covering UX flows, AI behavior, and app structure — and it has kept evolving since. The goal was to prove that conversation is a powerful interface when designed intentionally.
                                     </p>
                                 </div>
                             </div>
@@ -335,15 +342,15 @@ export default function HitaCaseStudy() {
             {/* Impact */}
             <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-4xl mx-auto text-center">
-                    <SectionHeading align="center" kicker="The Outcome" title="What four days proved" />
+                    <SectionHeading align="center" kicker="The Outcome" title="What six days (and six testers) proved" />
                     <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div className="text-xl font-bold text-indigo-500 mb-2">Proof of Concept</div>
-                            <p className="text-gray-500 text-sm italic">"Demonstrated how AI can make planning feel human."</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm text-left">
+                            <div className="text-xl font-bold text-indigo-500 mb-2">A Working Product</div>
+                            <p className="text-gray-500 text-sm">A functioning MVP in ~6 days — design, frontend, backend, and the 12-agent system — still evolving. Demo video available on request.</p>
                         </div>
-                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div className="text-xl font-bold text-gray-800 mb-2">Fast Validation</div>
-                            <p className="text-gray-500 text-sm">Validated that user trust increases with contextual reasoning.</p>
+                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm text-left">
+                            <div className="text-xl font-bold text-gray-800 mb-2">Tested With Real People</div>
+                            <p className="text-gray-500 text-sm">Six friends-and-family testers over two weekends. Their feedback moved the SOS button out of a menu into the persistent header — safety can&apos;t live two taps deep.</p>
                         </div>
                     </div>
 

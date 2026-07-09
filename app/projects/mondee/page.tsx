@@ -331,11 +331,16 @@ export default function MondeeCaseStudy() {
                         </div>
                     </div>
 
-                    <div className="mt-16 p-8 rounded-2xl bg-orange-50 border border-orange-100">
-                        <p className="text-lg text-orange-800 italic">
-                            “Designing reliable, scalable UX for enterprise travel systems under real-world constraints.”
-                        </p>
-                    </div>
+                    <figure className="mt-16 p-8 rounded-2xl bg-orange-50 border border-orange-100 text-left">
+                        <blockquote className="text-xl md:text-2xl font-medium text-black leading-relaxed">
+                            &ldquo;Finally feels built for us.&rdquo;
+                        </blockquote>
+                        <figcaption className="mt-3 text-sm text-gray-500">Travel agent, on the redesigned booking surfaces</figcaption>
+                    </figure>
+
+                    <p className="mt-8 text-sm text-gray-400">
+                        Task-time and efficiency measurements are internal — I walk through them in interviews.
+                    </p>
                 </div>
             </section>
 

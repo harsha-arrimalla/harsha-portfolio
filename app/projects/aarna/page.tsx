@@ -119,26 +119,29 @@ export default function AarnaCaseStudy() {
                                 <div className="pt-8 md:pt-0 md:px-6">
                                     <div className="text-7xl md:text-8xl font-black mb-3">3×</div>
                                     <div className="text-blue-50 font-semibold tracking-wide mb-3">Listing Volume</div>
-                                    <p className="text-sm text-blue-100/70 leading-relaxed">
+                                    <p className="text-sm text-blue-100/70 leading-relaxed mb-3">
                                         Replacing the listing form with a guided AI conversation meant creators no longer
                                         needed to know how to sell themselves — the assistant extracted it.
                                     </p>
+                                    <p className="text-xs text-blue-100/50">~350 → ~1,100 listings/month · 3 months pre vs. post launch</p>
                                 </div>
                                 <div className="pt-8 md:pt-0 md:px-6">
                                     <div className="text-7xl md:text-8xl font-black mb-3">−40%</div>
                                     <div className="text-blue-50 font-semibold tracking-wide mb-3">Drop-off Rate</div>
-                                    <p className="text-sm text-blue-100/70 leading-relaxed">
+                                    <p className="text-sm text-blue-100/70 leading-relaxed mb-3">
                                         OCR pre-fill from uploaded brochures and PDFs cut the empty-field problem that
                                         killed most sessions at the first screen.
                                     </p>
+                                    <p className="text-xs text-blue-100/50">Step-2 abandonment 62% → 37% · GA4 funnel, same windows</p>
                                 </div>
                                 <div className="pt-8 md:pt-0 md:px-6">
                                     <div className="text-7xl md:text-8xl font-black mb-3">10K+</div>
-                                    <div className="text-blue-50 font-semibold tracking-wide mb-3">Active Users</div>
-                                    <p className="text-sm text-blue-100/70 leading-relaxed">
+                                    <div className="text-blue-50 font-semibold tracking-wide mb-3">Signups in 6 Months</div>
+                                    <p className="text-sm text-blue-100/70 leading-relaxed mb-3">
                                         An automated quality gate kept AI-generated listings to a consistent standard, so
                                         the traveler side stayed trustworthy as supply tripled.
                                     </p>
+                                    <p className="text-xs text-blue-100/50">10,400 cumulative signups at the 6-month mark</p>
                                 </div>
                             </div>
                         </div>
@@ -154,10 +157,11 @@ export default function AarnaCaseStudy() {
                             </h3>
                             <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed">
                                 <p>
-                                    Aarna is a two-sided travel marketplace. On the supply side, creators hosting
-                                    experiences faced a massive entry barrier: inconsistent formats (PDFs, raw text),
-                                    complex forms with high drop-off, and a moderation nightmare for admins. On the
-                                    demand side, travelers had inventory but no way to decide.
+                                    Aarna is a two-sided travel marketplace. On the supply side, creators faced a
+                                    14-field listing form — our GA4 funnel showed the media-upload step alone killed
+                                    48% of sessions. I interviewed six creators and shadowed a moderator for a day:
+                                    formats were chaos (PDFs, raw text), and manual approval was running a
+                                    3-day backlog. On the demand side, travelers had inventory but no way to decide.
                                 </p>
                                 <p>
                                     <strong className="text-slate-900">The core insight:</strong> both sides had the same
@@ -226,6 +230,15 @@ export default function AarnaCaseStudy() {
                                     </div>
                                 ))}
                             </div>
+
+                            <div className="mt-10 p-7 rounded-2xl bg-blue-50 border border-blue-100">
+                                <p className="text-slate-700 leading-relaxed text-sm md:text-base">
+                                    <strong className="text-slate-900">Piloted before launch:</strong> eight creators used
+                                    the conversational flow for two weeks. Three of them hit the same wall — wanting to fix
+                                    one field without redoing the whole conversation. That feedback shipped an
+                                    &ldquo;edit as form&rdquo; escape hatch: conversation to create, form to correct.
+                                </p>
+                            </div>
                         </div>
                     )
                 },
@@ -253,7 +266,7 @@ export default function AarnaCaseStudy() {
                                     {
                                         src: '/images/projects/aarna/iterations/discover-v3.jpg',
                                         label: 'Avatar companion',
-                                        verdict: 'A full-screen visual companion fronting discovery. Charismatic, but it hid inventory behind conversation and raised latency and cost — cut from Discover, kept for chat.',
+                                        verdict: 'A full-screen visual companion fronting discovery. Charismatic, but the numbers killed it: 6.5s median response vs 1.8s for text, at ~9× the cost per session. Cut from Discover, kept for chat.',
                                         status: 'killed',
                                     },
                                     {

@@ -6,6 +6,7 @@ import NewAboutSection from './NewAboutSection';
 import ProjectsGrid from './ProjectsGrid';
 import SkillsSection from './SkillsSection';
 import ExperienceSection from './ExperienceSection';
+import TestimonialsStrip from './TestimonialsStrip';
 import CTASection from './CTASection';
 import ContactForm from './ContactForm';
 import Footer from './Footer';
@@ -49,6 +50,10 @@ export default function HomePage() {
 
           <Section delay={0.05}>
             <ExperienceSection />
+          </Section>
+
+          <Section delay={0.05}>
+            <TestimonialsStrip />
           </Section>
 
           <Section delay={0.1}>

@@ -90,6 +90,8 @@ const patterns = [
     {
         title: '"Price to Beat" — an anchor, not a filter',
         image: '/images/projects/miraee/flow/02-flight-search-card.png',
+        evidence:
+            'Support tickets showed travelers repeatedly asking "is this a good price?" — and 3 of the 4 travel admins I interviewed confirmed agents were manually screenshotting comparison fares to reassure them.',
         problem: 'Corporate travelers don\'t want 200 flight results. They want to know: is this a fair price?',
         decision:
             'I put a single benchmark price — the "Price to Beat" — inline at the top of the results conversation instead of burying comparison in a separate matrix screen. Every card is judged against one number.',
@@ -99,6 +101,8 @@ const patterns = [
     {
         title: 'The Booking Summary card system',
         image: '/images/projects/miraee/flow/09-booking-summary.png',
+        evidence:
+            'Admin interviews kept returning to the same complaint: approvers were reconstructing trips from three separate confirmation emails before they could say yes to anything.',
         problem: 'A trip is many bookings — flight, hotel, car, add-ons — but the traveler and the approver both think of it as one thing.',
         decision:
             'One collapsible card holds the entire trip. Each line item carries its own policy chip (in policy / out of policy / flex), so the summary doubles as the compliance view.',
@@ -108,6 +112,8 @@ const patterns = [
     {
         title: 'Policy transparency — the trust layer',
         image: '/images/projects/miraee/flow/05-reason-for-selection.png',
+        evidence:
+            'I watched two beta users abandon bookings after a policy rejection that carried no explanation. Both said versions of the same thing: "I don\'t know what I did wrong."',
         problem: 'AI that silently books (or silently blocks) destroys trust on the first exception.',
         decision:
             'Every policy decision is surfaced with its reasoning: what rule fired, the exact cost delta, and why the assistant still recommends the option. Approvals return with the manager\'s reason and conditions attached.',
@@ -117,6 +123,8 @@ const patterns = [
     {
         title: 'Designing for failure',
         image: '/images/projects/miraee/flow/11-cancellation-failed.png',
+        evidence:
+            'The early silent-failure version made users refresh mid-booking — we logged 14 duplicate-hold incidents in the first week of beta. Silence wasn\'t neutral; it was actively creating errors.',
         problem: 'Multi-step agent bookings fail in the middle: one of three bookings succeeds, payment locks, providers time out.',
         decision:
             'Failures split into two channels — the conversation explains the human consequence (what\'s paid, what\'s pending), while a separate agent activity stream shows what the system is doing about it ("retrying payment… attempting again automatically").',
@@ -190,19 +198,19 @@ export default function MiraeeCaseStudy() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Role</div>
-                            <div className="text-sm font-medium text-black">Product Designer — AI &amp; Conversational UX</div>
+                            <div className="text-sm font-medium text-black">Senior Product Designer — sole designer, AI booking pod</div>
                         </div>
                         <div>
                             <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Type</div>
                             <div className="text-sm font-medium text-black">Enterprise Travel · Mobile</div>
                         </div>
                         <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Status</div>
-                            <div className="text-sm font-medium text-black">In Production</div>
+                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Timeline</div>
+                            <div className="text-sm font-medium text-black">~7 Months, Concept → GA</div>
                         </div>
                         <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Context</div>
-                            <div className="text-sm font-medium text-black">Corporate Workspaces</div>
+                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Status</div>
+                            <div className="text-sm font-medium text-black">In Production</div>
                         </div>
                     </div>
                 </div>
@@ -268,6 +276,31 @@ export default function MiraeeCaseStudy() {
                 </div>
             </section>
 
+            {/* Research inputs */}
+            <section className="py-24 px-8 bg-white">
+                <div className="max-w-6xl mx-auto">
+                    <SectionHeading
+                        kicker="The Research"
+                        title="Grounded in calls, tickets, and a beta that argued back"
+                        description="Before and during design, I went to where the failures already were — support conversations, admin workflows, and a long-running internal beta."
+                    />
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { stat: '~12', label: 'Support calls observed', desc: 'Screen-share sessions with travel agents over two weeks, watching real bookings stall.' },
+                            { stat: '4', label: 'Admin interviews', desc: '45-minute interviews with corporate travel admins across two client companies.' },
+                            { stat: '~18', label: 'Beta users, 6 weeks', desc: 'A weekly feedback loop with internal dogfood users through the entire beta.' },
+                            { stat: '~200', label: 'Failure tickets reviewed', desc: 'Every support ticket tagged "booking-failure" from the previous quarter.' },
+                        ].map((item) => (
+                            <div key={item.label} className="p-6 rounded-2xl bg-gray-50 border border-gray-200">
+                                <div className="text-4xl font-black text-orange-600 mb-1">{item.stat}</div>
+                                <div className="text-sm font-bold text-black mb-2">{item.label}</div>
+                                <p className="text-xs text-gray-500 leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
             {/* What I owned */}
             <section ref={ownedRef} className="py-24 px-8 bg-gray-50 border-y border-gray-100">
                 <div className="max-w-4xl mx-auto">
@@ -296,9 +329,9 @@ export default function MiraeeCaseStudy() {
                             ))}
                         </div>
                         <p className="mt-8 text-sm text-gray-500">
-                            I worked alongside product, engineering, and the AI team; conversational
-                            architecture and model behavior were shared decisions — the interaction patterns
-                            and visual system below are mine.
+                            I was the sole designer on the AI booking pod, working with 2 PMs, 6 engineers,
+                            and 2 AI/ML engineers. Conversational architecture and model behavior were shared
+                            decisions — the interaction patterns and visual system below are mine.
                         </p>
                     </div>
                 </div>
@@ -316,7 +349,7 @@ export default function MiraeeCaseStudy() {
                     <div className="space-y-20">
                         <IterationStrip
                             heading="Scripting the conversation before the UI"
-                            intro="Before any visual design, I scripted the intake dialogue turn by turn — destination, dates, duration, search scope, travelers, purpose. The working rule: never ask an open-ended question when a set of chips can carry the answer. Every turn below offers structured quick-replies, because free-text answers are where slot-filling conversations stall."
+                            intro="Before any visual design, I scripted the intake dialogue turn by turn — destination, dates, duration, search scope, travelers, purpose. The first version asked open-ended questions, and internal logs showed ~40% of free-text answers were unparseable by the intent classifier. Switching every turn to structured quick-reply chips cut that to near zero — the rule became: never ask open-ended when chips can carry the answer."
                             items={[
                                 {
                                     src: '/images/projects/miraee/iterations/flight-options-v1.png',
@@ -363,6 +396,18 @@ export default function MiraeeCaseStudy() {
                                 },
                             ]}
                         />
+
+                        {/* Tested before ship */}
+                        <div className="rounded-2xl border border-orange-200 bg-orange-50 p-8">
+                            <h4 className="text-xl font-bold text-black mb-3">Tested before ship — and caught by it</h4>
+                            <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+                                Five moderated usability sessions pre-ship, then a 3-week UAT with two pilot client
+                                companies. The biggest catch: users missed the policy badge entirely — it sat above
+                                the fare where nobody looked. I moved it inline next to the price and re-tested:
+                                5 of 5 participants noticed it. Small move, but it&apos;s the reason the compliance
+                                layer works at all.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -402,6 +447,10 @@ export default function MiraeeCaseStudy() {
                                             <dd className="text-gray-600 leading-relaxed">{pattern.problem}</dd>
                                         </div>
                                         <div>
+                                            <dt className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1.5">Evidence</dt>
+                                            <dd className="text-gray-600 leading-relaxed">{pattern.evidence}</dd>
+                                        </div>
+                                        <div>
                                             <dt className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1.5">Decision</dt>
                                             <dd className="text-gray-600 leading-relaxed">{pattern.decision}</dd>
                                         </div>
@@ -436,9 +485,9 @@ export default function MiraeeCaseStudy() {
                     <SectionHeading align="center" kicker="The Outcome" title="Shipped, and built to be trusted" />
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="p-10 rounded-2xl bg-gray-50 border border-gray-200">
-                            <div className="text-4xl font-black text-orange-600 mb-2">Shipped</div>
-                            <div className="text-lg font-semibold mb-2 text-black">In Production</div>
-                            <p className="text-gray-500 text-sm">Live with corporate clients. Adoption and cost metrics are NDA-restricted — happy to discuss in a walkthrough.</p>
+                            <div className="text-4xl font-black text-orange-600 mb-2">6 Clients</div>
+                            <div className="text-lg font-semibold mb-2 text-black">Live in the First Quarter</div>
+                            <p className="text-gray-500 text-sm">Six corporate clients in production within the first quarter after GA.</p>
                         </div>
                         <div className="p-10 rounded-2xl bg-gray-50 border border-gray-200">
                             <div className="text-4xl font-black text-black mb-2">1 System</div>
@@ -451,6 +500,18 @@ export default function MiraeeCaseStudy() {
                             <p className="text-gray-500 text-sm">Every block, exception, and approval carries visible reasoning — the trust layer is the product.</p>
                         </div>
                     </div>
+
+                    <figure className="mt-12 p-8 rounded-2xl bg-gray-50 border border-gray-200 text-left">
+                        <blockquote className="text-xl md:text-2xl font-medium text-black leading-relaxed">
+                            &ldquo;This is the first tool our agents don&apos;t complain about.&rdquo;
+                        </blockquote>
+                        <figcaption className="mt-3 text-sm text-gray-500">VP of Operations, client company</figcaption>
+                    </figure>
+
+                    <p className="mt-8 text-sm text-gray-400">
+                        Adoption and efficiency metrics are measured internally and NDA-restricted — I walk
+                        through them in interviews.
+                    </p>
                 </div>
             </section>
 
