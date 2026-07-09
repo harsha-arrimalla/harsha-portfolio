@@ -6,6 +6,7 @@ import { AlertCircle, ShieldCheck, Lock } from 'lucide-react';
 import FlowGallery, { FlowStep } from '@/components/FlowGallery';
 import CaseStudyNav from '@/components/CaseStudyNav';
 import Footer from '@/components/Footer';
+import SectionHeading from '@/components/SectionHeading';
 
 const ACCENT = '#EA580C'; // orange-600 — Miraee brand accent
 
@@ -225,13 +226,11 @@ export default function MiraeeCaseStudy() {
             <section ref={contextRef} className="py-24 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-8 text-black">The Context</h2>
-                        <p className="text-xl text-gray-600 leading-relaxed mb-16">
-                            Miraee is an AI assistant for corporate employees who travel for meetings, client
-                            visits, and offsites. Instead of a booking site plus an expense tool plus an approval
-                            email chain, the entire trip lives in one conversational surface — for the traveler
-                            and for the people governing the budget.
-                        </p>
+                        <SectionHeading
+                            kicker="The Context"
+                            title="Business travel, without a system"
+                            description="Miraee is an AI assistant for corporate employees who travel for meetings, client visits, and offsites. Instead of a booking site plus an expense tool plus an approval email chain, the entire trip lives in one conversational surface — for the traveler and for the people governing the budget."
+                        />
                     </div>
 
                     <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
@@ -272,7 +271,7 @@ export default function MiraeeCaseStudy() {
             <section ref={ownedRef} className="py-24 px-8 bg-gray-50 border-y border-gray-100">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${ownedInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-10 text-black">What I Owned</h2>
+                        <SectionHeading kicker="My Role" title="What I owned" />
                         <div className="grid md:grid-cols-3 gap-6">
                             {[
                                 {
@@ -307,13 +306,12 @@ export default function MiraeeCaseStudy() {
             {/* Pattern teardowns */}
             <section ref={patternsRef} className="py-28 px-8 bg-white">
                 <div className="max-w-6xl mx-auto">
-                    <div className={`max-w-3xl mb-20 transition-all duration-1000 ${patternsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                        <span className="block text-xs font-bold uppercase tracking-[0.3em] mb-4 text-orange-600">Key Decisions</span>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">Four patterns that carry the product</h2>
-                        <p className="text-lg text-gray-500 leading-relaxed">
-                            Each pattern below states the problem, the decision, and the tradeoff I made —
-                            because in AI UX the interesting part is never the happy path.
-                        </p>
+                    <div className={`max-w-3xl mb-8 transition-all duration-1000 ${patternsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                        <SectionHeading
+                            kicker="Decisions &amp; Tradeoffs"
+                            title="Four patterns that carry the product"
+                            description="Each pattern below states the problem, the decision, and the tradeoff I made — because in AI UX the interesting part is never the happy path."
+                        />
                     </div>
 
                     <div className="space-y-24">
@@ -371,7 +369,7 @@ export default function MiraeeCaseStudy() {
             {/* Impact */}
             <section ref={resultsRef} className="py-28 px-8 bg-white">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome &amp; Impact</h2>
+                    <SectionHeading align="center" kicker="The Outcome" title="Shipped, and built to be trusted" />
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="p-10 rounded-2xl bg-gray-50 border border-gray-200">
                             <div className="text-4xl font-black text-orange-600 mb-2">Shipped</div>
@@ -396,7 +394,7 @@ export default function MiraeeCaseStudy() {
             <section ref={reflectionRef} className="py-28 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-3xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${reflectionInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-10 text-black">What I&apos;d Do Differently</h2>
+                        <SectionHeading kicker="Reflection" title="What I'd do differently" />
                         <ul className="space-y-6 text-lg text-gray-600 leading-relaxed">
                             <li>
                                 <strong className="text-black">Design the failure states first.</strong> I designed the

@@ -113,9 +113,10 @@ export default function PranikCaseStudy() {
       sections={[
         {
           id: 'context',
+          title: 'The Context',
           content: (
             <div className="grid md:grid-cols-2 gap-16 items-start">
-              <h3 className="text-4xl font-bold leading-tight text-slate-900">
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-slate-900">
                 Healthcare is clinical. People need compassion.
               </h3>
               <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed">
@@ -139,7 +140,7 @@ export default function PranikCaseStudy() {
           content: (
             <div>
               <div className="text-center max-w-3xl mx-auto mb-20">
-                <h3 className="text-5xl font-bold mb-6 text-slate-900">Empathy Engine</h3>
+                <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-6 text-slate-900">Empathy Engine</h3>
                 <p className="text-xl text-slate-500">
                   Prioritizing reassurance and clarity over raw clinical reporting.
                 </p>
@@ -163,7 +164,7 @@ export default function PranikCaseStudy() {
         },
         {
           id: 'process',
-          title: 'User Journey',
+          title: 'The Process',
           content: (
             <div className="space-y-24">
               {[
@@ -211,11 +212,11 @@ export default function PranikCaseStudy() {
         },
         {
           id: 'impact',
-          title: 'Learnings',
+          title: 'Reflection',
           className: 'bg-purple-900 text-white',
           content: (
             <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-4xl font-bold mb-12">Simplicity is the Feature</h3>
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-12">Simplicity is the Feature</h3>
               <p className="text-2xl font-light opacity-90 leading-relaxed mb-12">
                 "In healthcare, complex features often increase anxiety. The most powerful thing an AI can do is be clear, calm, and present."
               </p>

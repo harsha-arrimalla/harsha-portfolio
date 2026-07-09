@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { AlertCircle } from 'lucide-react';
 import CaseStudyNav from '@/components/CaseStudyNav';
 import Footer from '@/components/Footer';
+import SectionHeading from '@/components/SectionHeading';
 
 export default function HitaCaseStudy() {
     const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
@@ -121,10 +122,11 @@ export default function HitaCaseStudy() {
             <section ref={contextRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-8 text-black">The Context</h2>
-                        <p className="text-xl text-gray-600 leading-relaxed mb-16">
-                            Hita is a self-initiated product where I designed and built the entire app end-to-end in just 4 days. The goal was to explore how conversational AI could replace rigid, form-heavy trip-planning tools with something that accounts for heat, rain, and real-world fatigue.
-                        </p>
+                        <SectionHeading
+                            kicker="The Context"
+                            title="Designed and built end-to-end in four days"
+                            description="Hita is a self-initiated product where I designed and built the entire app end-to-end in just 4 days. The goal was to explore how conversational AI could replace rigid, form-heavy trip-planning tools with something that accounts for heat, rain, and real-world fatigue."
+                        />
                     </div>
 
                     <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
@@ -162,12 +164,13 @@ export default function HitaCaseStudy() {
             {/* The Solution */}
             <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-20">
-                        <h2 className="text-5xl font-bold mb-6 text-black">The Solution</h2>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            A conversation-first experience that understands intent and adapts on the fly.
-                        </p>
-                    </div>
+                    <SectionHeading
+                        align="center"
+                        kicker="The Solution"
+                        title="A conversation-first experience"
+                        description="Understands intent and adapts on the fly, instead of asking users to configure their trip upfront."
+                        className="mb-20"
+                    />
 
                     <div className="grid md:grid-cols-3 gap-8">
                         <div className="p-10 rounded-3xl bg-white border border-gray-200 hover:border-indigo-500/50 transition-colors shadow-sm">
@@ -189,7 +192,7 @@ export default function HitaCaseStudy() {
             {/* How it Works */}
             <section ref={processRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold mb-16 text-center text-black">Execution & Design</h2>
+                    <SectionHeading align="center" kicker="The Process" title="Execution & design" />
 
                     <div className="space-y-20">
                         <div className={`transition-all duration-1000 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
@@ -234,7 +237,7 @@ export default function HitaCaseStudy() {
             {/* Impact */}
             <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome</h2>
+                    <SectionHeading align="center" kicker="The Outcome" title="What four days proved" />
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
                             <div className="text-xl font-bold text-indigo-500 mb-2">Proof of Concept</div>

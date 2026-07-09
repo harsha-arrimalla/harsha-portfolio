@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Footer from '@/components/Footer';
 import CaseStudyNav from '@/components/CaseStudyNav';
+import SectionHeading from '@/components/SectionHeading';
 import { useInView } from '@/hooks/useInView';
 import OilPaintBackground from '@/components/OilPaintBackground';
 
@@ -181,12 +182,7 @@ export default function CaseStudyLayout({
                 >
                     <div className="max-w-7xl mx-auto">
                         <RevealSection>
-                            {section.title && (
-                                <div className="flex items-center gap-4 mb-16">
-                                    <div className="h-px w-12 bg-current opacity-30" />
-                                    <h2 className="text-sm font-bold uppercase tracking-widest opacity-70">{section.title}</h2>
-                                </div>
-                            )}
+                            {section.title && <SectionHeading kicker={section.title} />}
                             {section.content}
                         </RevealSection>
                     </div>

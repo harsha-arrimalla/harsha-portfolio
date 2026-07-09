@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
+import SectionHeading from '@/components/SectionHeading';
 
 export interface FlowStep {
     src: string;
@@ -67,13 +68,9 @@ export default function FlowGallery({
 
     return (
         <div ref={ref as any} className={className}>
-            {/* Header */}
-            <div className={`max-w-3xl mb-12 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <span className="block text-xs font-bold uppercase tracking-[0.3em] mb-4" style={{ color: accent }}>
-                    {eyebrow}
-                </span>
-                <h3 className={`text-3xl md:text-5xl font-bold mb-4 ${textMain}`}>{title}</h3>
-                {description && <p className={`text-lg leading-relaxed ${textMuted}`}>{description}</p>}
+            {/* Header — same heading system as every other case study section */}
+            <div className={`max-w-3xl transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <SectionHeading kicker={eyebrow} title={title} description={description} />
             </div>
 
             {variant === 'mobile' ? (

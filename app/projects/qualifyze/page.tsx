@@ -39,9 +39,10 @@ export default function QualifyzeCaseStudy() {
       sections={[
         {
           id: 'context',
+          title: 'The Context',
           content: (
             <div className="grid md:grid-cols-2 gap-16 items-start">
-              <h3 className="text-4xl font-bold leading-tight text-slate-900">
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-slate-900">
                 Compliance teams need clarity, not just more dashboards.
               </h3>
               <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed">
@@ -57,7 +58,7 @@ export default function QualifyzeCaseStudy() {
         },
         {
           id: 'problem',
-          title: 'Problem Framing',
+          title: 'The Problem',
           className: 'bg-white',
           content: (
             <div className="grid md:grid-cols-2 gap-12">
@@ -78,7 +79,7 @@ export default function QualifyzeCaseStudy() {
         },
         {
           id: 'approach',
-          title: 'Research Approach',
+          title: 'The Process',
           className: 'bg-slate-50',
           content: (
             <div className="space-y-6">
@@ -129,11 +130,11 @@ export default function QualifyzeCaseStudy() {
         },
         {
           id: 'direction',
-          title: 'Proposed Product Direction',
+          title: 'The Solution',
           className: 'bg-emerald-700 text-white',
           content: (
             <div>
-              <h3 className="text-4xl font-bold mb-6">Unified Supplier Risk Workspace</h3>
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-6">Unified Supplier Risk Workspace</h3>
               <p className="text-xl leading-relaxed text-emerald-100 max-w-4xl">
                 Consolidate risk score trends, open CAPAs, audit history, and recommended next actions into one supplier-level command view.
               </p>
@@ -156,7 +157,7 @@ export default function QualifyzeCaseStudy() {
         },
         {
           id: 'reflection',
-          title: 'Limitations and Reflection',
+          title: 'Reflection',
           content: (
             <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
               <p>

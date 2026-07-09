@@ -6,6 +6,7 @@ import { AlertCircle } from 'lucide-react';
 import FlowGallery, { FlowStep } from '@/components/FlowGallery';
 import CaseStudyNav from '@/components/CaseStudyNav';
 import Footer from '@/components/Footer';
+import SectionHeading from '@/components/SectionHeading';
 
 const flowSteps: FlowStep[] = [
     {
@@ -157,10 +158,11 @@ export default function MondeeCaseStudy() {
             <section ref={contextRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
                     <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
-                        <h2 className="text-4xl font-bold mb-8 text-black">The Context</h2>
-                        <p className="text-xl text-gray-600 leading-relaxed mb-16">
-                            Mondee is a global enterprise travel platform that supports complex travel bookings, partner integrations, and large-scale operational workflows. As a UI/UX Designer, I worked on improving clarity, usability, and consistency across enterprise-grade systems used by internal teams and partners.
-                        </p>
+                        <SectionHeading
+                            kicker="The Context"
+                            title="Enterprise travel at operational scale"
+                            description="Mondee is a global enterprise travel platform that supports complex travel bookings, partner integrations, and large-scale operational workflows. As a UI/UX Designer, I worked on improving clarity, usability, and consistency across enterprise-grade systems used by internal teams and partners."
+                        />
                     </div>
 
                     <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
@@ -198,12 +200,13 @@ export default function MondeeCaseStudy() {
             {/* The Solution */}
             <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-20">
-                        <h2 className="text-5xl font-bold mb-6 text-black">The Solution</h2>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            Focusing on scalable UI patterns that enhance operational efficiency and system reliability.
-                        </p>
-                    </div>
+                    <SectionHeading
+                        align="center"
+                        kicker="The Solution"
+                        title="Scalable patterns for dense workflows"
+                        description="Focusing on scalable UI patterns that enhance operational efficiency and system reliability."
+                        className="mb-20"
+                    />
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
@@ -229,7 +232,7 @@ export default function MondeeCaseStudy() {
             {/* How it Works */}
             <section ref={processRef} className="py-32 px-8 bg-white">
                 <div className="max-w-4xl mx-auto">
-                    <h2 className="text-4xl font-bold mb-16 text-center text-black">Design Approach</h2>
+                    <SectionHeading align="center" kicker="The Process" title="Design approach" />
 
                     <div className="space-y-20">
                         <div className={`transition-all duration-1000 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
@@ -288,7 +291,7 @@ export default function MondeeCaseStudy() {
             {/* Impact */}
             <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
                 <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl font-bold mb-16 text-black">Outcome & Impact</h2>
+                    <SectionHeading align="center" kicker="The Outcome" title="Outcome & impact" />
                     <div className="grid md:grid-cols-2 gap-8">
                         <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
                             <div className="text-xl font-bold text-orange-500 mb-2">Operational Efficiency</div>

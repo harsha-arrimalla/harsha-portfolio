@@ -109,9 +109,10 @@ export default function EquoraCaseStudy() {
             sections={[
                 {
                     id: 'context',
+                    title: 'The Context',
                     content: (
                         <div className="grid md:grid-cols-2 gap-16 items-start">
-                            <h3 className="text-4xl font-bold leading-tight text-white">
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-white">
                                 In crypto, every mistake is permanent. The UI is the safety system.
                             </h3>
                             <div className="space-y-6 text-lg text-zinc-400 font-light leading-relaxed">
@@ -132,10 +133,12 @@ export default function EquoraCaseStudy() {
                 },
                 {
                     id: 'principles',
-                    title: 'Design Principles',
+                    title: 'The Solution',
                     className: 'bg-zinc-950',
                     content: (
-                        <div className="grid md:grid-cols-3 gap-8">
+                        <div>
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-12 text-white">Friction, where it counts</h3>
+                            <div className="grid md:grid-cols-3 gap-8">
                             {[
                                 { title: 'Danger-proportional friction', desc: 'Confirmation weight scales with irreversibility. Receive is one screen; send is a gauntlet.' },
                                 { title: 'Value before tokens', desc: 'People think in their currency, not in coin quantities. Every amount leads with fiat value.' },
@@ -146,6 +149,7 @@ export default function EquoraCaseStudy() {
                                     <p className="text-zinc-400 leading-relaxed text-sm">{card.desc}</p>
                                 </div>
                             ))}
+                            </div>
                         </div>
                     )
                 },
@@ -164,10 +168,11 @@ export default function EquoraCaseStudy() {
                 },
                 {
                     id: 'reflection',
-                    title: 'Learnings',
+                    title: 'Reflection',
                     className: 'bg-zinc-950',
                     content: (
                         <div className="max-w-3xl">
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-white">What it taught me</h3>
                             <ul className="space-y-6 text-lg text-zinc-400 leading-relaxed">
                                 <li>
                                     <strong className="text-white">Explored alternatives on purpose.</strong> Every core

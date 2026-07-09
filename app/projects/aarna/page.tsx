@@ -109,10 +109,11 @@ export default function AarnaCaseStudy() {
             sections={[
                 {
                     id: 'impact',
+                    title: 'The Outcome',
                     className: 'bg-blue-600 text-white',
                     content: (
                         <div className="text-center">
-                            <p className="text-sm uppercase tracking-[0.3em] text-blue-100/70 font-bold mb-14">Outcomes — each tied to a design decision</p>
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-14">Each number, tied to a design decision</h3>
                             <div className="grid md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/20">
                                 <div className="pt-8 md:pt-0 md:px-6">
                                     <div className="text-7xl md:text-8xl font-black mb-3">3×</div>
@@ -147,7 +148,7 @@ export default function AarnaCaseStudy() {
                     title: 'The Problem',
                     content: (
                         <div className="grid md:grid-cols-2 gap-16 items-start">
-                            <h3 className="text-4xl font-bold leading-tight text-slate-900">
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-slate-900">
                                 Forms were failing creators. Search was failing travelers.
                             </h3>
                             <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed">
@@ -169,12 +170,12 @@ export default function AarnaCaseStudy() {
                 },
                 {
                     id: 'creator-side',
-                    title: 'Supply Side — Conversational Creation',
+                    title: 'The Solution · Supply Side',
                     className: 'bg-slate-50',
                     content: (
                         <div>
                             <div className="text-center max-w-3xl mx-auto mb-20">
-                                <h3 className="text-5xl font-bold mb-6 text-slate-900">From &quot;I do this&quot; to a sellable listing</h3>
+                                <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-6 text-slate-900">From &quot;I do this&quot; to a sellable listing</h3>
                                 <p className="text-xl text-slate-600">
                                     Replacing static inputs with an intelligent, guided dialogue that learns from the creator.
                                 </p>
@@ -200,7 +201,7 @@ export default function AarnaCaseStudy() {
                     id: 'flow',
                     content: (
                         <FlowGallery
-                            eyebrow="Demand Side — Complete End-to-End Flow"
+                            eyebrow="Complete End-to-End Flow · Demand Side"
                             title="Intent → Discover → Compare → Plan → Book"
                             description="The traveler journey as designed: a single conversation with Abhee carries the user from an open-ended wish to a fully booked, day-wise trip — with comparison as a first-class step, because choosing is the hardest part of travel."
                             steps={flowSteps}
@@ -242,9 +243,10 @@ export default function AarnaCaseStudy() {
                 },
                 {
                     id: 'reflection',
-                    title: 'What I\'d Do Differently',
+                    title: 'Reflection',
                     content: (
                         <div className="max-w-3xl">
+                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-slate-900">What I&apos;d do differently</h3>
                             <ul className="space-y-6 text-lg text-slate-600 leading-relaxed">
                                 <li>
                                     <strong className="text-slate-900">Instrument the comparison step from day one.</strong>{' '}
