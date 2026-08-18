@@ -22,34 +22,4 @@ export const CASE_STUDIES: CaseStudyMeta[] = [
         tagline: 'AI travel marketplace — 10K+ users',
         href: '/projects/aarna',
     },
-    {
-        slug: 'hita',
-        title: 'Hita',
-        tagline: 'Self-initiated AI travel companion',
-        href: '/projects/hita',
-    },
-    {
-        slug: 'pranik',
-        title: 'Pranik',
-        tagline: 'AI healthcare companion built on trust',
-        href: '/projects/pranik',
-    },
-    {
-        slug: 'mondee',
-        title: 'Mondee',
-        tagline: 'Enterprise travel platforms at agent scale',
-        href: '/projects/mondee',
-    },
-    {
-        slug: 'equora',
-        title: 'Equora',
-        tagline: 'Self-custody crypto wallet',
-        href: '/projects/equora',
-    },
-    {
-        slug: 'qualifyze',
-        title: 'Qualifyze',
-        tagline: 'Supplier qualification UX study',
-        href: '/projects/qualifyze',
-    },
 ];

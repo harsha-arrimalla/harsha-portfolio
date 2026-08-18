@@ -1,233 +1,150 @@
-'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
 
-import CaseStudyLayout from '@/components/CaseStudyLayout';
-import FlowGallery, { FlowStep } from '@/components/FlowGallery';
-
-const flowSteps: FlowStep[] = [
-    {
-        src: '/images/projects/pranik/flow/01-onboarding.png',
-        title: 'Onboarding',
-        desc: 'A calm, low-jargon welcome that sets expectations: companion first, clinical tool second.',
-        phase: 'Enter',
-    },
-    {
-        src: '/images/projects/pranik/flow/02-signup.png',
-        title: 'Sign Up',
-        desc: 'Mobile-first sign-up asking only what care actually requires — trust starts with restraint.',
-        phase: 'Enter',
-    },
-    {
-        src: '/images/projects/pranik/flow/03-home.png',
-        title: 'Health Home',
-        desc: 'An in-depth summary of your medical history — reports, readings, and lifestyle guidance in plain language.',
-        phase: 'Understand',
-    },
-    {
-        src: '/images/projects/pranik/flow/04-ai-chat.png',
-        title: 'AI Chat',
-        desc: 'Users describe symptoms in their own words. No dropdown taxonomies — just "I feel dizzy."',
-        phase: 'Converse',
-    },
-    {
-        src: '/images/projects/pranik/flow/05-ai-chat-text.png',
-        title: 'Progressive Disclosure',
-        desc: 'The assistant reveals information step-by-step, checking understanding before adding complexity.',
-        phase: 'Converse',
-    },
-    {
-        src: '/images/projects/pranik/flow/06-select-avatar.png',
-        title: 'Choose Your Companion',
-        desc: 'Users pick the avatar they\'re most comfortable confiding in — tone and persona are a health feature.',
-        phase: 'Converse',
-    },
-    {
-        src: '/images/projects/pranik/flow/07-avatar-chat-overview.png',
-        title: 'Avatar Conversation',
-        desc: 'A face-to-face conversational mode for users who find typing about health intimidating.',
-        phase: 'Converse',
-    },
-    {
-        src: '/images/projects/pranik/flow/08-avatar-chat.png',
-        title: 'Guided Voice Dialogue',
-        desc: 'The avatar leads with questions and reassurance, mirroring how a good nurse triages.',
-        phase: 'Converse',
-    },
-    {
-        src: '/images/projects/pranik/flow/09-doctor-detail.png',
-        title: 'Doctor Handoff',
-        desc: 'When AI reaches its limits, the app hands off to a real doctor with full context — no dead ends.',
-        phase: 'Act',
-    },
-    {
-        src: '/images/projects/pranik/flow/10-appointments.png',
-        title: 'Appointments',
-        desc: 'Upcoming and past visits in one place, closing the loop between conversation and care.',
-        phase: 'Act',
-    },
-    {
-        src: '/images/projects/pranik/flow/11-reminders.png',
-        title: 'Reminders',
-        desc: 'Medication and follow-up reminders keep the companion useful between episodes of concern.',
-        phase: 'Act',
-    },
-    {
-        src: '/images/projects/pranik/flow/12-scanning.png',
-        title: 'Report Scanning',
-        desc: 'Scan a lab report and get it decoded into plain language — the jargon translator in action.',
-        phase: 'Understand',
-    },
+const decisions = [
+  {
+    number: '01',
+    title: 'Start with the concern, not a clinical form',
+    image: '/images/projects/pranik/flow/04-ai-chat.png',
+    alt: 'Pranik symptom conversation screen',
+    evidence: 'The patient flow begins with a plain-language conversation rather than a catalogue of medical terms. That choice makes the first interaction feel closer to describing a concern than completing intake paperwork.',
+    decision: 'I used a conversational entry point with clear prompts, so people can begin with what they feel and be guided toward useful context and actions.',
+    tradeoff: 'Conversation is less dense than a clinical form. The design reserves structured details for the moments where they make the next action clearer.',
+  },
+  {
+    number: '02',
+    title: 'Keep the care path visible after the chat',
+    image: '/images/projects/pranik/flow/10-appointments.png',
+    alt: 'Pranik appointment and follow-up screen',
+    evidence: 'The patient experience includes appointments, reminders, records, and report scanning. That set of surfaces shows a need that lasts beyond one question-and-answer moment.',
+    decision: 'I designed the home, appointment, reminder, and report surfaces as one care-continuity layer—not separate utility features.',
+    tradeoff: 'A fuller home needs careful prioritisation. The most immediate follow-up is given prominence while longer-term information stays available without taking over.',
+  },
+  {
+    number: '03',
+    title: 'Treat language as a core path, not a preference toggle',
+    image: '/images/projects/pranik/flow/03-home.png',
+    alt: 'Pranik health home screen',
+    evidence: 'The supplied work includes dedicated Hindi and Telugu experiences alongside patient and doctor views. Localisation is therefore a product surface, not a post-launch translation exercise.',
+    decision: 'The same information architecture is carried across patient, clinician, Hindi, and Telugu views so the service can remain legible across people and contexts.',
+    tradeoff: 'Each language adds content and QA work. Reusing one interaction grammar protects consistency while allowing the language itself to do the communicating.',
+  },
 ];
 
-export default function PranikCaseStudy() {
-  const theme = {
-    primary: '#7C3AED',   // Violet/Purple
-    secondary: '#EC4899', // Pink
-    background: '#FFFFFF', // Clean White for Medical/Trust
-    text: '#1E293B',       // Slate-800
-    muted: '#64748B',      // Slate-500
-    gradient: 'radial-gradient(circle at 0% 0%, rgba(124, 58, 237, 0.08), transparent 50%), radial-gradient(circle at 100% 0%, rgba(236, 72, 153, 0.08), transparent 50%)',
-    selection: '#7C3AED'
-  };
+const artifacts = [
+  { title: 'Patient’s view', description: 'The patient-facing care journey, from concern to follow-up.', src: '/images/projects/pranik/designs/patients-view.png' },
+  { title: 'Doctor’s view', description: 'A care-team view designed to preserve the context behind the patient’s next step.', src: '/images/projects/pranik/designs/doctors-view.png' },
+  { title: 'Hindi experience', description: 'A dedicated Hindi interface for the same care journey.', src: '/images/projects/pranik/designs/hindi.png' },
+  { title: 'Telugu experience', description: 'A dedicated Telugu interface, designed as a first-class product path.', src: '/images/projects/pranik/designs/telugu.webp' },
+];
 
-  const meta = {
-    title: 'Pranik',
-    subtitle: 'AI Healthcare Companion',
-    description: 'An AI-powered healthcare companion designed to make quality healthcare guidance accessible, trustworthy, and human—especially for underserved users.',
-    tags: ['AI Healthcare', 'Trust Design', 'Mobile App']
-  };
+const journey = [
+  ['/images/projects/pranik/flow/01-onboarding.png', 'Enter'],
+  ['/images/projects/pranik/flow/03-home.png', 'Understand'],
+  ['/images/projects/pranik/flow/04-ai-chat.png', 'Ask'],
+  ['/images/projects/pranik/flow/09-doctor-detail.png', 'Connect'],
+  ['/images/projects/pranik/flow/11-reminders.png', 'Continue'],
+];
 
-  const details = {
-    role: 'Product Designer',
-    type: 'Concept App',
-    timeline: '3 Weeks',
-    team: 'Solo Project'
-  };
+function CaseFacts() {
+  return <dl className="evidence-facts">
+    <div><dt>Role</dt><dd>Product Designer<br />End-to-end experience</dd></div>
+    <div><dt>Scope</dt><dd>Care companion<br />Patient and clinician</dd></div>
+    <div><dt>Timeline</dt><dd>3-week concept<br />Mobile product</dd></div>
+    <div><dt>Output</dt><dd>Patient, doctor, Hindi<br />and Telugu views</dd></div>
+  </dl>;
+}
 
-  return (
-    <CaseStudyLayout
-      theme={theme}
-      meta={meta}
-      details={details}
-      heroImage="/images/projects/pranik.png"
-      slug="pranik"
-      sections={[
-        {
-          id: 'context',
-          title: 'The Context',
-          content: (
-            <div className="grid md:grid-cols-2 gap-16 items-start">
-              <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-slate-900">
-                Healthcare is clinical. People need compassion.
-              </h3>
-              <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed">
-                <p>
-                  Pranik explores the idea of **“healthcare as a companion.”**
-                  Existing systems are full of jargon, intimidating for non-native speakers,
-                  and feel transactional.
-                </p>
-                <p>
-                  <strong className="text-purple-600">The Challenge:</strong> How do we use AI to decode medical complexity without losing the human touch?
-                  The goal was to build trust first, diagnosis second.
-                </p>
-              </div>
-            </div>
-          )
-        },
-        {
-          id: 'solution',
-          title: 'The Solution',
-          className: 'bg-slate-50',
-          content: (
-            <div>
-              <div className="text-center max-w-3xl mx-auto mb-20">
-                <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-6 text-slate-900">Empathy Engine</h3>
-                <p className="text-xl text-slate-500">
-                  Prioritizing reassurance and clarity over raw clinical reporting.
-                </p>
-              </div>
+export default function Pranik() {
+  return <main className="case-page case-pranik">
+    <section className="case-cover pranik-cover">
+      <div className="case-cover-mark">P</div>
+      <div className="folio-wrap case-cover-wrap case-cover-text-only">
+        <div className="case-cover-heading">
+          <p className="folio-eyebrow">03 / Care companion</p>
+          <h1>Pranik</h1>
+          <p>A care companion designed to make the next health step feel clearer, calmer, and easier to follow through.</p>
+        </div>
+        <div className="case-cover-statement"><span>Care that keeps people in context</span><b>03</b></div>
+        <div className="case-cover-facts"><span>Product design</span><span>Mobile care journeys</span><span>Patient + clinician</span></div>
+      </div>
+    </section>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  { title: "No Jargon", desc: "Translating 'myocardial infarction' to 'heart concerns' automatically.", icon: "🗣️" },
-                  { title: "Context Aware", desc: "Adjusting tone for seniors, pregnancy, or emergency scenarios.", icon: "🧠" },
-                  { title: "Regional Nuance", desc: "Support for local languages to break cultural barriers.", icon: "🌏" }
-                ].map((card, i) => (
-                  <div key={i} className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="text-4xl mb-6">{card.icon}</div>
-                    <h4 className="text-xl font-bold mb-3 text-slate-900">{card.title}</h4>
-                    <p className="text-slate-500 leading-relaxed">{card.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )
-        },
-        {
-          id: 'process',
-          title: 'The Process',
-          content: (
-            <div className="space-y-24">
-              {[
-                {
-                  step: "01",
-                  title: "Natural Entry",
-                  text: "Users describe symptoms in their own words. No drop-down menus or form fields. Just 'I feel dizzy'."
-                },
-                {
-                  step: "02",
-                  title: "Progressive Disclosure",
-                  text: "Pranik reveals information step-by-step. It checks for understanding before adding more complexity."
-                },
-                {
-                  step: "03",
-                  title: "Clear Next Steps",
-                  text: "Ending uncertainty. Every interaction concludes with a clear action: 'Rest', 'Monitor', or 'Visit Clinic'."
-                }
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col md:flex-row gap-8 md:gap-20 items-center">
-                  <div className="w-24 h-24 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-3xl font-bold shrink-0">
-                    {item.step}
-                  </div>
-                  <div>
-                    <h4 className="text-3xl font-bold mb-4 text-slate-900">{item.title}</h4>
-                    <p className="text-xl text-slate-600 leading-relaxed max-w-2xl">{item.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )
-        },
-        {
-          id: 'flow',
-          className: 'bg-slate-50',
-          content: (
-            <FlowGallery
-              eyebrow="Complete End-to-End Flow"
-              title="From first hello to real care"
-              description="The full journey as designed: a gentle entry, a home that decodes your health history, three ways to talk about symptoms — text, avatar, and voice — and a clean handoff to real doctors, appointments, and reminders."
-              steps={flowSteps}
-              accent="#7C3AED"
-            />
-          )
-        },
-        {
-          id: 'impact',
-          title: 'Reflection',
-          className: 'bg-purple-900 text-white',
-          content: (
-            <div className="text-center max-w-4xl mx-auto">
-              <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-12">Simplicity is the Feature</h3>
-              <p className="text-2xl font-light opacity-90 leading-relaxed mb-12">
-                "In healthcare, complex features often increase anxiety. The most powerful thing an AI can do is be clear, calm, and present."
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <span className="px-6 py-2 rounded-full bg-white/10 border border-white/20">Trust-First Design</span>
-                <span className="px-6 py-2 rounded-full bg-white/10 border border-white/20">Inclusive UX</span>
-              </div>
-            </div>
-          )
-        }
-      ]}
-    />
-  );
+    <section className="case-intro pranik-intro evidence-intro">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Opening snapshot</p>
+        <div>
+          <h2>Health questions do not end when a chat does.</h2>
+          <p className="folio-body-copy">Pranik explores care as an ongoing relationship: a person needs a way to describe a concern, understand what comes next, retain context, and connect with a clinician when it matters. I designed the product as a continuous path rather than a single symptom-checking interaction.</p>
+          <CaseFacts />
+          <aside className="evidence-disclosure"><b>Portfolio note.</b> This case study documents a concept project through its supplied product screens. It focuses on the design decisions and artifacts rather than clinical or adoption claims.</aside>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section pranik-ink">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Context + framing</p>
+        <div>
+          <h2 className="evidence-title">The hard part is turning uncertainty into a next step people can act on.</h2>
+          <div className="evidence-columns">
+            <div><h3>Patient moment</h3><p>A person may arrive with only a feeling, a report, or an unanswered question. The product must make room for that ambiguity before asking for precise information.</p></div>
+            <div><h3>Care moment</h3><p>A useful companion cannot stop at explanation. It needs to maintain context across conversations, follow-up, appointments, reminders, and clinician connection.</p></div>
+          </div>
+          <div className="success-model"><p className="folio-eyebrow">Design model</p><div><span>Product objective</span><strong>Make a health concern easier to express, understand, and carry forward.</strong></div><div><span>Experience outcome</span><strong>One coherent path from a first question to a more informed next step.</strong></div><div><span>Guardrail</span><strong>Do not imply diagnosis or certainty where the product cannot provide it.</strong></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-ownership pranik-ownership">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Scope + system</p>
+        <div>
+          <h2 className="evidence-title">One care system, designed for the people on both sides of the conversation.</h2>
+          <div className="evidence-columns evidence-ownership-grid">
+            <div><h3>Patient journey</h3><p>Onboarding, health home, symptom conversation, avatar guidance, appointments, reminders, and report scanning.</p></div>
+            <div><h3>Clinician context</h3><p>A parallel doctor view that supports continuity rather than asking patients to retell their situation at every handoff.</p></div>
+            <div><h3>Language access</h3><p>Hindi and Telugu are included as designed experiences, ensuring the product story is not limited to one language path.</p></div>
+          </div>
+          <p className="evidence-collaboration">The design challenge was not to add more screens. It was to give each actor the right context without making the care experience feel administrative.</p>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-decisions pranik-decisions">
+      <div className="folio-wrap"><p className="folio-eyebrow">Decision log</p><h2 className="evidence-title">The experience makes room for uncertainty, then turns it into a path forward.</h2>
+        <div className="evidence-decision-list">{decisions.map((item) => <article className="evidence-decision" key={item.number}>
+          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Evidence</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
+          <figure><Image src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 90vw, 46vw" className="object-cover object-top" /></figure>
+        </article>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section pranik-artifacts-section">
+      <div className="folio-wrap">
+        <p className="folio-eyebrow">Design evidence</p>
+        <h2 className="evidence-title">The work extends beyond one mobile flow.</h2>
+        <p className="pranik-artifacts-intro">These supplied design exports show the product across patient and doctor contexts, with Hindi and Telugu as dedicated care experiences. They load as you scroll so the case study stays responsive.</p>
+        <div className="pranik-artifact-grid">{artifacts.map((artifact, index) => <article key={artifact.src}>
+          <div className="pranik-artifact-meta"><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{artifact.title}</h3><p>{artifact.description}</p></div></div>
+          <figure><img src={artifact.src} alt={`${artifact.title} design export`} loading="lazy" decoding="async" /></figure>
+        </article>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section pranik-ink evidence-validation">
+      <div className="folio-wrap"><p className="folio-eyebrow">The care path</p><h2 className="evidence-title">The interaction moves from concern to continuity—not from form to dead end.</h2>
+        <div className="evidence-columns"><div><h3>Give the first step a human scale</h3><p>Conversational entry, avatars, and plain-language prompts create a softer start for a subject that can be intimidating or deeply personal.</p></div><div><h3>Keep the next action in view</h3><p>Health home, appointment, reminder, and doctor surfaces make care feel like a path with memory rather than an isolated interaction.</p></div></div>
+        <div className="evidence-journey">{journey.map(([image, label], index) => <figure key={label}><Image src={image} alt={`Pranik ${label} screen`} fill sizes="(max-width: 800px) 68vw, 25vw" className="object-cover object-top" /><figcaption><b>{String(index + 1).padStart(2, '0')}</b> {label}</figcaption></figure>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-outcome pranik-outcome">
+      <div className="folio-wrap"><p className="folio-eyebrow">Delivered system</p><h2 className="evidence-title">A concept with a complete care grammar.</h2><div className="evidence-outcome-grid"><article><strong>4</strong><h3>Designed perspectives<br /><small>Patient, doctor, Hindi, and Telugu</small></h3></article><article><strong>5</strong><h3>Connected journey moments<br /><small>Enter, understand, ask, connect, and continue</small></h3></article><article><strong>1</strong><h3>Shared care context<br /><small>Designed to move with the person, not disappear after a conversation</small></h3></article></div><p className="evidence-caption">The portfolio documents the designed system and outputs. It does not represent clinical validation, medical guidance, or production performance.</p></div>
+    </section>
+
+    <section className="case-closing pranik-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>A care companion earns trust by making the next step clearer without pretending to have every answer.</p><div className="evidence-reflection"><p>The strongest move in the work is its breadth: patient, clinician, and language-specific views all belong to one product story. The next phase would be to validate the moments where people need human reassurance most.</p></div><Link href="/projects/miraee">Next story / Miraee <span>↗</span></Link></div></section>
+    <Footer />
+  </main>;
 }

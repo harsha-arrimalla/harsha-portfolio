@@ -1,353 +1,131 @@
-'use client';
-
-import { useInView as useIntersection } from '@/hooks/useInView';
 import Image from 'next/image';
-import { AlertCircle } from 'lucide-react';
-import FlowGallery, { FlowStep } from '@/components/FlowGallery';
-import CaseStudyNav from '@/components/CaseStudyNav';
+import Link from 'next/link';
 import Footer from '@/components/Footer';
-import SectionHeading from '@/components/SectionHeading';
 
-const flowSteps: FlowStep[] = [
-    {
-        src: '/images/projects/mondee/flow/01-home.jpg',
-        title: 'Marketplace Home',
-        desc: 'The entry point for travel agents and partners — search, deals, and account context organized for daily high-volume use rather than one-off consumer browsing.',
-        phase: 'Discover',
-        w: 2430,
-        h: 1350,
-    },
-    {
-        src: '/images/projects/mondee/flow/02-search-results.png',
-        title: 'Flight Search Results',
-        desc: 'Dense fare data restructured with a strict hierarchy: airline, times, and net fare scannable in one pass, with commissions and fare rules a click deep instead of cluttering every row.',
-        phase: 'Search',
-        w: 2790,
-        h: 1667,
-    },
-    {
-        src: '/images/projects/mondee/flow/03-flexible-ticket.png',
-        title: 'Flexible Ticket Options',
-        desc: 'Fare flexibility — changes, cancellations, protection — surfaced as a comparable choice at decision time, reducing the support tickets caused by opaque fare rules.',
-        phase: 'Decide',
-        w: 2790,
-        h: 1667,
-    },
-    {
-        src: '/images/projects/mondee/flow/04-packages.png',
-        title: 'Packages',
-        desc: 'Multi-component packages built on the same layout grammar as flights, so agents carry one mental model across product lines.',
-        phase: 'Extend',
-        w: 2790,
-        h: 1620,
-    },
+const decisions = [
+  {
+    number: '01',
+    title: 'Optimise the result row for scanning, not browsing',
+    image: '/images/projects/mondee/flow/02-search-results.png',
+    alt: 'Mondee flight search results',
+    evidence: 'The search surface holds airline, schedule, fare, rules, and partner-specific information at once. Agents need to compare options repeatedly, often before the traveller is ready to decide.',
+    decision: 'I organised every result around a strict scan order: route and time first, fare and availability next, then the details that require a deliberate inspection.',
+    tradeoff: 'Some information moves one interaction deeper. The alternative—making every row fully self-contained—would make comparison slower and create more visual noise.',
+  },
+  {
+    number: '02',
+    title: 'Bring fare flexibility into the choice',
+    image: '/images/projects/mondee/flow/03-flexible-ticket.png',
+    alt: 'Mondee flexible ticket options',
+    evidence: 'Change, cancellation, and protection conditions affect the value of a fare, but they are easy to miss when treated as a footnote after selection.',
+    decision: 'Flexible ticket options are surfaced at the decision point as a comparable layer of the flight choice, with the rule and price relationship visible together.',
+    tradeoff: 'This asks an agent to make one more decision in a time-sensitive flow. It is preferable to a later surprise when the fare cannot be changed or refunded.',
+  },
+  {
+    number: '03',
+    title: 'Use one layout grammar across travel products',
+    image: '/images/projects/mondee/flow/04-packages.png',
+    alt: 'Mondee travel packages interface',
+    evidence: 'Flights and packages have different inventories, but agents move between them inside the same working day. A new product line should not require a new interaction model.',
+    decision: 'Packages inherit the same hierarchy, comparison patterns, and action placement as flights, allowing the product to extend without forcing a fresh learning curve.',
+    tradeoff: 'A shared grammar limits some product-specific expression. The gain is a more predictable system that is easier to learn, build, and maintain.',
+  },
 ];
 
-export default function MondeeCaseStudy() {
-    const [heroRef, heroInView] = useIntersection({ threshold: 0.1 });
-    const [overviewRef, overviewInView] = useIntersection({ threshold: 0.1 });
-    const [contextRef, contextInView] = useIntersection({ threshold: 0.1 });
-    const [problemRef, problemInView] = useIntersection({ threshold: 0.1 });
-    const [solutionRef, solutionInView] = useIntersection({ threshold: 0.1 });
-    const [processRef, processInView] = useIntersection({ threshold: 0.1 });
-    const [resultsRef, resultsInView] = useIntersection({ threshold: 0.1 });
+const journey = [
+  ['/images/projects/mondee/flow/01-home.jpg', 'Home'],
+  ['/images/projects/mondee/flow/02-search-results.png', 'Search'],
+  ['/images/projects/mondee/flow/03-flexible-ticket.png', 'Decide'],
+  ['/images/projects/mondee/flow/04-packages.png', 'Extend'],
+  ['/images/projects/mondee/flow/05-mobile-checkout.png', 'Checkout'],
+];
 
-    return (
-        <div className="min-h-screen bg-white text-black">
+function CaseFacts() {
+  return <dl className="evidence-facts">
+    <div><dt>Role</dt><dd>UI/UX Designer<br />Enterprise travel</dd></div>
+    <div><dt>Scope</dt><dd>Agent booking platform<br />Search to checkout</dd></div>
+    <div><dt>Status</dt><dd>Shipped company work<br />Details NDA-protected</dd></div>
+    <div><dt>System</dt><dd>Flights, fares, packages<br />and mobile checkout</dd></div>
+  </dl>;
+}
 
-            {/* Hero Section */}
-            <section
-                ref={heroRef}
-                className="relative h-screen flex items-center justify-center overflow-hidden bg-white text-black"
-            >
-                {/* Animated gradient orbs */}
-                <div
-                    className="absolute top-20 left-10 w-[500px] h-[500px] bg-gradient-to-r from-orange-200/30 to-red-200/30 rounded-full blur-3xl animate-float-slow"
-                />
-                <div
-                    className="absolute bottom-20 right-10 w-[400px] h-[400px] bg-gradient-to-r from-pink-200/30 to-orange-200/30 rounded-full blur-3xl animate-float-slower"
-                />
-
-                <div
-                    className={`max-w-6xl mx-auto px-8 text-center z-10 transition-all duration-1000 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-                >
-                    <div className="flex justify-center mb-8">
-                        <div
-                            className={`h-[2px] bg-black transition-all duration-1000 ${heroInView ? 'w-16' : 'w-0'}`}
-                        />
-                    </div>
-
-                    <span
-                        className={`block text-sm font-medium text-gray-500 uppercase tracking-[0.3em] mb-6 animate-fade-in-right ${heroInView ? 'opacity-100' : 'opacity-0'}`}
-                    >
-                        Enterprise Product · Travel Tech
-                    </span>
-
-                    <h1
-                        className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 leading-[0.95] tracking-tight text-black"
-                    >
-                        {'Mondee'.split('').map((char, i) => (
-                            <span
-                                key={i}
-                                className={`inline-block transition-all duration-300 hover:text-orange-600 hover:-translate-y-2 ${heroInView ? 'animate-slide-up' : 'opacity-0'}`}
-                                style={{ animationDelay: `${i * 0.05}s` }}
-                            >
-                                {char}
-                            </span>
-                        ))}
-                    </h1>
-
-                    <p
-                        className={`text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto font-light leading-relaxed animate-slide-up ${heroInView ? 'active' : ''}`}
-                        style={{ animationDelay: '0.4s' }}
-                    >
-                        Designed scalable UI/UX solutions for enterprise travel platforms handling complex booking, partner, and operational workflows.
-                    </p>
-                </div>
-
-                {/* Scroll indicator */}
-                <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-1000 ${heroInView ? 'opacity-50' : 'opacity-0'}`}>
-                    <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center pt-2">
-                        <div className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce" />
-                    </div>
-                </div>
-
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 pointer-events-none" />
-            </section>
-
-            {/* Project Info */}
-            <section className="py-12 border-y border-gray-100 bg-gray-50">
-                <div className="max-w-6xl mx-auto px-8">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Role</div>
-                            <div className="text-sm font-medium text-black">UI/UX Designer</div>
-                        </div>
-                        <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Type</div>
-                            <div className="text-sm font-medium text-black">Enterprise Product</div>
-                        </div>
-                        <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Status</div>
-                            <div className="text-sm font-medium text-black">Shipped</div>
-                        </div>
-                        <div>
-                            <div className="text-xs text-gray-500 uppercase tracking-widest mb-2">Context</div>
-                            <div className="text-sm font-medium text-black">Mondee · Company Work</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Visual Preview */}
-            <section className="py-20 bg-white">
-                <div className="max-w-6xl mx-auto px-8">
-                    <div className="relative aspect-video rounded-[40px] overflow-hidden shadow-2xl transition-all duration-1000 hover:scale-[1.01] border border-gray-100">
-                        <Image
-                            src="/images/projects/mondee.png"
-                            alt="Mondee Interface Preview"
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                    </div>
-                </div>
-            </section>
-
-            {/* Context & Problem */}
-            <section ref={contextRef} className="py-32 px-8 bg-white">
-                <div className="max-w-4xl mx-auto">
-                    <div className={`transition-all duration-1000 reveal ${contextInView ? 'active' : ''}`}>
-                        <SectionHeading
-                            kicker="The Context"
-                            title="Enterprise travel at operational scale"
-                            description="Mondee is a global enterprise travel platform that supports complex travel bookings, partner integrations, and large-scale operational workflows. As a UI/UX Designer, I worked on improving clarity, usability, and consistency across enterprise-grade systems used by internal teams and partners."
-                        />
-                    </div>
-
-                    <div ref={problemRef} className={`grid md:grid-cols-2 gap-16 transition-all duration-1000 reveal ${problemInView ? 'active' : ''}`}>
-                        <div>
-                            <h3 className="text-2xl font-bold mb-4 text-orange-400">The Problem</h3>
-                            <p className="text-gray-500 leading-relaxed italic mb-6">"Enterprise travel platforms face challenges very different from consumer apps."</p>
-                            <ul className="space-y-4 text-gray-600">
-                                <li className="flex gap-3 items-start">
-                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
-                                    <span>Dense information and data-heavy screens causing cognitive overload.</span>
-                                </li>
-                                <li className="flex gap-3 items-start">
-                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
-                                    <span>Complex workflows with many operational edge cases.</span>
-                                </li>
-                                <li className="flex gap-3 items-start">
-                                    <AlertCircle className="w-5 h-5 text-orange-500 shrink-0 mt-1" />
-                                    <span>High risk of errors due to poor UX clarity in high-pressure environments.</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 className="text-2xl font-bold mb-4 text-orange-500">Core Insight</h3>
-                            <p className="text-gray-600 leading-relaxed">
-                                Enterprise users don’t want more features — they want **clarity and predictability**. In high-pressure environments, clear hierarchy and consistency matter more than novelty. UX should reduce thinking, not add to it.
-                            </p>
-                            <p className="mt-4 text-gray-800 font-medium italic">
-                                Design for reliability, not just aesthetics.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* What I owned */}
-            <section className="py-24 px-8 bg-white border-t border-gray-100">
-                <div className="max-w-4xl mx-auto">
-                    <SectionHeading kicker="My Role" title="What I owned" />
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {[
-                            {
-                                title: 'The booking surfaces',
-                                desc: 'Search results, fare flexibility, and packages — the screens agents live in all day, redesigned around scan speed and error prevention.',
-                            },
-                            {
-                                title: 'Pattern consistency',
-                                desc: 'One layout grammar across product lines so a new module never means a new mental model — components specified with engineers, not thrown over the wall.',
-                            },
-                            {
-                                title: 'Working inside constraints',
-                                desc: 'Every decision negotiated against backend dependencies and operational edge cases with PMs, engineers, and ops stakeholders — shippable beat ideal.',
-                            },
-                        ].map((item) => (
-                            <div key={item.title} className="p-7 rounded-2xl bg-gray-50 border border-gray-200">
-                                <h3 className="font-bold text-black mb-2">{item.title}</h3>
-                                <p className="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* The Solution */}
-            <section ref={solutionRef} className="py-32 px-8 bg-gray-50">
-                <div className="max-w-6xl mx-auto">
-                    <SectionHeading
-                        align="center"
-                        kicker="The Solution"
-                        title="Scalable patterns for dense workflows"
-                        description="Focusing on scalable UI patterns that enhance operational efficiency and system reliability."
-                        className="mb-20"
-                    />
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
-                            <h3 className="text-lg font-bold mb-3 text-orange-500">Operational Flow</h3>
-                            <p className="text-gray-600 text-sm">Simplifying complex travel operations into intuitive, predictable user flows.</p>
-                        </div>
-                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
-                            <h3 className="text-lg font-bold mb-3 text-orange-500">Data Hierarchy</h3>
-                            <p className="text-gray-600 text-sm">Improving information density on screens to reduce eye strain and error rates.</p>
-                        </div>
-                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
-                            <h3 className="text-lg font-bold mb-3 text-orange-500">Pattern Consistency</h3>
-                            <p className="text-gray-600 text-sm">Creating universal UI components to reduce learning curves across modules.</p>
-                        </div>
-                        <div className="p-8 rounded-3xl bg-white border border-gray-200 hover:border-orange-500/50 transition-colors shadow-sm">
-                            <h3 className="text-lg font-bold mb-3 text-orange-500">System Alignment</h3>
-                            <p className="text-gray-600 text-sm">Ensuring design decisions respect backend logic and operational constraints.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* How it Works */}
-            <section ref={processRef} className="py-32 px-8 bg-white">
-                <div className="max-w-4xl mx-auto">
-                    <SectionHeading align="center" kicker="The Process" title="Design approach" />
-
-                    <div className="space-y-20">
-                        <div className={`transition-all duration-1000 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                            <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center font-bold shrink-0">1</div>
-                                <div>
-                                    <h3 className="text-2xl font-bold mb-4 text-black">Understanding Constraints</h3>
-                                    <p className="text-gray-600">
-                                        Worked within existing system architecture while considering backend dependencies, ensuring that every design solution was practical and shippable.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`transition-all duration-1000 delay-150 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                            <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center font-bold shrink-0">2</div>
-                                <div>
-                                    <h3 className="text-2xl font-bold mb-4 text-black">Flow & Interaction Design</h3>
-                                    <p className="text-gray-600">
-                                        Focused on simplified workflows that reduced unnecessary actions. Task completion efficiency was the primary metric for success in data-heavy screens.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className={`transition-all duration-1000 delay-300 ${processInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
-                            <div className="flex items-start gap-6">
-                                <div className="w-12 h-12 rounded-full bg-orange-50 text-orange-600 flex items-center justify-center font-bold shrink-0">3</div>
-                                <div>
-                                    <h3 className="text-2xl font-bold mb-4 text-black">Stakeholder Collaboration</h3>
-                                    <p className="text-gray-600">
-                                        Iterated designs based on constant feedback from product managers, engineers, and operational stakeholders to balance speed, accuracy, and system flexibility.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* End-to-End Flow */}
-            <section className="py-32 px-8 bg-gray-50 border-t border-gray-100 overflow-hidden">
-                <div className="max-w-6xl mx-auto">
-                    <FlowGallery
-                        eyebrow="Complete End-to-End Flow"
-                        title="The agent booking journey"
-                        description="Key surfaces from the shipped platform: home, search, fare flexibility, and packages — each redesigned around scan speed and error prevention for users who do this hundreds of times a day."
-                        steps={flowSteps}
-                        variant="desktop"
-                        accent="#EA580C"
-                    />
-                </div>
-            </section>
-
-            {/* Impact */}
-            <section ref={resultsRef} className="py-32 px-8 bg-gray-50 border-t border-gray-100">
-                <div className="max-w-4xl mx-auto text-center">
-                    <SectionHeading align="center" kicker="The Outcome" title="Outcome & impact" />
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div className="text-xl font-bold text-orange-500 mb-2">Operational Efficiency</div>
-                            <p className="text-gray-500 text-sm">Reduced operational bottlenecks through clearer information hierarchy.</p>
-                        </div>
-                        <div className="p-10 rounded-2xl bg-white border border-gray-200 shadow-sm">
-                            <div className="text-xl font-bold text-gray-800 mb-2">System Consistency</div>
-                            <p className="text-gray-500 text-sm">Contributed to a more unified user experience across diverse platform modules.</p>
-                        </div>
-                    </div>
-
-                    <figure className="mt-16 p-8 rounded-2xl bg-orange-50 border border-orange-100 text-left">
-                        <blockquote className="text-xl md:text-2xl font-medium text-black leading-relaxed">
-                            &ldquo;Finally feels built for us.&rdquo;
-                        </blockquote>
-                        <figcaption className="mt-3 text-sm text-gray-500">Travel agent, on the redesigned booking surfaces</figcaption>
-                    </figure>
-
-                    <p className="mt-8 text-sm text-gray-400">
-                        Task-time and efficiency measurements are internal — I walk through them in interviews.
-                    </p>
-                </div>
-            </section>
-
-            {/* Previous / Next Navigation */}
-            <CaseStudyNav current="mondee" />
-
-            <Footer />
+export default function Mondee() {
+  return <main className="case-page case-mondee">
+    <section className="case-cover mondee-cover">
+      <div className="case-cover-mark">M</div>
+      <div className="folio-wrap case-cover-wrap case-cover-text-only">
+        <div className="case-cover-heading">
+          <p className="folio-eyebrow">03 / Travel operations</p>
+          <h1>Mondee</h1>
+          <p>An enterprise travel platform designed to help agents compare complex inventory, explain fare rules, and complete bookings with confidence.</p>
         </div>
-    );
+        <div className="case-cover-statement"><span>Operational speed without hiding the details</span><b>03</b></div>
+        <div className="case-cover-facts"><span>Enterprise travel</span><span>Information systems</span><span>Web + mobile</span></div>
+      </div>
+    </section>
+
+    <section className="case-intro mondee-intro evidence-intro">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Opening snapshot</p>
+        <div>
+          <h2>A travel agent does not need fewer choices. They need a faster way to make the right one.</h2>
+          <p className="folio-body-copy">Mondee supports travel agents and partners working through high-volume, detail-heavy booking flows. I designed the core experience around an operational reality: people need to scan, compare, explain, and act without losing the rules that make a booking viable.</p>
+          <CaseFacts />
+          <aside className="evidence-disclosure"><b>Confidentiality note.</b> This is shipped company work. Screens are shown for portfolio use; customer data, internal performance metrics, and partner-specific business rules are omitted.</aside>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-ink mondee-ink">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Context + stakes</p>
+        <div>
+          <h2 className="evidence-title">Travel operations are a comparison problem under real constraints.</h2>
+          <div className="evidence-columns">
+            <div><h3>What agents are balancing</h3><p>Schedules, availability, fare conditions, price, traveller needs, and partner context coexist in one decision. Density is not a bug here; unclear hierarchy is.</p></div>
+            <div><h3>How I framed the work</h3><p>The system should help an agent move quickly while keeping the fare logic visible enough to explain the decision to someone else.</p></div>
+          </div>
+          <div className="success-model"><p className="folio-eyebrow">Design model</p><div><span>Product objective</span><strong>Turn high-density travel inventory into a fast, defensible agent decision.</strong></div><div><span>Experience outcome</span><strong>Key fare and rule information stays legible while choices remain comparable.</strong></div><div><span>Guardrail</span><strong>Do not trade operational clarity for superficial simplification.</strong></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-ownership mondee-ownership">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Scope + collaboration</p>
+        <div>
+          <h2 className="evidence-title">I worked on the surfaces agents return to throughout the booking day.</h2>
+          <div className="evidence-columns evidence-ownership-grid">
+            <div><h3>Search and comparison</h3><p>Dense result rows, filters, fare hierarchy, and action placement designed for repeated comparison rather than consumer-style exploration.</p></div>
+            <div><h3>Fare decision support</h3><p>Flexible ticket details and booking information made visible where a choice is made, not after a rule has already created a problem.</p></div>
+            <div><h3>Product consistency</h3><p>A shared layout grammar across flights, packages, and checkout so the platform can grow without resetting the agent’s mental model.</p></div>
+          </div>
+          <p className="evidence-collaboration">The work was shaped with product, engineering, and operations stakeholders. Each design decision had to respect inventory logic, partner dependencies, and the edge cases of real bookings.</p>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-decisions mondee-decisions">
+      <div className="folio-wrap"><p className="folio-eyebrow">Decision log</p><h2 className="evidence-title">The UI reduces the time to compare without pretending the work is simple.</h2>
+        <div className="evidence-decision-list">{decisions.map((item) => <article className="evidence-decision" key={item.number}>
+          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Evidence</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
+          <figure><Image src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 90vw, 46vw" className="object-cover object-top" /></figure>
+        </article>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section mondee-flow-section">
+      <div className="folio-wrap"><p className="folio-eyebrow">Shipped journey</p><h2 className="evidence-title">One booking grammar, from the first search to mobile checkout.</h2>
+        <div className="evidence-columns"><div><h3>Compare before committing</h3><p>The early surfaces focus on a quick, stable hierarchy for searching and weighing options, with fare flexibility attached to the decision instead of buried in rules.</p></div><div><h3>Carry context to completion</h3><p>Packages and checkout retain the same visual grammar so the decision made upstream survives the rest of the workflow.</p></div></div>
+        <div className="evidence-journey">{journey.map(([image, label], index) => <figure key={label}><Image src={image} alt={`Mondee ${label} screen`} fill sizes="(max-width: 800px) 68vw, 25vw" className="object-cover object-top" /><figcaption><b>{String(index + 1).padStart(2, '0')}</b> {label}</figcaption></figure>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-outcome mondee-outcome">
+      <div className="folio-wrap"><p className="folio-eyebrow">Delivered system</p><h2 className="evidence-title">A clearer operating model for complex travel inventory.</h2><div className="evidence-outcome-grid"><article><strong>5</strong><h3>Connected booking surfaces<br /><small>Home, search, fare flexibility, packages, and checkout</small></h3></article><article><strong>1</strong><h3>Reusable comparison grammar<br /><small>Designed to move across product lines and device contexts</small></h3></article><article><strong>0</strong><h3>Invented portfolio metrics<br /><small>Operational performance remains private; the visible outcome is the shipped system</small></h3></article></div><p className="evidence-caption">The work shipped as part of a broader enterprise platform. Company metrics and partner-specific outcomes are not disclosed here.</p></div>
+    </section>
+
+    <section className="case-closing mondee-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>In enterprise work, clarity is not the absence of information. It is the ability to find the information that changes the decision.</p><div className="evidence-reflection"><p>The system works best when consistent patterns absorb operational complexity instead of forcing an agent to remember how every category behaves. Given more space, I would expose more of the decision-support rationale at the moment of comparison.</p></div><Link href="/projects/pranik">Next story / Pranik <span>↗</span></Link></div></section>
+    <Footer />
+  </main>;
 }

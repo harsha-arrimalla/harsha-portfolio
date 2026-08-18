@@ -1,235 +1,144 @@
-'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
 
-import CaseStudyLayout from '@/components/CaseStudyLayout';
-import FlowGallery, { FlowStep } from '@/components/FlowGallery';
-import IterationStrip from '@/components/IterationStrip';
-
-const ACCENT = '#22C55E';
-
-const flowSteps: FlowStep[] = [
-    {
-        src: '/images/projects/equora/flow/01-start-menu.png',
-        title: 'Start',
-        desc: 'Create a new wallet or restore an existing one — two paths, zero ambiguity about which is which.',
-        phase: 'Onboard',
-    },
-    {
-        src: '/images/projects/equora/flow/02-create-password.png',
-        title: 'Create Password',
-        desc: 'Local-only password creation with plain-language framing of what it protects (and what it can\'t recover).',
-        phase: 'Onboard',
-    },
-    {
-        src: '/images/projects/equora/flow/03-recovery-phrase.png',
-        title: 'Recovery Phrase',
-        desc: 'The highest-stakes moment in any wallet. The phrase is revealed deliberately, with explicit consequences before the user can proceed.',
-        phase: 'Secure',
-    },
-    {
-        src: '/images/projects/equora/flow/04-home.png',
-        title: 'Portfolio Home',
-        desc: 'Balance, holdings, and movement at a glance — value first, tokens second, noise nowhere.',
-        phase: 'Hold',
-    },
-    {
-        src: '/images/projects/equora/flow/05-market.png',
-        title: 'Market',
-        desc: 'Live market view with trends and movers, structured for quick scanning rather than day-trader density.',
-        phase: 'Explore',
-    },
-    {
-        src: '/images/projects/equora/flow/06-market-detail.png',
-        title: 'Asset Detail',
-        desc: 'A single asset\'s chart, stats, and actions — buy, sell, and swap reachable from the same screen that informs the decision.',
-        phase: 'Explore',
-    },
-    {
-        src: '/images/projects/equora/flow/07-swap.png',
-        title: 'Swap',
-        desc: 'Token swaps as a simple A-to-B statement with rate and fees visible before confirmation.',
-        phase: 'Transact',
-    },
-    {
-        src: '/images/projects/equora/flow/08-buy.png',
-        title: 'Buy',
-        desc: 'Amount-first buying: the user states value in their currency, the token math follows.',
-        phase: 'Transact',
-    },
-    {
-        src: '/images/projects/equora/flow/09-buy-payment.png',
-        title: 'Payment',
-        desc: 'Payment method selection kept inside the flow — no handoff to a web view that breaks trust mid-purchase.',
-        phase: 'Transact',
-    },
-    {
-        src: '/images/projects/equora/flow/10-send.png',
-        title: 'Send',
-        desc: 'Irreversible transfers get friction by design: address validation and amount confirmation before anything moves.',
-        phase: 'Transact',
-    },
-    {
-        src: '/images/projects/equora/flow/11-receive.png',
-        title: 'Receive',
-        desc: 'A scannable QR and copyable address — the simplest screen in the app, deliberately.',
-        phase: 'Transact',
-    },
+const decisions = [
+  {
+    number: '01',
+    title: 'Slow down the moment a person becomes their own bank',
+    image: '/images/projects/equora/flow/03-recovery-phrase.png',
+    alt: 'Equora recovery phrase screen',
+    evidence: 'Creating a self-custody wallet introduces an irreversible responsibility: the recovery phrase cannot be recreated by a support team. That moment is materially different from a routine account password.',
+    decision: 'The recovery phrase is introduced as a deliberate security step with clear framing, rather than a technical detail people are expected to rush past during onboarding.',
+    tradeoff: 'More explanation creates friction in the first session. Here the delay is intentional: comprehension is more valuable than a superficially faster activation.',
+  },
+  {
+    number: '02',
+    title: 'Lead with value, then reveal token complexity',
+    image: '/images/projects/equora/flow/04-home.png',
+    alt: 'Equora wallet home screen',
+    evidence: 'Wallets often foreground token quantities, addresses, and trading signals at the same time. That makes a first-time holder decode the interface before understanding what they own.',
+    decision: 'The home screen prioritises total value and a small set of actions. Holdings remain available, while addresses and deeper asset detail sit one intentional step away.',
+    tradeoff: 'Frequent traders may want more density immediately. The composition gives the default experience a calmer hierarchy without preventing deeper inspection.',
+  },
+  {
+    number: '03',
+    title: 'Put friction where a mistake cannot be undone',
+    image: '/images/projects/equora/flow/10-send.png',
+    alt: 'Equora send transaction screen',
+    evidence: 'Sending crypto is an irreversible action. Address, amount, rate, and fee information each change the meaning of the decision, and a rushed confirmation has no simple recovery path.',
+    decision: 'The send flow makes the recipient, amount, and confirmation state explicit before funds move. Low-risk actions such as receiving remain intentionally light by comparison.',
+    tradeoff: 'Extra review steps slow the fastest possible transfer. They are focused only on the moments where speed creates disproportionate harm.',
+  },
 ];
 
-export default function EquoraCaseStudy() {
-    const theme = {
-        primary: '#22C55E',
-        secondary: '#0EA5E9',
-        background: '#09090B',
-        text: '#FAFAFA',
-        muted: '#A1A1AA',
-        gradient: 'radial-gradient(circle at 20% 0%, rgba(34, 197, 94, 0.15), transparent 50%), radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.12), transparent 50%)',
-        selection: '#22C55E'
-    };
+const explorations = [
+  { image: '/images/projects/equora/explorations/home-alt1.png', label: 'Compact balance', status: 'Explored', text: 'A dense balance-and-tabs direction that served frequent traders well but made the first view feel more technical.' },
+  { image: '/images/projects/equora/explorations/home-alt2.png', label: 'Address-forward', status: 'Killed', text: 'A direction that elevated the wallet address. Useful for repeat copying, but too much noise for the default holder experience.' },
+  { image: '/images/projects/equora/explorations/home-alt3.png', label: 'Calm action tiles', status: 'Evolved', text: 'A balance-first layout with clear actions. It improved composure, though the tiles consumed too much of the opening screen.' },
+  { image: '/images/projects/equora/flow/04-home.png', label: 'Selected direction', status: 'Selected', text: 'The final design keeps the balance-first clarity and condenses actions so the holdings remain immediately visible.' },
+];
 
-    const meta = {
-        title: 'Equora',
-        subtitle: 'Crypto Wallet',
-        description: 'A self-custody crypto wallet designed to make irreversible money feel safe to hold, move, and trade — onboarding, market, and transactions rebuilt around trust.',
-        tags: ['Fintech', 'Mobile App', 'Trust Design']
-    };
+const journey = [
+  ['/images/projects/equora/flow/01-start-menu.png', 'Enter'],
+  ['/images/projects/equora/flow/03-recovery-phrase.png', 'Secure'],
+  ['/images/projects/equora/flow/04-home.png', 'Hold'],
+  ['/images/projects/equora/flow/07-swap.png', 'Swap'],
+  ['/images/projects/equora/flow/10-send.png', 'Send'],
+];
 
-    const details = {
-        role: 'Product Designer',
-        type: 'Mobile App · Concept',
-        timeline: '4 Weeks',
-        team: 'Solo Project'
-    };
+function CaseFacts() {
+  return <dl className="evidence-facts">
+    <div><dt>Role</dt><dd>Product Designer<br />Independent concept</dd></div>
+    <div><dt>Scope</dt><dd>Mobile wallet<br />Onboarding to transfer</dd></div>
+    <div><dt>Timeline</dt><dd>4 weeks<br />Solo project</dd></div>
+    <div><dt>Output</dt><dd>11 flow screens<br />4 home explorations</dd></div>
+  </dl>;
+}
 
-    return (
-        <CaseStudyLayout
-            theme={theme}
-            meta={meta}
-            details={details}
-            heroImage="/images/projects/equora/hero.jpg"
-            slug="equora"
-            sections={[
-                {
-                    id: 'context',
-                    title: 'The Context',
-                    content: (
-                        <div className="grid md:grid-cols-2 gap-16 items-start">
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-white">
-                                In crypto, every mistake is permanent. The UI is the safety system.
-                            </h3>
-                            <div className="space-y-6 text-lg text-zinc-400 font-light leading-relaxed">
-                                <p>
-                                    Self-custody wallets ask ordinary people to be their own bank: guard a recovery
-                                    phrase, verify addresses, and sign irreversible transactions. Most wallet UIs
-                                    treat this as a power-user problem and bury the danger in fine print.
-                                </p>
-                                <p>
-                                    <strong className="text-white">The design position:</strong> friction is not the
-                                    enemy — <em>misplaced</em> friction is. Equora removes ceremony from safe actions
-                                    (viewing, receiving) and concentrates it on irreversible ones (revealing the
-                                    phrase, sending funds).
-                                </p>
-                            </div>
-                        </div>
-                    )
-                },
-                {
-                    id: 'principles',
-                    title: 'The Solution',
-                    className: 'bg-zinc-950',
-                    content: (
-                        <div>
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-12 text-white">Friction, where it counts</h3>
-                            <div className="grid md:grid-cols-3 gap-8">
-                            {[
-                                { title: 'Danger-proportional friction', desc: 'Confirmation weight scales with irreversibility. Receive is one screen; send is a gauntlet.' },
-                                { title: 'Value before tokens', desc: 'People think in their currency, not in coin quantities. Every amount leads with fiat value.' },
-                                { title: 'Explain before commit', desc: 'Rates, fees, and consequences render on the same screen as the action — never on the receipt.' }
-                            ].map((card) => (
-                                <div key={card.title} className="p-8 rounded-3xl bg-white/5 border border-white/10">
-                                    <h4 className="text-xl font-bold mb-3 text-white">{card.title}</h4>
-                                    <p className="text-zinc-400 leading-relaxed text-sm">{card.desc}</p>
-                                </div>
-                            ))}
-                            </div>
-                        </div>
-                    )
-                },
-                {
-                    id: 'explorations',
-                    title: 'The Process',
-                    className: 'bg-zinc-950',
-                    content: (
-                        <div>
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-white">Four takes on the home screen</h3>
-                            <IterationStrip
-                                dark
-                                intro="The home screen decides whether the wallet reads calm or chaotic, so it was designed as four competing layouts — same data, different answers to what deserves the most weight: the balance, the address, or the actions."
-                                items={[
-                                    {
-                                        src: '/images/projects/equora/explorations/home-alt1.png',
-                                        label: 'Direction A',
-                                        verdict: 'Compact balance with underline tabs — the densest option, strongest for frequent traders, weakest for first-time holders.',
-                                        status: 'explored',
-                                    },
-                                    {
-                                        src: '/images/projects/equora/explorations/home-alt2.png',
-                                        label: 'Direction B',
-                                        verdict: 'Wallet address promoted beside the balance with pill tabs — great for power users who copy addresses daily, noise for everyone else.',
-                                        status: 'killed',
-                                    },
-                                    {
-                                        src: '/images/projects/equora/explorations/home-alt3.png',
-                                        label: 'Direction C',
-                                        verdict: 'Centered balance with change badge and boxed action tiles — the calmest hierarchy, but the tiles ate vertical space above the token list.',
-                                        status: 'evolved',
-                                    },
-                                    {
-                                        src: '/images/projects/equora/flow/04-home.png',
-                                        label: 'Shipped',
-                                        verdict: 'The shipped screen keeps Direction C\'s balance-first calm with A\'s compact action row — value first, tokens second, address one tap away.',
-                                        status: 'shipped',
-                                    },
-                                ]}
-                            />
-                        </div>
-                    )
-                },
-                {
-                    id: 'flow',
-                    content: (
-                        <FlowGallery
-                            eyebrow="Complete End-to-End Flow"
-                            title="From first launch to first transaction"
-                            description="The full wallet journey: onboarding and recovery-phrase security, the portfolio home, market exploration, and the four core transactions — buy, sell, swap, send, and receive — each with friction proportional to its risk."
-                            steps={flowSteps}
-                            accent={ACCENT}
-                            dark
-                        />
-                    )
-                },
-                {
-                    id: 'reflection',
-                    title: 'Reflection',
-                    className: 'bg-zinc-950',
-                    content: (
-                        <div className="max-w-3xl">
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-white">What it taught me</h3>
-                            <ul className="space-y-6 text-lg text-zinc-400 leading-relaxed">
-                                <li>
-                                    <strong className="text-white">Explored alternatives on purpose.</strong> Every core
-                                    screen was designed in three to four visual directions before committing — the
-                                    surviving direction won on legibility under stress, not on aesthetics.
-                                </li>
-                                <li>
-                                    <strong className="text-white">Trust patterns transfer.</strong> The
-                                    danger-proportional-friction model I built here directly informed the policy and
-                                    failure-state work in Miraee — different domain, same psychology.
-                                </li>
-                            </ul>
-                        </div>
-                    )
-                }
-            ]}
-        />
-    );
+export default function Equora() {
+  return <main className="case-page case-equora">
+    <section className="case-cover equora-cover">
+      <div className="case-cover-mark">E</div>
+      <div className="folio-wrap case-cover-wrap case-cover-text-only">
+        <div className="case-cover-heading">
+          <p className="folio-eyebrow">04 / Self-custody wallet</p>
+          <h1>Equora</h1>
+          <p>A self-custody crypto wallet designed to make irreversible money feel understandable before people are asked to act.</p>
+        </div>
+        <div className="case-cover-statement"><span>Trust is a product behavior, not a disclaimer</span><b>04</b></div>
+        <div className="case-cover-facts"><span>Trust design</span><span>Mobile fintech</span><span>Independent concept</span></div>
+      </div>
+    </section>
+
+    <section className="case-intro equora-intro evidence-intro">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Opening snapshot</p>
+        <div>
+          <h2>In self-custody, the interface becomes part of the safety system.</h2>
+          <p className="folio-body-copy">Equora is a concept for people who need to hold, explore, and move crypto without being treated as expert traders on day one. I designed it around risk-aware friction: effortless for safe actions, deliberate for actions that cannot be reversed.</p>
+          <CaseFacts />
+          <aside className="evidence-disclosure"><b>Portfolio note.</b> Equora is an independent concept. The case study documents design rationale and prototypes, not production behaviour, custody advice, or financial performance.</aside>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section equora-ink">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Context + framing</p>
+        <div>
+          <h2 className="evidence-title">A wallet should remove ceremony from safe actions and add it to irreversible ones.</h2>
+          <div className="evidence-columns">
+            <div><h3>What makes the category hard</h3><p>People must protect a recovery phrase, judge the meaning of network and recipient details, and confirm transactions that cannot simply be recalled.</p></div>
+            <div><h3>How I framed the design</h3><p>The goal was not zero friction. It was friction in proportion to risk, paired with an interface that explains what is happening before the person commits.</p></div>
+          </div>
+          <div className="success-model"><p className="folio-eyebrow">Design model</p><div><span>Product objective</span><strong>Make the consequences of a wallet action legible before the action becomes final.</strong></div><div><span>Experience outcome</span><strong>Let a new holder understand their value and choices without learning a trading terminal.</strong></div><div><span>Guardrail</span><strong>Never make a high-risk step feel as casual as a low-risk one.</strong></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-ownership equora-ownership">
+      <div className="folio-wrap folio-split">
+        <p className="folio-eyebrow">Scope + system</p>
+        <div>
+          <h2 className="evidence-title">The product had to teach, orient, and protect within the same mobile flow.</h2>
+          <div className="evidence-columns evidence-ownership-grid">
+            <div><h3>Secure entry</h3><p>Start state, password creation, and recovery-phrase handling framed to signal both responsibility and the limits of recovery.</p></div>
+            <div><h3>Calm orientation</h3><p>A holdings home and market surfaces organised around value, context, and inspectable detail instead of day-trader density.</p></div>
+            <div><h3>Risk-aware action</h3><p>Swap, buy, payment, send, and receive paths that make the relevant confirmation weight match the consequence of each action.</p></div>
+          </div>
+          <p className="evidence-collaboration">As a solo concept project, I owned the framing, interaction architecture, visual system, and prototype decisions across the complete mobile journey.</p>
+        </div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-decisions equora-decisions">
+      <div className="folio-wrap"><p className="folio-eyebrow">Decision log</p><h2 className="evidence-title">The product earns trust through placement, hierarchy, and intentional delay.</h2>
+        <div className="evidence-decision-list">{decisions.map((item) => <article className="evidence-decision" key={item.number}>
+          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Evidence</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
+          <figure><Image src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 90vw, 46vw" className="object-cover object-top" /></figure>
+        </article>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section equora-explorations">
+      <div className="folio-wrap"><p className="folio-eyebrow">Alternatives + tradeoffs</p><h2 className="evidence-title">The home screen was explored as a question of trust, not decoration.</h2>
+        <div className="evidence-explorations">{explorations.map((item) => <article key={item.label}><figure><Image src={item.image} alt={`${item.label} home-screen exploration`} fill sizes="(max-width: 800px) 82vw, 42vw" className="object-cover object-top" /></figure><div><span>{item.status}</span><h3>{item.label}</h3><p>{item.text}</p></div></article>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section equora-journey-section">
+      <div className="folio-wrap"><p className="folio-eyebrow">Core journey</p><h2 className="evidence-title">The interface shifts its weight as the risk of the action changes.</h2>
+        <div className="evidence-columns"><div><h3>Low-friction orientation</h3><p>Getting started, understanding a balance, and receiving funds preserve focus and move quickly. These moments should feel calm and self-explanatory.</p></div><div><h3>High-intent confirmation</h3><p>Recovery, swap, and send paths bring the person closer to the information that makes the decision consequential before they confirm it.</p></div></div>
+        <div className="evidence-journey">{journey.map(([image, label], index) => <figure key={label}><Image src={image} alt={`Equora ${label} screen`} fill sizes="(max-width: 800px) 68vw, 25vw" className="object-cover object-top" /><figcaption><b>{String(index + 1).padStart(2, '0')}</b> {label}</figcaption></figure>)}</div>
+      </div>
+    </section>
+
+    <section className="evidence-section evidence-outcome equora-outcome">
+      <div className="folio-wrap"><p className="folio-eyebrow">Delivered concept</p><h2 className="evidence-title">A complete mobile wallet grammar for trust-aware decisions.</h2><div className="evidence-outcome-grid"><article><strong>11</strong><h3>Designed flow screens<br /><small>From first launch through holdings and the primary transaction paths</small></h3></article><article><strong>4</strong><h3>Home-screen directions<br /><small>Explored before selecting a calmer balance-first hierarchy</small></h3></article><article><strong>1</strong><h3>Risk model<br /><small>Low-friction action where safe; deliberate confirmation where irreversible</small></h3></article></div><p className="evidence-caption">This project is a design concept. It does not provide financial advice or claim production adoption, custody security, or transaction performance.</p></div>
+    </section>
+
+    <section className="case-closing equora-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>In a product where mistakes are permanent, calmness is not minimalism. It is a form of clarity.</p><div className="evidence-reflection"><p>I would validate the risk language and recovery-phrase comprehension with first-time wallet holders before advancing the product. The next design question is whether people recognise the difference between a reassuring interface and a genuinely understood decision.</p></div><Link href="/projects/qualifyze">Next story / Qualifyze <span>↗</span></Link></div></section>
+    <Footer />
+  </main>;
 }

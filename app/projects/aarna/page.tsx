@@ -1,351 +1,71 @@
-'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import Footer from '@/components/Footer';
 
-import CaseStudyLayout from '@/components/CaseStudyLayout';
-import FlowGallery, { FlowStep } from '@/components/FlowGallery';
-import IterationStrip from '@/components/IterationStrip';
-
-const ACCENT = '#3B82F6';
-
-const flowSteps: FlowStep[] = [
-    {
-        src: '/images/projects/aarna/flow/01-intent.png',
-        title: 'Open Intent',
-        desc: '"What would you like to do?" — speak, type, or pick a prompt. The journey starts from intent, not from a search box.',
-        phase: 'Intent',
-    },
-    {
-        src: '/images/projects/aarna/flow/02-discover.jpg',
-        title: 'Abhee Discover Feed',
-        desc: 'The assistant curates a visual discovery feed of experiences matched to the stated mood and constraints.',
-        phase: 'Discover',
-    },
-    {
-        src: '/images/projects/aarna/flow/03-abhee-chat.png',
-        title: 'Conversation with Abhee',
-        desc: 'Refining the plan is a dialogue — budget, dates, and vibe get negotiated in chat instead of filter panels.',
-        phase: 'Discover',
-    },
-    {
-        src: '/images/projects/aarna/flow/08-destination-comparison.png',
-        title: 'Destination Comparison',
-        desc: 'Destinations are compared by match percentage and "moments you\'ll remember" — emotional criteria made scannable.',
-        phase: 'Compare',
-    },
-    {
-        src: '/images/projects/aarna/flow/09-plan-comparison.png',
-        title: 'Plan Comparison',
-        desc: 'Competing trip plans go side by side, so the tradeoff (cost vs. pace vs. depth) is an explicit choice.',
-        phase: 'Compare',
-    },
-    {
-        src: '/images/projects/aarna/flow/04-trip-plan.png',
-        title: 'Day-wise Trip Planner',
-        desc: 'The chosen plan becomes a morning / afternoon / evening itinerary with every item bookable in place.',
-        phase: 'Plan',
-    },
-    {
-        src: '/images/projects/aarna/flow/05-flights.png',
-        title: 'Flights in the Plan',
-        desc: 'Transport legs live inside the itinerary rather than a separate funnel — the plan stays the single source of truth.',
-        phase: 'Plan',
-    },
-    {
-        src: '/images/projects/aarna/flow/06-stays.png',
-        title: 'Stays',
-        desc: 'Stay options carry the same card grammar as experiences, keeping one mental model across the whole trip.',
-        phase: 'Plan',
-    },
-    {
-        src: '/images/projects/aarna/flow/07-cab.png',
-        title: 'Local Transport',
-        desc: 'Cabs and transfers slot into the same day-wise structure — the last unglamorous mile, designed anyway.',
-        phase: 'Plan',
-    },
-    {
-        src: '/images/projects/aarna/flow/10-infinite-scroll.png',
-        title: 'Infinite Discovery',
-        desc: 'An infinite scroll surface keeps inspiration flowing for undecided travelers without breaking the planning thread.',
-        phase: 'Discover',
-    },
-    {
-        src: '/images/projects/aarna/flow/11-my-plan.png',
-        title: 'My Plan',
-        desc: 'Everything confirmed lives in one place — the trip the user actually takes, assembled from the conversation.',
-        phase: 'Own',
-    },
+const explorations = [
+  { image: '/images/projects/aarna/iterations/discover-v1.jpg', label: 'Mood-first feed', status: 'Evolved', text: 'Mood chips scoped the feed before inventory appeared. It was the strongest route from a fuzzy feeling to a useful filter.' },
+  { image: '/images/projects/aarna/iterations/discover-v2.jpg', label: 'Proactive planner', status: 'Evolved', text: 'Ready-made plans answered the empty state well, but a permanently proactive assistant felt too pushy as the default.' },
+  { image: '/images/projects/aarna/iterations/discover-v3.jpg', label: 'Avatar companion', status: 'Killed', text: 'It was charismatic, but median response was 6.5s vs 1.8s for text at roughly 9× the session cost. I kept it for chat, not Discover.' },
+  { image: '/images/projects/aarna/flow/02-discover.jpg', label: 'Shipped direction', status: 'Shipped', text: 'A mood-scoped feed with occasional proactive suggestions, while the companion stays one tap away.' },
 ];
 
-export default function AarnaCaseStudy() {
-    const theme = {
-        primary: '#3B82F6',
-        secondary: '#14B8A6',
-        background: '#FFFFFF',
-        text: '#0F172A',
-        muted: '#475569',
-        gradient: 'radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 70%), radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.15), transparent 50%)',
-        selection: '#3B82F6'
-    };
+const journey = [
+  ['/images/projects/aarna/flow/01-intent.png', 'Intent'],
+  ['/images/projects/aarna/flow/02-discover.jpg', 'Discover'],
+  ['/images/projects/aarna/flow/08-destination-comparison.png', 'Compare'],
+  ['/images/projects/aarna/flow/04-trip-plan.png', 'Plan'],
+  ['/images/projects/aarna/flow/11-my-plan.png', 'Own'],
+];
 
-    const meta = {
-        title: 'Aarna',
-        subtitle: 'AI Travel Marketplace',
-        description: 'An AI-assisted travel platform where creators publish experiences through guided conversation — and travelers discover, compare, and book them through Abhee, the AI assistant.',
-        tags: ['AI Product', 'Consumer Travel', '10K+ Users']
-    };
+function CaseFacts() {
+  return <dl className="evidence-facts">
+    <div><dt>Role</dt><dd>Lead Product Designer<br />One of two designers</dd></div>
+    <div><dt>Scope</dt><dd>Web and mobile platform<br />Creator to traveler</dd></div>
+    <div><dt>Timeline</dt><dd>4 months<br />AI marketplace</dd></div>
+    <div><dt>Team</dt><dd>2 designers<br />4 engineers</dd></div>
+  </dl>;
+}
 
-    const details = {
-        role: 'Lead Product Designer',
-        type: 'Web & Mobile Platform',
-        timeline: '4 Months',
-        team: '2 Designers, 4 Devs'
-    };
+export default function Aarna() {
+  return <main className="case-page case-aarna">
+    <section className="case-cover aarna-cover">
+      <div className="case-cover-mark">A</div>
+      <div className="folio-wrap case-cover-wrap case-cover-text-only">
+        <div className="case-cover-heading"><p className="folio-eyebrow">02 / AI travel marketplace</p><h1>Aarna</h1><p>An AI marketplace that turns rough ideas into experiences people can create, choose, and book.</p></div>
+        <div className="case-cover-statement"><span>One assistant, two marketplace sides</span><b>02</b></div>
+        <div className="case-cover-facts"><span>Lead product design</span><span>Discovery and planning</span><span>iOS and web</span></div>
+      </div>
+    </section>
 
-    return (
-        <CaseStudyLayout
-            theme={theme}
-            meta={meta}
-            details={details}
-            heroImage="/images/projects/aarna.png"
-            slug="aarna"
-            sections={[
-                {
-                    id: 'impact',
-                    title: 'The Outcome',
-                    className: 'bg-blue-600 text-white',
-                    content: (
-                        <div className="text-center">
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-14">Each number, tied to a design decision</h3>
-                            <div className="grid md:grid-cols-3 gap-12 divide-y md:divide-y-0 md:divide-x divide-white/20">
-                                <div className="pt-8 md:pt-0 md:px-6">
-                                    <div className="text-7xl md:text-8xl font-black mb-3">3×</div>
-                                    <div className="text-blue-50 font-semibold tracking-wide mb-3">Listing Volume</div>
-                                    <p className="text-sm text-blue-100/70 leading-relaxed mb-3">
-                                        Replacing the listing form with a guided AI conversation meant creators no longer
-                                        needed to know how to sell themselves — the assistant extracted it.
-                                    </p>
-                                    <p className="text-xs text-blue-100/50">~350 → ~1,100 listings/month · 3 months pre vs. post launch</p>
-                                </div>
-                                <div className="pt-8 md:pt-0 md:px-6">
-                                    <div className="text-7xl md:text-8xl font-black mb-3">−40%</div>
-                                    <div className="text-blue-50 font-semibold tracking-wide mb-3">Drop-off Rate</div>
-                                    <p className="text-sm text-blue-100/70 leading-relaxed mb-3">
-                                        OCR pre-fill from uploaded brochures and PDFs cut the empty-field problem that
-                                        killed most sessions at the first screen.
-                                    </p>
-                                    <p className="text-xs text-blue-100/50">Step-2 abandonment 62% → 37% · GA4 funnel, same windows</p>
-                                </div>
-                                <div className="pt-8 md:pt-0 md:px-6">
-                                    <div className="text-7xl md:text-8xl font-black mb-3">10K+</div>
-                                    <div className="text-blue-50 font-semibold tracking-wide mb-3">Signups in 6 Months</div>
-                                    <p className="text-sm text-blue-100/70 leading-relaxed mb-3">
-                                        An automated quality gate kept AI-generated listings to a consistent standard, so
-                                        the traveler side stayed trustworthy as supply tripled.
-                                    </p>
-                                    <p className="text-xs text-blue-100/50">10,400 cumulative signups at the 6-month mark</p>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                },
-                {
-                    id: 'context',
-                    title: 'The Problem',
-                    content: (
-                        <div className="grid md:grid-cols-2 gap-16 items-start">
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight text-slate-900">
-                                Forms were failing creators. Search was failing travelers.
-                            </h3>
-                            <div className="space-y-6 text-lg text-slate-600 font-light leading-relaxed">
-                                <p>
-                                    Aarna is a two-sided travel marketplace. On the supply side, creators faced a
-                                    14-field listing form — our GA4 funnel showed the media-upload step alone killed
-                                    48% of sessions. I interviewed six creators and shadowed a moderator for a day:
-                                    formats were chaos (PDFs, raw text), and manual approval was running a
-                                    3-day backlog. On the demand side, travelers had inventory but no way to decide.
-                                </p>
-                                <p>
-                                    <strong className="text-slate-900">The core insight:</strong> both sides had the same
-                                    problem — turning fuzzy intent into a structured, bookable thing. That&apos;s exactly
-                                    what a conversational AI layer is good at. So I designed one assistant, Abhee, to
-                                    work both sides of the marketplace.
-                                </p>
-                            </div>
-                        </div>
-                    )
-                },
-                {
-                    id: 'role',
-                    title: 'My Role',
-                    className: 'bg-white',
-                    content: (
-                        <div>
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-slate-900">What I owned</h3>
-                            <div className="grid md:grid-cols-3 gap-6">
-                                {[
-                                    {
-                                        title: 'Product design lead',
-                                        desc: 'Led design across both sides of the marketplace as one of two designers, owning the end-to-end experience from creator intake to traveler booking.',
-                                    },
-                                    {
-                                        title: 'The conversational systems',
-                                        desc: 'Designed the guided creation dialogue for creators and the Abhee discovery-and-planning conversation for travelers — one grammar, two audiences.',
-                                    },
-                                    {
-                                        title: 'Shipping with the team',
-                                        desc: 'Worked directly with four engineers on what the AI could reliably extract and generate, and with the second designer on the visual system and listing surfaces.',
-                                    },
-                                ].map((item) => (
-                                    <div key={item.title} className="p-7 rounded-2xl bg-slate-50 border border-slate-200">
-                                        <h4 className="font-bold text-slate-900 mb-2">{item.title}</h4>
-                                        <p className="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )
-                },
-                {
-                    id: 'creator-side',
-                    title: 'The Solution · Supply Side',
-                    className: 'bg-slate-50',
-                    content: (
-                        <div>
-                            <div className="text-center max-w-3xl mx-auto mb-20">
-                                <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-6 text-slate-900">From &quot;I do this&quot; to a sellable listing</h3>
-                                <p className="text-xl text-slate-600">
-                                    Replacing static inputs with an intelligent, guided dialogue that learns from the creator.
-                                </p>
-                            </div>
+    <section className="case-intro aarna-intro evidence-intro">
+      <div className="folio-wrap folio-split"><p className="folio-eyebrow">Opening snapshot</p><div>
+        <h2>Forms were failing creators. Search was failing travelers.</h2>
+        <p className="folio-body-copy">Aarna is a two-sided travel marketplace. I helped design Abhee, a conversational layer that creates structure from fuzzy intent—for people publishing experiences and people trying to choose one.</p>
+        <CaseFacts />
+      </div></div>
+    </section>
 
-                            <div className="grid md:grid-cols-3 gap-8">
-                                {[
-                                    { title: 'Guided Prompts', desc: 'The assistant asks the questions a marketer would — extracting sellable details creators didn\'t know mattered.', metric: 'Drove the 3× listing volume' },
-                                    { title: 'Generate & Verify', desc: 'OCR extracts data from brochure uploads to pre-fill drafts; creators verify instead of typing from scratch.', metric: 'Drove the 40% drop-off reduction' },
-                                    { title: 'Quality Gate', desc: 'Automated scoring holds listings to platform standards before a human moderator ever sees them.', metric: 'Kept quality flat while supply tripled' }
-                                ].map((card, i) => (
-                                    <div key={i} className="p-8 rounded-3xl bg-white border border-slate-200 hover:border-blue-500/50 transition-colors shadow-sm flex flex-col">
-                                        <h4 className="text-xl font-bold mb-3 text-slate-900">{card.title}</h4>
-                                        <p className="text-slate-600 leading-relaxed text-sm mb-6 flex-1">{card.desc}</p>
-                                        <p className="text-xs font-bold uppercase tracking-wider text-blue-600">{card.metric}</p>
-                                    </div>
-                                ))}
-                            </div>
+    <section className="evidence-section evidence-aarna-dark">
+      <div className="folio-wrap folio-split"><p className="folio-eyebrow">Context + framing</p><div>
+        <h2 className="evidence-title">Both sides needed help turning an unstructured thought into a bookable thing.</h2>
+        <div className="evidence-columns"><div><h3>Supply-side friction</h3><p>A 14-field listing form and a media-upload step that lost 48% of sessions. Creator materials arrived as raw text and PDFs; manual approval had a three-day backlog.</p></div><div><h3>Demand-side friction</h3><p>Travelers had inventory, but not a clear way to compare, imagine, and decide. Browsing did not turn into a plan people could own.</p></div></div>
+        <div className="success-model"><p className="folio-eyebrow">Success model</p><div><span>Product objective</span><strong>Make marketplace supply easier to create and demand easier to decide.</strong></div><div><span>Measured user outcome</span><strong>More completed listings; less creator abandonment; credible traveler growth.</strong></div><div><span>Guardrail</span><strong>Keep quality consistent as AI-assisted inventory grows.</strong></div></div>
+      </div></div>
+    </section>
 
-                            <div className="mt-10 p-7 rounded-2xl bg-blue-50 border border-blue-100">
-                                <p className="text-slate-700 leading-relaxed text-sm md:text-base">
-                                    <strong className="text-slate-900">Piloted before launch:</strong> eight creators used
-                                    the conversational flow for two weeks. Three of them hit the same wall — wanting to fix
-                                    one field without redoing the whole conversation. That feedback shipped an
-                                    &ldquo;edit as form&rdquo; escape hatch: conversation to create, form to correct.
-                                </p>
-                            </div>
-                        </div>
-                    )
-                },
-                {
-                    id: 'explorations',
-                    title: 'The Process',
-                    content: (
-                        <div>
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-slate-900">Three directions for Discover</h3>
-                            <IterationStrip
-                                intro="Discover is where an undecided traveler either engages or leaves, so it got real alternatives — not one direction polished four times. Each was a different answer to the same question: what should an AI assistant lead with when the user doesn't know what they want yet?"
-                                items={[
-                                    {
-                                        src: '/images/projects/aarna/iterations/discover-v1.jpg',
-                                        label: 'Mood-first feed',
-                                        verdict: '"What\'s the vibe today?" — mood chips scope the feed before any inventory shows. Strongest at turning a fuzzy state of mind into a filter.',
-                                        status: 'evolved',
-                                    },
-                                    {
-                                        src: '/images/projects/aarna/iterations/discover-v2.jpg',
-                                        label: 'Proactive planner',
-                                        verdict: '"Feeling bored? 3 ways to own your day" — the assistant proposes ready plans unprompted. Great for empty-state moments; too pushy as the default screen.',
-                                        status: 'evolved',
-                                    },
-                                    {
-                                        src: '/images/projects/aarna/iterations/discover-v3.jpg',
-                                        label: 'Avatar companion',
-                                        verdict: 'A full-screen visual companion fronting discovery. Charismatic, but the numbers killed it: 6.5s median response vs 1.8s for text, at ~9× the cost per session. Cut from Discover, kept for chat.',
-                                        status: 'killed',
-                                    },
-                                    {
-                                        src: '/images/projects/aarna/flow/02-discover.jpg',
-                                        label: 'Shipped',
-                                        verdict: 'The shipped feed blends the first two: mood-scoped curation with proactive suggestion moments, and the companion one tap away instead of in front.',
-                                        status: 'shipped',
-                                    },
-                                ]}
-                            />
-                        </div>
-                    )
-                },
-                {
-                    id: 'flow',
-                    content: (
-                        <FlowGallery
-                            eyebrow="Complete End-to-End Flow · Demand Side"
-                            title="Intent → Discover → Compare → Plan → Book"
-                            description="The traveler journey as designed: a single conversation with Abhee carries the user from an open-ended wish to a fully booked, day-wise trip — with comparison as a first-class step, because choosing is the hardest part of travel."
-                            steps={flowSteps}
-                            accent={ACCENT}
-                        />
-                    )
-                },
-                {
-                    id: 'decisions',
-                    title: 'Decisions & Tradeoffs',
-                    className: 'bg-slate-50',
-                    content: (
-                        <div className="grid md:grid-cols-2 gap-8">
-                            {[
-                                {
-                                    title: 'Comparison as a first-class surface',
-                                    text: 'Most travel products optimize browsing; travelers actually stall at choosing. I gave destination and plan comparison their own screens — match scores, moods, and costs side by side — rather than burying comparison in back-and-forth chat. Tradeoff: two extra surfaces to maintain, but the conversion moment deserved dedicated UI.'
-                                },
-                                {
-                                    title: 'The plan is the source of truth',
-                                    text: 'Flights, stays, and cabs render inside the day-wise plan instead of separate booking funnels. That constrained how much inventory detail each card can show — a real cost — but it means users never lose the trip while booking its parts.'
-                                },
-                                {
-                                    title: 'One assistant, two sides',
-                                    text: 'Abhee guides creators through listing and travelers through planning with the same conversational grammar. Reusing the pattern halved design and build effort — and made the marketplace feel like one product instead of two bolted together.'
-                                },
-                                {
-                                    title: 'Emotion made scannable',
-                                    text: '"Moments you\'ll remember" and match percentages translate fuzzy desire into comparable signals. It risks feeling reductive — so the underlying reasoning is always one tap away in the conversation.'
-                                }
-                            ].map((item) => (
-                                <div key={item.title} className="p-8 rounded-3xl bg-white border border-slate-200 shadow-sm">
-                                    <h4 className="text-lg font-bold mb-3 text-slate-900">{item.title}</h4>
-                                    <p className="text-slate-600 text-sm leading-relaxed">{item.text}</p>
-                                </div>
-                            ))}
-                        </div>
-                    )
-                },
-                {
-                    id: 'reflection',
-                    title: 'Reflection',
-                    content: (
-                        <div className="max-w-3xl">
-                            <h3 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight mb-10 text-slate-900">What I&apos;d do differently</h3>
-                            <ul className="space-y-6 text-lg text-slate-600 leading-relaxed">
-                                <li>
-                                    <strong className="text-slate-900">Instrument the comparison step from day one.</strong>{' '}
-                                    We measured listing creation rigorously but shipped the traveler comparison surfaces
-                                    on intuition. I&apos;d want the same decision-level analytics on both sides.
-                                </li>
-                                <li>
-                                    <strong className="text-slate-900">Test the quality gate with adversarial creators.</strong>{' '}
-                                    A scoring system invites gaming. We caught this late; red-teaming the gate earlier
-                                    would have hardened the listing standards before scale hit.
-                                </li>
-                            </ul>
-                        </div>
-                    )
-                }
-            ]}
-        />
-    );
+    <section className="evidence-section evidence-research aarna-research"><div className="folio-wrap"><div className="evidence-section-heading"><p className="folio-eyebrow">Research + constraints</p><h2 className="evidence-title">The failure pattern was visible in the funnel and in the creator workflow.</h2></div><div className="evidence-metric-grid"><article><strong>14</strong><h3>Fields in the original creator form</h3><p>Too much blank-page work before a creator could demonstrate value.</p></article><article><strong>48%</strong><h3>Sessions lost at media upload</h3><p>The original funnel exposed a specific point of abandonment.</p></article><article><strong>6</strong><h3>Creator interviews</h3><p>Plus a day shadowing a marketplace moderator handling inconsistent input.</p></article><article><strong>8</strong><h3>Creators in a two-week pilot</h3><p>Enough to expose where conversation needed an escape hatch.</p></article></div></div></section>
+
+    <section className="evidence-section evidence-ownership"><div className="folio-wrap folio-split"><p className="folio-eyebrow">Role + collaboration</p><div><h2 className="evidence-title">I led the experience across both sides of the marketplace.</h2><div className="evidence-columns evidence-ownership-grid"><div><h3>Creator intake</h3><p>A guided dialogue that collects the details a creator does not know they need to sell.</p></div><div><h3>Traveler discovery</h3><p>Abhee’s discovery, comparison, and trip-planning experience.</p></div><div><h3>Reliable delivery</h3><p>Worked with four engineers on what the AI could extract or generate reliably, and with the second designer on the visual system.</p></div></div><p className="evidence-collaboration">The unifying move was not two different chatbots. It was one conversational grammar adapted for two audiences.</p></div></div></section>
+
+    <section className="evidence-section evidence-decisions aarna-decisions"><div className="folio-wrap"><p className="folio-eyebrow">Supply-side solution</p><h2 className="evidence-title">Conversation to create. A form to correct.</h2><div className="evidence-columns evidence-ownership-grid"><article><h3>Guided prompts</h3><p>The assistant asks the questions a marketer would, drawing out details that turn a creator’s expertise into a listing.</p></article><article><h3>Generate and verify</h3><p>OCR reads brochures and PDFs to prefill a draft. The creator verifies rather than types from zero.</p></article><article><h3>Quality gate</h3><p>Automated scoring holds a consistent listing standard before moderator review.</p></article></div><div className="evidence-note"><b>Pilot finding → shipped change:</b> three of eight creators wanted to amend one field without replaying the whole conversation. The answer was an “edit as form” escape hatch.</div></div></section>
+
+    <section className="evidence-section evidence-aarna-dark"><div className="folio-wrap"><p className="folio-eyebrow">Alternatives + tradeoffs</p><h2 className="evidence-title">Discover was explored as different product strategies, not cosmetic variants.</h2><div className="evidence-explorations">{explorations.map((item) => <article key={item.label}><figure><Image src={item.image} alt={`${item.label} exploration`} fill sizes="(max-width: 800px) 82vw, 42vw" className="object-cover object-top" /></figure><div><span>{item.status}</span><h3>{item.label}</h3><p>{item.text}</p></div></article>)}</div></div></section>
+
+    <section className="evidence-section evidence-validation"><div className="folio-wrap"><p className="folio-eyebrow">Demand-side delivery</p><h2 className="evidence-title">Comparison became a first-class moment, because choosing is the hard part of travel.</h2><div className="evidence-columns"><div><h3>Dedicated comparison</h3><p>Destination and plan comparisons expose match score, mood, and cost side-by-side rather than burying the decision inside chat. The tradeoff: additional screens to build and maintain.</p></div><div><h3>One plan as source of truth</h3><p>Flights, stays, and cabs resolve into an inline itinerary instead of disconnected booking funnels. It sacrifices some inventory density but preserves the trip the person is actually building.</p></div></div><div className="evidence-journey">{journey.map(([image, label], index) => <figure key={label}><Image src={image} alt={`Aarna ${label} screen`} fill sizes="(max-width: 800px) 68vw, 25vw" className="object-cover object-top" /><figcaption><b>{String(index + 1).padStart(2, '0')}</b> {label}</figcaption></figure>)}</div></div></section>
+
+    <section className="evidence-section evidence-outcome aarna-outcome"><div className="folio-wrap"><p className="folio-eyebrow">Measured outcome</p><h2 className="evidence-title">The launch moved supply, completion, and marketplace growth.</h2><div className="evidence-outcome-grid"><article><strong>3×</strong><h3>Listing volume<br /><small>~350 → ~1,100 listings/month; three months pre vs. post launch</small></h3></article><article><strong>−40%</strong><h3>Step-two abandonment<br /><small>62% → 37%; GA4 funnel, same windows</small></h3></article><article><strong>10K+</strong><h3>Signups in six months<br /><small>10,400 cumulative signups at the six-month mark</small></h3></article></div></div></section>
+
+    <section className="case-closing aarna-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>Ship comparison analytics from day one—and red-team a quality gate before the marketplace scales.</p><div className="evidence-reflection"><p>We measured listing creation rigorously, but the traveler comparison surfaces launched with too much intuition. A scoring system also invites gaming; adversarial testing should have happened earlier.</p></div><Link href="/projects/miraee">Previous story / Miraee <span>↗</span></Link></div></section>
+    <Footer />
+  </main>;
 }
