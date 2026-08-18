@@ -36,7 +36,7 @@ export default function HomePage() {
           <div className="folio-kicker"><span>Independent practice</span><span>2026 / Hyderabad, IN</span></div>
           <h1 className="folio-title"><span>HARSHA</span><span>ARRIMALLA</span></h1>
           <div className="folio-hero-bottom">
-            <p>Senior product designer creating expressive systems for people making consequential decisions.</p>
+            <div className="folio-hero-copy"><p>Senior product designer creating expressive systems for people making consequential decisions.</p><a className="folio-hero-resume" href="/Harshavardhan-Arrimalla-Product-Designer-Resume.pdf" download>Download résumé <span>↓</span></a></div>
             <a href="#work" className="folio-round-link">Scroll to<br />selected work <b>↓</b></a>
           </div>
         </div>
