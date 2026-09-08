@@ -45,7 +45,7 @@ export default function CaseStudyNav({ current }: { current: string }) {
 
             <div className="border-t border-white/10 py-5 text-center">
                 <Link
-                    href="/#projects"
+                    href="/#work"
                     className="text-xs font-bold uppercase tracking-[0.3em] text-white/40 hover:text-white transition-colors"
                 >
                     All Projects

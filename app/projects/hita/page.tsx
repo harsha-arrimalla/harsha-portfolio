@@ -17,7 +17,7 @@ export default function HitaCaseStudy() {
     const [resultsRef, resultsInView] = useIntersection({ threshold: 0.1 });
 
     return (
-        <div className="min-h-screen bg-white text-black">
+        <main id="main-content" tabIndex={-1} className="min-h-screen bg-white text-black">
 
             {/* Hero Section */}
             <section
@@ -151,7 +151,7 @@ export default function HitaCaseStudy() {
                         <div>
                             <h3 className="text-2xl font-bold mb-4 text-indigo-500">Core Insight</h3>
                             <p className="text-gray-600 leading-relaxed">
-                                Trip planning is not configuration — it’s conversation. People don't think in dates and checkboxes; they think in intents like **"We'll go out in the evening when it's cooler."**
+                                Trip planning is not configuration — it’s conversation. People don't think in dates and checkboxes; they think in intents like “We’ll go out in the evening when it’s cooler.”
                             </p>
                             <p className="mt-4 text-gray-800 font-medium italic">
                                 AI should act as a travel buddy, not a rules engine.
@@ -366,6 +366,6 @@ export default function HitaCaseStudy() {
             <CaseStudyNav current="hita" />
 
             <Footer />
-        </div>
+        </main>
     );
 }

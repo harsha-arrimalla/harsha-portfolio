@@ -1,4 +1,6 @@
-import Image from 'next/image';
+import Image from '@/components/InspectableImage';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import CaseOverview from '@/components/CaseOverview';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
@@ -58,7 +60,7 @@ function CaseFacts() {
 }
 
 export default function Miraee() {
-  return <main className="case-page case-miraee">
+  return <main id="main-content" tabIndex={-1} className="case-page case-miraee">
     <section className="case-cover miraee-cover">
       <div className="case-cover-mark">M</div>
       <div className="folio-wrap case-cover-wrap case-cover-text-only">
@@ -71,8 +73,9 @@ export default function Miraee() {
         <div className="case-cover-facts"><span>Senior product design</span><span>AI decision systems</span><span>Web and mobile</span></div>
       </div>
     </section>
+    <CaseOverview slug="miraee" />
 
-    <section className="case-intro evidence-intro">
+    <section id="overview" className="case-intro evidence-intro">
       <div className="folio-wrap folio-split">
         <p className="folio-eyebrow">Opening snapshot</p>
         <div>
@@ -121,7 +124,7 @@ export default function Miraee() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-decisions">
+    <section id="decisions" className="evidence-section evidence-decisions">
       <div className="folio-wrap"><p className="folio-eyebrow">Decision log</p><h2 className="evidence-title">The UI follows the evidence, including where it says “don’t add more UI.”</h2>
         <div className="evidence-decision-list">{decisions.map((item) => <article className="evidence-decision" key={item.number}>
           <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Evidence</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
@@ -138,11 +141,13 @@ export default function Miraee() {
       </div></div>
     </section>
 
-    <section className="evidence-section evidence-outcome">
-      <div className="folio-wrap"><p className="folio-eyebrow">Outcome</p><h2 className="evidence-title">Shipped as a coherent decision system.</h2><div className="evidence-outcome-grid"><article><strong>6</strong><h3>Corporate clients live in the first quarter after GA</h3></article><article><strong>1</strong><h3>Component grammar for flights, hotels, cars, add-ons, and approvals</h3></article><article><strong>0</strong><h3>Silent policy decisions by design: blocks, exceptions, and approvals carry reasoning</h3></article></div><p className="evidence-caption">Adoption and efficiency metrics are measured internally and remain NDA-restricted. The visible outcome here is the product behavior and operating model that shipped.</p></div>
+<section className="evidence-section" aria-labelledby="miraee-explorations"><div className="folio-wrap"><p className="folio-eyebrow">Interaction details</p><h2 id="miraee-explorations" className="evidence-title">Structure the request. Make each booking state explicit.</h2><p className="iteration-note">These design exports show intake and recovery scenarios. They illustrate different states, rather than a measured before-and-after comparison.</p><div className="iteration-gallery"><figure><Image src="/images/projects/miraee/iterations/flight-options-v1.png" alt="Scope the request. Date, duration, and product choices turn an open-ended trip request into structured inputs." width={946} height={1962} sizes="(max-width: 800px) 90vw, 40vw" /><figcaption><b>Scope the request.</b> Date, duration, and product choices turn an open-ended trip request into structured inputs.</figcaption></figure><figure><Image src="/images/projects/miraee/iterations/flight-options-v2.png" alt="Collect traveler details. Quick replies make party size explicit. This exploration also exposes a repeated prompt that needs refinement." width={946} height={1962} sizes="(max-width: 800px) 90vw, 40vw" /><figcaption><b>Collect traveler details.</b> Quick replies make party size explicit. This exploration also exposes a repeated prompt that needs refinement.</figcaption></figure><figure><Image src="/images/projects/miraee/iterations/flight-options-v3.png" alt="Capture purpose. Structured purpose choices give the policy flow more context than a generic travel request." width={946} height={1962} sizes="(max-width: 800px) 90vw, 40vw" /><figcaption><b>Capture purpose.</b> Structured purpose choices give the policy flow more context than a generic travel request.</figcaption></figure></div><p className="iteration-note">Recovery needs item-level status. A failed hotel with a successful flight is different from an entirely failed booking. These explorations make that distinction visible; the payment and cancellation wording still needs to be reconciled with the actual backend state.</p><div className="iteration-gallery iteration-gallery-two"><figure><Image src="/images/projects/miraee/iterations/failure-v1.png" alt="Partial failure. Item-level status, pending amount, and a support handoff distinguish the failed hotel from the successful flight and transfer." width={880} height={1912} sizes="(max-width: 800px) 90vw, 40vw" /><figcaption><b>Partial failure.</b> Item-level status, pending amount, and a support handoff distinguish the failed hotel from the successful flight and transfer.</figcaption></figure><figure><Image src="/images/projects/miraee/iterations/failure-v2.png" alt="All items failed. The activity panel separates retry progress from the booking summary." width={880} height={1912} sizes="(max-width: 800px) 90vw, 40vw" /><figcaption><b>All items failed.</b> The activity panel separates retry progress from the booking summary.</figcaption></figure></div></div></section>
+    <section id="outcome" className="evidence-section evidence-outcome">
+      <div className="folio-wrap"><p className="folio-eyebrow">Outcome</p><h2 className="evidence-title">Shipped as a coherent decision system.</h2><div className="evidence-outcome-grid"><article><strong>6</strong><h3>Corporate clients live in the first quarter after GA</h3></article><article><strong>1</strong><h3>Component grammar for flights, hotels, cars, add-ons, and approvals</h3></article><article><strong>Clear</strong><h3>Policy reasoning<br /><small>Design intent: make blocks, exceptions, and approvals explicit</small></h3></article></div><p className="evidence-caption">Adoption and efficiency metrics are measured internally and remain NDA-restricted. The visible outcome here is the product behavior and operating model that shipped.</p></div>
     </section>
 
     <section className="case-closing miraee-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>Failure states should have been the starting point, not a retrofit to the happy path.</p><div className="evidence-reflection"><p>Next time, I would prototype earlier with live model output and spend more iteration budget on the approver’s exception path—not only on the traveler’s journey.</p></div><Link href="/projects/aarna">Next story / Aarna <span>↗</span></Link></div></section>
+    <CaseStudyNav current="miraee" />
     <Footer />
   </main>;
 }

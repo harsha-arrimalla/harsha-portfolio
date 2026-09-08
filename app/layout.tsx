@@ -3,8 +3,10 @@ import './globals.css';
 import Navigation from '@/components/Navigation';
 
 export const metadata: Metadata = {
-  title: 'Harsha Arrimalla — Product Designer',
-  description: 'Harsha Arrimalla is a product designer shaping clear, expressive digital products.',
+  title: 'Harsha Arrimalla — Senior Product Designer',
+  description: 'Senior product designer in Hyderabad designing enterprise and AI workflows across travel, policy, approvals, and recovery.',
+  openGraph: { type: 'website', title: 'Harsha Arrimalla — Senior Product Designer', description: 'Senior product designer in Hyderabad designing enterprise and AI workflows across travel, policy, approvals, and recovery.' },
+  twitter: { card: 'summary', title: 'Harsha Arrimalla — Senior Product Designer', description: 'Senior product designer in Hyderabad designing enterprise and AI workflows across travel, policy, approvals, and recovery.' },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

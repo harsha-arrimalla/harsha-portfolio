@@ -1,4 +1,6 @@
-import Image from 'next/image';
+import Image from '@/components/InspectableImage';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import CaseOverview from '@/components/CaseOverview';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
@@ -57,7 +59,7 @@ function CaseFacts() {
 }
 
 export default function Equora() {
-  return <main className="case-page case-equora">
+  return <main id="main-content" tabIndex={-1} className="case-page case-equora">
     <section className="case-cover equora-cover">
       <div className="case-cover-mark">E</div>
       <div className="folio-wrap case-cover-wrap case-cover-text-only">
@@ -70,8 +72,9 @@ export default function Equora() {
         <div className="case-cover-facts"><span>Trust design</span><span>Mobile fintech</span><span>Independent concept</span></div>
       </div>
     </section>
+    <CaseOverview slug="equora" />
 
-    <section className="case-intro equora-intro evidence-intro">
+    <section id="overview" className="case-intro equora-intro evidence-intro">
       <div className="folio-wrap folio-split">
         <p className="folio-eyebrow">Opening snapshot</p>
         <div>
@@ -112,10 +115,10 @@ export default function Equora() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-decisions equora-decisions">
+    <section id="decisions" className="evidence-section evidence-decisions equora-decisions">
       <div className="folio-wrap"><p className="folio-eyebrow">Decision log</p><h2 className="evidence-title">The product earns trust through placement, hierarchy, and intentional delay.</h2>
         <div className="evidence-decision-list">{decisions.map((item) => <article className="evidence-decision" key={item.number}>
-          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Evidence</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
+          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Rationale</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
           <figure><Image src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 90vw, 46vw" className="object-cover object-top" /></figure>
         </article>)}</div>
       </div>
@@ -134,11 +137,12 @@ export default function Equora() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-outcome equora-outcome">
+    <section id="outcome" className="evidence-section evidence-outcome equora-outcome">
       <div className="folio-wrap"><p className="folio-eyebrow">Delivered concept</p><h2 className="evidence-title">A complete mobile wallet grammar for trust-aware decisions.</h2><div className="evidence-outcome-grid"><article><strong>11</strong><h3>Designed flow screens<br /><small>From first launch through holdings and the primary transaction paths</small></h3></article><article><strong>4</strong><h3>Home-screen directions<br /><small>Explored before selecting a calmer balance-first hierarchy</small></h3></article><article><strong>1</strong><h3>Risk model<br /><small>Low-friction action where safe; deliberate confirmation where irreversible</small></h3></article></div><p className="evidence-caption">This project is a design concept. It does not provide financial advice or claim production adoption, custody security, or transaction performance.</p></div>
     </section>
 
     <section className="case-closing equora-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>In a product where mistakes are permanent, calmness is not minimalism. It is a form of clarity.</p><div className="evidence-reflection"><p>I would validate the risk language and recovery-phrase comprehension with first-time wallet holders before advancing the product. The next design question is whether people recognise the difference between a reassuring interface and a genuinely understood decision.</p></div><Link href="/projects/qualifyze">Next story / Qualifyze <span>↗</span></Link></div></section>
+    <CaseStudyNav current="equora" />
     <Footer />
   </main>;
 }
