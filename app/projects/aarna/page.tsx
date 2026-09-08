@@ -1,4 +1,6 @@
-import Image from 'next/image';
+import Image from '@/components/InspectableImage';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import CaseOverview from '@/components/CaseOverview';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
@@ -27,7 +29,7 @@ function CaseFacts() {
 }
 
 export default function Aarna() {
-  return <main className="case-page case-aarna">
+  return <main id="main-content" tabIndex={-1} className="case-page case-aarna">
     <section className="case-cover aarna-cover">
       <div className="case-cover-mark">A</div>
       <div className="folio-wrap case-cover-wrap case-cover-text-only">
@@ -36,8 +38,9 @@ export default function Aarna() {
         <div className="case-cover-facts"><span>Lead product design</span><span>Discovery and planning</span><span>iOS and web</span></div>
       </div>
     </section>
+    <CaseOverview slug="aarna" />
 
-    <section className="case-intro aarna-intro evidence-intro">
+    <section id="overview" className="case-intro aarna-intro evidence-intro">
       <div className="folio-wrap folio-split"><p className="folio-eyebrow">Opening snapshot</p><div>
         <h2>Forms were failing creators. Search was failing travelers.</h2>
         <p className="folio-body-copy">Aarna is a two-sided travel marketplace. I helped design Abhee, a conversational layer that creates structure from fuzzy intent—for people publishing experiences and people trying to choose one.</p>
@@ -57,15 +60,16 @@ export default function Aarna() {
 
     <section className="evidence-section evidence-ownership"><div className="folio-wrap folio-split"><p className="folio-eyebrow">Role + collaboration</p><div><h2 className="evidence-title">I led the experience across both sides of the marketplace.</h2><div className="evidence-columns evidence-ownership-grid"><div><h3>Creator intake</h3><p>A guided dialogue that collects the details a creator does not know they need to sell.</p></div><div><h3>Traveler discovery</h3><p>Abhee’s discovery, comparison, and trip-planning experience.</p></div><div><h3>Reliable delivery</h3><p>Worked with four engineers on what the AI could extract or generate reliably, and with the second designer on the visual system.</p></div></div><p className="evidence-collaboration">The unifying move was not two different chatbots. It was one conversational grammar adapted for two audiences.</p></div></div></section>
 
-    <section className="evidence-section evidence-decisions aarna-decisions"><div className="folio-wrap"><p className="folio-eyebrow">Supply-side solution</p><h2 className="evidence-title">Conversation to create. A form to correct.</h2><div className="evidence-columns evidence-ownership-grid"><article><h3>Guided prompts</h3><p>The assistant asks the questions a marketer would, drawing out details that turn a creator’s expertise into a listing.</p></article><article><h3>Generate and verify</h3><p>OCR reads brochures and PDFs to prefill a draft. The creator verifies rather than types from zero.</p></article><article><h3>Quality gate</h3><p>Automated scoring holds a consistent listing standard before moderator review.</p></article></div><div className="evidence-note"><b>Pilot finding → shipped change:</b> three of eight creators wanted to amend one field without replaying the whole conversation. The answer was an “edit as form” escape hatch.</div></div></section>
+    <section id="decisions" className="evidence-section evidence-decisions aarna-decisions"><div className="folio-wrap"><p className="folio-eyebrow">Supply-side solution</p><h2 className="evidence-title">Conversation to create. A form to correct.</h2><div className="evidence-columns evidence-ownership-grid"><article><h3>Guided prompts</h3><p>The assistant asks the questions a marketer would, drawing out details that turn a creator’s expertise into a listing.</p></article><article><h3>Generate and verify</h3><p>OCR reads brochures and PDFs to prefill a draft. The creator verifies rather than types from zero.</p></article><article><h3>Quality gate</h3><p>Automated scoring holds a consistent listing standard before moderator review.</p></article></div><div className="evidence-note"><b>Pilot finding → shipped change:</b> three of eight creators wanted to amend one field without replaying the whole conversation. The answer was an “edit as form” escape hatch.</div></div></section>
 
     <section className="evidence-section evidence-aarna-dark"><div className="folio-wrap"><p className="folio-eyebrow">Alternatives + tradeoffs</p><h2 className="evidence-title">Discover was explored as different product strategies, not cosmetic variants.</h2><div className="evidence-explorations">{explorations.map((item) => <article key={item.label}><figure><Image src={item.image} alt={`${item.label} exploration`} fill sizes="(max-width: 800px) 82vw, 42vw" className="object-cover object-top" /></figure><div><span>{item.status}</span><h3>{item.label}</h3><p>{item.text}</p></div></article>)}</div></div></section>
 
     <section className="evidence-section evidence-validation"><div className="folio-wrap"><p className="folio-eyebrow">Demand-side delivery</p><h2 className="evidence-title">Comparison became a first-class moment, because choosing is the hard part of travel.</h2><div className="evidence-columns"><div><h3>Dedicated comparison</h3><p>Destination and plan comparisons expose match score, mood, and cost side-by-side rather than burying the decision inside chat. The tradeoff: additional screens to build and maintain.</p></div><div><h3>One plan as source of truth</h3><p>Flights, stays, and cabs resolve into an inline itinerary instead of disconnected booking funnels. It sacrifices some inventory density but preserves the trip the person is actually building.</p></div></div><div className="evidence-journey">{journey.map(([image, label], index) => <figure key={label}><Image src={image} alt={`Aarna ${label} screen`} fill sizes="(max-width: 800px) 68vw, 25vw" className="object-cover object-top" /><figcaption><b>{String(index + 1).padStart(2, '0')}</b> {label}</figcaption></figure>)}</div></div></section>
 
-    <section className="evidence-section evidence-outcome aarna-outcome"><div className="folio-wrap"><p className="folio-eyebrow">Measured outcome</p><h2 className="evidence-title">The launch moved supply, completion, and marketplace growth.</h2><div className="evidence-outcome-grid"><article><strong>3×</strong><h3>Listing volume<br /><small>~350 → ~1,100 listings/month; three months pre vs. post launch</small></h3></article><article><strong>−40%</strong><h3>Step-two abandonment<br /><small>62% → 37%; GA4 funnel, same windows</small></h3></article><article><strong>10K+</strong><h3>Signups in six months<br /><small>10,400 cumulative signups at the six-month mark</small></h3></article></div></div></section>
+    <section id="outcome" className="evidence-section evidence-outcome aarna-outcome"><div className="folio-wrap"><p className="folio-eyebrow">Measured outcome</p><h2 className="evidence-title">Marketplace results reported after launch.</h2><div className="evidence-outcome-grid"><article><strong>~3×</strong><h3>Listing volume<br /><small>~350 → ~1,100 listings/month; three months pre vs. post launch</small></h3></article><article><strong>−40%</strong><h3>Step-two abandonment<br /><small>62% → 37%; 25 percentage points lower, ~40% relative reduction. GA4 funnel, same windows</small></h3></article><article><strong>10K+</strong><h3>Signups in six months<br /><small>10,400 cumulative signups at the six-month mark</small></h3></article></div><p className="evidence-caption">These are pre/post launch observations, not an isolated estimate of design impact. Signups are cumulative registrations, not active users.</p></div></section>
 
     <section className="case-closing aarna-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>Ship comparison analytics from day one—and red-team a quality gate before the marketplace scales.</p><div className="evidence-reflection"><p>We measured listing creation rigorously, but the traveler comparison surfaces launched with too much intuition. A scoring system also invites gaming; adversarial testing should have happened earlier.</p></div><Link href="/projects/miraee">Previous story / Miraee <span>↗</span></Link></div></section>
+    <CaseStudyNav current="aarna" />
     <Footer />
   </main>;
 }

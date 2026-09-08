@@ -1,4 +1,6 @@
-import Image from 'next/image';
+import Image from '@/components/InspectableImage';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import CaseOverview from '@/components/CaseOverview';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
@@ -9,7 +11,7 @@ const methods = [
 ];
 
 const insights = [
-  ['Onboarding', 'Onboarding remained the highest-friction stage despite the strength of the audit-library assets.'],
+  ['Onboarding', 'The public-product review suggested onboarding as a potential friction point to validate with customers.'],
   ['Risk + CAPA', 'Risk and CAPA were logically connected but visually separated, increasing the effort needed to assess a supplier.'],
   ['Priority', 'Dashboards communicated status, but not always the action priority for time-sensitive work.'],
 ];
@@ -30,21 +32,22 @@ function CaseFacts() {
 }
 
 export default function Qualifyze() {
-  return <main className="case-page case-qualifyze">
+  return <main id="main-content" tabIndex={-1} className="case-page case-qualifyze">
     <section className="case-cover qualifyze-cover">
       <div className="case-cover-mark">Q</div>
       <div className="folio-wrap case-cover-wrap case-cover-text-only">
         <div className="case-cover-heading">
-          <p className="folio-eyebrow">05 / Independent UX study</p>
+          <p className="folio-eyebrow">06 / Independent UX study</p>
           <h1>Qualifyze</h1>
           <p>A research-led case study on supplier qualification in life sciences, focused on making risk, CAPA, and the next action easier to assess together.</p>
         </div>
-        <div className="case-cover-statement"><span>Decision clarity under regulatory risk</span><b>05</b></div>
+        <div className="case-cover-statement"><span>Decision clarity under regulatory risk</span><b>06</b></div>
         <div className="case-cover-facts"><span>Enterprise UX</span><span>Compliance systems</span><span>Research + strategy</span></div>
       </div>
     </section>
+    <CaseOverview slug="qualifyze" />
 
-    <section className="case-intro qualifyze-intro evidence-intro">
+    <section id="overview" className="case-intro qualifyze-intro evidence-intro">
       <div className="folio-wrap folio-split">
         <p className="folio-eyebrow">Opening snapshot</p>
         <div>
@@ -79,7 +82,7 @@ export default function Qualifyze() {
 
     <section className="evidence-section evidence-ownership qualifyze-insights">
       <div className="folio-wrap folio-split">
-        <p className="folio-eyebrow">What I learned</p>
+        <p className="folio-eyebrow">Research hypotheses</p>
         <div>
           <h2 className="evidence-title">The strongest opportunities were connections between existing information, not another dashboard.</h2>
           <div className="evidence-columns evidence-ownership-grid">{insights.map(([title, description]) => <div key={title}><h3>{title}</h3><p>{description}</p></div>)}</div>
@@ -88,7 +91,7 @@ export default function Qualifyze() {
       </div>
     </section>
 
-    <section className="evidence-section qualifyze-direction">
+    <section id="decisions" className="evidence-section qualifyze-direction">
       <div className="folio-wrap"><p className="folio-eyebrow">Concept direction</p><h2 className="evidence-title">Unify the supplier signal before asking a person to decide.</h2>
         <div className="evidence-columns"><article><h3>Risk layer</h3><p>Current score, trend, and the trigger explanation so the person can understand why a supplier’s status changed.</p></article><article><h3>CAPA layer</h3><p>Open items, owners, due windows, and blocker visibility so remediation work is part of the decision—not a separate destination.</p></article><article><h3>Action layer</h3><p>A clear prompt to monitor, re-audit, or escalate, with the decision supported by the visible risk and CAPA context.</p></article></div>
         <div className="evidence-note"><b>Prioritisation:</b> a unified supplier risk + CAPA workspace, action-first sorting with urgency states, and guided supplier onboarding were treated as high-impact directions. Role-based saved filters, overdue CAPA reminders, and confidence labels for AI risk scoring were lower-effort supporting opportunities.</div>
@@ -108,11 +111,12 @@ export default function Qualifyze() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-outcome qualifyze-outcome">
-      <div className="folio-wrap"><p className="folio-eyebrow">Study output</p><h2 className="evidence-title">A testable product hypothesis, not a claimed product outcome.</h2><div className="evidence-outcome-grid"><article><strong>3</strong><h3>Research methods<br /><small>Product teardown, compliance scan, and comparative benchmark</small></h3></article><article><strong>3</strong><h3>Connected decision layers<br /><small>Risk, CAPA, and recommended action at the supplier level</small></h3></article><article><strong>0</strong><h3>Invented performance claims<br /><small>All proposed measures remain hypotheses until tested</small></h3></article></div><p className="evidence-caption">A detailed PDF of the original independent study remains available for readers who want to inspect the full source, workflow mapping, and references.</p><a className="qualifyze-download" href="/case-studies/Harsha_Qualifyze_UX_Case_Study_v2.pdf" download="Harsha_Qualifyze_UX_Case_Study_v2.pdf">Download the full study <span>↓</span></a></div>
+    <section id="outcome" className="evidence-section evidence-outcome qualifyze-outcome">
+      <div className="folio-wrap"><p className="folio-eyebrow">Study output</p><h2 className="evidence-title">A testable product hypothesis, not a claimed product outcome.</h2><div className="evidence-outcome-grid"><article><strong>3</strong><h3>Research methods<br /><small>Product teardown, compliance scan, and comparative benchmark</small></h3></article><article><strong>3</strong><h3>Connected decision layers<br /><small>Risk, CAPA, and recommended action at the supplier level</small></h3></article><article><strong>Next</strong><h3>Primary research<br /><small>Validate the proposal with QA, procurement, and audit teams</small></h3></article></div><p className="evidence-caption">A detailed PDF of the original independent study remains available for readers who want to inspect the full source, workflow mapping, and references.</p><a className="qualifyze-download" href="/case-studies/Harsha_Qualifyze_UX_Case_Study_v2.pdf" download="Harsha_Qualifyze_UX_Case_Study_v2.pdf">Download the full study <span>↓</span></a></div>
     </section>
 
     <section className="case-closing qualifyze-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>Compliance UX is not just about showing status. It is about reducing uncertainty at the moment a person needs to act.</p><div className="evidence-reflection"><p>The study’s strongest recommendation is not a bigger dashboard. It is a decision surface where risk, remediation, and ownership can be understood together—and then validated with the people who carry the consequences.</p></div><Link href="/projects/miraee">Return to selected work / Miraee <span>↗</span></Link></div></section>
+    <CaseStudyNav current="qualifyze" />
     <Footer />
   </main>;
 }

@@ -1,4 +1,6 @@
-import Image from 'next/image';
+import Image from '@/components/InspectableImage';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import CaseOverview from '@/components/CaseOverview';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
@@ -26,17 +28,17 @@ const decisions = [
     title: 'Treat language as a core path, not a preference toggle',
     image: '/images/projects/pranik/flow/03-home.png',
     alt: 'Pranik health home screen',
-    evidence: 'The supplied work includes dedicated Hindi and Telugu experiences alongside patient and doctor views. Localisation is therefore a product surface, not a post-launch translation exercise.',
+    evidence: 'I designed dedicated Hindi and Telugu experiences alongside patient and doctor views. Localisation is therefore a product surface, not a post-launch translation exercise.',
     decision: 'The same information architecture is carried across patient, clinician, Hindi, and Telugu views so the service can remain legible across people and contexts.',
     tradeoff: 'Each language adds content and QA work. Reusing one interaction grammar protects consistency while allowing the language itself to do the communicating.',
   },
 ];
 
 const artifacts = [
-  { title: 'Patient’s view', description: 'The patient-facing care journey, from concern to follow-up.', src: '/images/projects/pranik/designs/patients-view.png' },
-  { title: 'Doctor’s view', description: 'A care-team view designed to preserve the context behind the patient’s next step.', src: '/images/projects/pranik/designs/doctors-view.png' },
-  { title: 'Hindi experience', description: 'A dedicated Hindi interface for the same care journey.', src: '/images/projects/pranik/designs/hindi.png' },
-  { title: 'Telugu experience', description: 'A dedicated Telugu interface, designed as a first-class product path.', src: '/images/projects/pranik/designs/telugu.webp' },
+  { title: 'Patient’s view', description: 'The patient-facing care journey, from concern to follow-up.', src: '/images/projects/pranik/designs/patients-view.png', width: 2200, height: 1540 },
+  { title: 'Doctor’s view', description: 'A care-team view designed to preserve the context behind the patient’s next step.', src: '/images/projects/pranik/designs/doctors-view.png', width: 2200, height: 1186 },
+  { title: 'Hindi experience', description: 'A dedicated Hindi interface for the same care journey.', src: '/images/projects/pranik/designs/hindi.png', width: 1800, height: 2432 },
+  { title: 'Telugu experience', description: 'A dedicated Telugu interface, designed as a first-class product path.', src: '/images/projects/pranik/designs/telugu.webp', width: 2200, height: 1017 },
 ];
 
 const journey = [
@@ -57,12 +59,12 @@ function CaseFacts() {
 }
 
 export default function Pranik() {
-  return <main className="case-page case-pranik">
+  return <main id="main-content" tabIndex={-1} className="case-page case-pranik">
     <section className="case-cover pranik-cover">
       <div className="case-cover-mark">P</div>
       <div className="folio-wrap case-cover-wrap case-cover-text-only">
         <div className="case-cover-heading">
-          <p className="folio-eyebrow">03 / Care companion</p>
+          <p className="folio-eyebrow">05 / Care companion</p>
           <h1>Pranik</h1>
           <p>A care companion designed to make the next health step feel clearer, calmer, and easier to follow through.</p>
         </div>
@@ -70,15 +72,16 @@ export default function Pranik() {
         <div className="case-cover-facts"><span>Product design</span><span>Mobile care journeys</span><span>Patient + clinician</span></div>
       </div>
     </section>
+    <CaseOverview slug="pranik" />
 
-    <section className="case-intro pranik-intro evidence-intro">
+    <section id="overview" className="case-intro pranik-intro evidence-intro">
       <div className="folio-wrap folio-split">
         <p className="folio-eyebrow">Opening snapshot</p>
         <div>
           <h2>Health questions do not end when a chat does.</h2>
           <p className="folio-body-copy">Pranik explores care as an ongoing relationship: a person needs a way to describe a concern, understand what comes next, retain context, and connect with a clinician when it matters. I designed the product as a continuous path rather than a single symptom-checking interaction.</p>
           <CaseFacts />
-          <aside className="evidence-disclosure"><b>Portfolio note.</b> This case study documents a concept project through its supplied product screens. It focuses on the design decisions and artifacts rather than clinical or adoption claims.</aside>
+          <aside className="evidence-disclosure"><b>Portfolio note.</b> This case study documents a concept project through its product concepts. It focuses on the design decisions and artifacts rather than clinical or adoption claims.</aside>
         </div>
       </div>
     </section>
@@ -112,10 +115,10 @@ export default function Pranik() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-decisions pranik-decisions">
+    <section id="decisions" className="evidence-section evidence-decisions pranik-decisions">
       <div className="folio-wrap"><p className="folio-eyebrow">Decision log</p><h2 className="evidence-title">The experience makes room for uncertainty, then turns it into a path forward.</h2>
         <div className="evidence-decision-list">{decisions.map((item) => <article className="evidence-decision" key={item.number}>
-          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Evidence</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
+          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Rationale</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
           <figure><Image src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 90vw, 46vw" className="object-cover object-top" /></figure>
         </article>)}</div>
       </div>
@@ -125,10 +128,10 @@ export default function Pranik() {
       <div className="folio-wrap">
         <p className="folio-eyebrow">Design evidence</p>
         <h2 className="evidence-title">The work extends beyond one mobile flow.</h2>
-        <p className="pranik-artifacts-intro">These supplied design exports show the product across patient and doctor contexts, with Hindi and Telugu as dedicated care experiences. They load as you scroll so the case study stays responsive.</p>
+        <p className="pranik-artifacts-intro">These design exports show the product across patient and doctor contexts, with Hindi and Telugu as dedicated care experiences. Explore each view to inspect the full design.</p>
         <div className="pranik-artifact-grid">{artifacts.map((artifact, index) => <article key={artifact.src}>
           <div className="pranik-artifact-meta"><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{artifact.title}</h3><p>{artifact.description}</p></div></div>
-          <figure><img src={artifact.src} alt={`${artifact.title} design export`} loading="lazy" decoding="async" /></figure>
+          <figure><Image src={artifact.src} alt={`${artifact.title} design export`} width={artifact.width} height={artifact.height} sizes="(max-width: 800px) 90vw, 45vw" /></figure>
         </article>)}</div>
       </div>
     </section>
@@ -140,11 +143,12 @@ export default function Pranik() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-outcome pranik-outcome">
-      <div className="folio-wrap"><p className="folio-eyebrow">Delivered system</p><h2 className="evidence-title">A concept with a complete care grammar.</h2><div className="evidence-outcome-grid"><article><strong>4</strong><h3>Designed perspectives<br /><small>Patient, doctor, Hindi, and Telugu</small></h3></article><article><strong>5</strong><h3>Connected journey moments<br /><small>Enter, understand, ask, connect, and continue</small></h3></article><article><strong>1</strong><h3>Shared care context<br /><small>Designed to move with the person, not disappear after a conversation</small></h3></article></div><p className="evidence-caption">The portfolio documents the designed system and outputs. It does not represent clinical validation, medical guidance, or production performance.</p></div>
+    <section id="outcome" className="evidence-section evidence-outcome pranik-outcome">
+      <div className="folio-wrap"><p className="folio-eyebrow">Delivered system</p><h2 className="evidence-title">A concept with a complete care grammar.</h2><div className="evidence-outcome-grid"><article><strong>4</strong><h3>Role and language views<br /><small>Patient, doctor, Hindi, and Telugu</small></h3></article><article><strong>5</strong><h3>Connected journey moments<br /><small>Enter, understand, ask, connect, and continue</small></h3></article><article><strong>1</strong><h3>Shared care context<br /><small>Designed to move with the person, not disappear after a conversation</small></h3></article></div><p className="evidence-caption">The portfolio documents the designed system and outputs. It does not represent clinical validation, medical guidance, or production performance.</p></div>
     </section>
 
     <section className="case-closing pranik-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>A care companion earns trust by making the next step clearer without pretending to have every answer.</p><div className="evidence-reflection"><p>The strongest move in the work is its breadth: patient, clinician, and language-specific views all belong to one product story. The next phase would be to validate the moments where people need human reassurance most.</p></div><Link href="/projects/miraee">Next story / Miraee <span>↗</span></Link></div></section>
+    <CaseStudyNav current="pranik" />
     <Footer />
   </main>;
 }

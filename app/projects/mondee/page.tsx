@@ -1,4 +1,6 @@
-import Image from 'next/image';
+import Image from '@/components/InspectableImage';
+import CaseStudyNav from '@/components/CaseStudyNav';
+import CaseOverview from '@/components/CaseOverview';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 
@@ -50,7 +52,7 @@ function CaseFacts() {
 }
 
 export default function Mondee() {
-  return <main className="case-page case-mondee">
+  return <main id="main-content" tabIndex={-1} className="case-page case-mondee">
     <section className="case-cover mondee-cover">
       <div className="case-cover-mark">M</div>
       <div className="folio-wrap case-cover-wrap case-cover-text-only">
@@ -63,8 +65,9 @@ export default function Mondee() {
         <div className="case-cover-facts"><span>Enterprise travel</span><span>Information systems</span><span>Web + mobile</span></div>
       </div>
     </section>
+    <CaseOverview slug="mondee" />
 
-    <section className="case-intro mondee-intro evidence-intro">
+    <section id="overview" className="case-intro mondee-intro evidence-intro">
       <div className="folio-wrap folio-split">
         <p className="folio-eyebrow">Opening snapshot</p>
         <div>
@@ -105,10 +108,10 @@ export default function Mondee() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-decisions mondee-decisions">
+    <section id="decisions" className="evidence-section evidence-decisions mondee-decisions">
       <div className="folio-wrap"><p className="folio-eyebrow">Decision log</p><h2 className="evidence-title">The UI reduces the time to compare without pretending the work is simple.</h2>
         <div className="evidence-decision-list">{decisions.map((item) => <article className="evidence-decision" key={item.number}>
-          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Evidence</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
+          <div className="evidence-decision-copy"><span>{item.number}</span><h3>{item.title}</h3><dl><div><dt>Rationale</dt><dd>{item.evidence}</dd></div><div><dt>Decision</dt><dd>{item.decision}</dd></div><div><dt>Tradeoff</dt><dd>{item.tradeoff}</dd></div></dl></div>
           <figure><Image src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 90vw, 46vw" className="object-cover object-top" /></figure>
         </article>)}</div>
       </div>
@@ -121,11 +124,12 @@ export default function Mondee() {
       </div>
     </section>
 
-    <section className="evidence-section evidence-outcome mondee-outcome">
-      <div className="folio-wrap"><p className="folio-eyebrow">Delivered system</p><h2 className="evidence-title">A clearer operating model for complex travel inventory.</h2><div className="evidence-outcome-grid"><article><strong>5</strong><h3>Connected booking surfaces<br /><small>Home, search, fare flexibility, packages, and checkout</small></h3></article><article><strong>1</strong><h3>Reusable comparison grammar<br /><small>Designed to move across product lines and device contexts</small></h3></article><article><strong>0</strong><h3>Invented portfolio metrics<br /><small>Operational performance remains private; the visible outcome is the shipped system</small></h3></article></div><p className="evidence-caption">The work shipped as part of a broader enterprise platform. Company metrics and partner-specific outcomes are not disclosed here.</p></div>
+    <section id="outcome" className="evidence-section evidence-outcome mondee-outcome">
+      <div className="folio-wrap"><p className="folio-eyebrow">Delivered system</p><h2 className="evidence-title">A clearer operating model for complex travel inventory.</h2><div className="evidence-outcome-grid"><article><strong>5</strong><h3>Connected booking surfaces<br /><small>Home, search, fare flexibility, packages, and checkout</small></h3></article><article><strong>1</strong><h3>Reusable comparison grammar<br /><small>Designed to move across product lines and device contexts</small></h3></article><article><strong>Live</strong><h3>Shipped platform work<br /><small>Operational performance remains confidential</small></h3></article></div><p className="evidence-caption">The work shipped as part of a broader enterprise platform. Company metrics and partner-specific outcomes are not disclosed here.</p></div>
     </section>
 
     <section className="case-closing mondee-closing"><div className="folio-wrap"><p className="folio-eyebrow">Reflection</p><p>In enterprise work, clarity is not the absence of information. It is the ability to find the information that changes the decision.</p><div className="evidence-reflection"><p>The system works best when consistent patterns absorb operational complexity instead of forcing an agent to remember how every category behaves. Given more space, I would expose more of the decision-support rationale at the moment of comparison.</p></div><Link href="/projects/pranik">Next story / Pranik <span>↗</span></Link></div></section>
+    <CaseStudyNav current="mondee" />
     <Footer />
   </main>;
 }
