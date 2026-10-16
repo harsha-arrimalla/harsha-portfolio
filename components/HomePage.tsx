@@ -95,19 +95,6 @@ const EXPERIENCE = [
   },
 ];
 
-const EDUCATION = [
-  {
-    title: 'B.Sc. Computer Science',
-    place: 'Purvanchal University',
-    period: '2015 — 2018',
-  },
-  {
-    title: 'UI/UX Design Certification',
-    place: 'Prism Multimedia',
-    period: '2021',
-  },
-];
-
 const STATEMENT =
   'I design the decision, not just the screen. States, failure paths and the rules behind them come first — then the surface that makes all of it obvious.';
 
@@ -622,19 +609,6 @@ export default function HomePage({ repos }: { repos: RepoCard[] }) {
                 <p>{exp.detail}</p>
               </div>
             ))}
-          </div>
-
-          <div className="hx-education">
-            <span className="hx-mono hx-mono-accent">Education</span>
-            <div className="hx-education-rows">
-              {EDUCATION.map((e) => (
-                <div className="hx-education-row" key={e.title}>
-                  <strong>{e.title}</strong>
-                  <span>{e.place}</span>
-                  <span className="hx-mono hx-num">{e.period}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
