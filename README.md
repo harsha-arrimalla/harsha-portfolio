@@ -1,130 +1,107 @@
-# Portfolio Website
+# harsha-portfolio
 
-A modern, dark portfolio website for a UI/UX Designer & AI Full-Stack Developer, built with Next.js, React Three Fiber, and Framer Motion.
+The source of [Harsha Arrimalla's](https://github.com/harsha-arrimalla) portfolio — a
+Next.js site built around seven end-to-end product design case studies in AI,
+enterprise, fintech and healthcare.
 
-## Features
+It is published openly because the most reusable part isn't the visual design:
+it's the **case study data model**. Each project is one typed object covering context,
+discovery, system architecture, a screen-by-screen walkthrough, the decisions
+that were argued over (with evidence, trade-off and impact), explorations that
+were killed, validation, outcomes and a reflection. One renderer draws all of
+them. Fork it if you want to write case studies that way.
 
-- 🎨 3D hero scene with cursor interaction
-- 📱 Responsive design
-- ⚡ Performance optimized
-- 🎭 Smooth animations with Framer Motion
-- 🤖 AI chatbot ready (system prompt included)
-- 📊 Project metrics display
-- 📄 Resume download
-- ✉️ Contact form with direct links
+## Stack
 
-## Tech Stack
+| | |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Plain CSS with custom properties — no CSS framework |
+| Motion | GSAP + ScrollTrigger, Lenis for inertial scrolling |
+| Fonts | Archivo (variable width), Instrument Sans, IBM Plex Mono |
+| Runtime deps | `next`, `react`, `react-dom`, `gsap`, `lenis`. That's the whole list. |
 
-- **Next.js 14** - React framework
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling
-- **React Three Fiber** - 3D graphics
-- **Framer Motion** - Animations
-- **Three.js** - 3D library
+No Tailwind, no component library. Dark is the default theme, light is a
+toggle, and both come from the same token block. Every animation is skipped
+under `prefers-reduced-motion`, and the pinned horizontal work reel falls back
+to a native snapping scroller on touch and narrow screens.
 
-## Getting Started
+## Run it
 
-### Prerequisites
-
-- Node.js 18+ and npm (or yarn/pnpm)
-
-### Installation
-
-1. Install dependencies:
 ```bash
 npm install
+npm run dev     # http://localhost:3000
 ```
-
-2. Run the development server:
-```bash
-npm run dev
-```
-
-3. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Project Structure
-
-```
-option-cursor/
-├── app/
-│   ├── layout.tsx       # Root layout
-│   ├── page.tsx         # Home page
-│   └── globals.css      # Global styles
-├── components/
-│   ├── Navigation.tsx   # Navigation bar with resume link
-│   ├── HeroSection.tsx  # 3D hero with text overlay
-│   ├── HeroScene.tsx   # 3D scene component
-│   ├── ProjectsSection.tsx  # Projects grid
-│   ├── ProjectCard.tsx      # Individual project card
-│   ├── AboutSection.tsx     # About section with availability
-│   ├── ContactSection.tsx   # Contact form and links
-│   └── HomePage.tsx         # Main page component
-├── hooks/
-│   └── useMouse.ts      # Mouse position hook for 3D interaction
-└── prompts/
-    └── portfolio-bot-system-prompt.md  # AI chatbot prompt
-```
-
-## Customization
-
-### Personal Information
-
-1. **Navigation** (`components/Navigation.tsx`):
-   - Update "Your Name" to your name
-   - Update resume link if needed
-
-2. **About Section** (`components/AboutSection.tsx`):
-   - Update years of experience
-   - Update availability status
-   - Add your professional photo
-   - Update skills list
-
-3. **Contact Section** (`components/ContactSection.tsx`):
-   - Update email address
-   - Update LinkedIn URL
-
-4. **Projects** (`components/ProjectsSection.tsx`):
-   - Update project metrics with real data
-   - Add project images
-   - Update project descriptions
-
-### Add Assets
-
-1. **Resume**: Place `resume.pdf` in `/public` folder
-2. **Professional Photo**: Add to `/public` and update AboutSection
-3. **Project Images**: Add to `/public/projects/` and update image paths
-
-### Update Metrics
-
-Edit the `metrics` array in `ProjectsSection.tsx`:
-
-```typescript
-metrics: [
-  { label: 'Engagement', value: '+40%' },
-  { label: 'User Satisfaction', value: '4.8/5' },
-],
-```
-
-## Build for Production
 
 ```bash
-npm run build
-npm start
+npm run build   # production build
+npm run start   # serve the build
+npm run typecheck
 ```
 
-## Deployment
+Node 18 or newer.
 
-This project is ready to deploy on:
-- **Vercel** (recommended for Next.js)
-- **Netlify**
-- **Any Node.js hosting**
+## Layout
 
-## Notes
+```
+app/
+  layout.tsx            Root layout, fonts, theme bootstrap
+  page.tsx              Home (server component; fetches GitHub stats)
+  globals.css           Design tokens + site styles
+  case-study.css        Case study plate styles
+  projects/<slug>/      One route per case study
+components/
+  Header.tsx            Scroll-aware nav + theme toggle
+  Preloader.tsx         Intro counter, once per session
+  Smooth.tsx            Lenis + ScrollTrigger wiring
+  Cursor.tsx            Blend-mode cursor with [data-cursor] labels
+  HomePage.tsx          Hero, about, capabilities, work reel, open source
+  CaseStudy.tsx         Renders any CaseStudyData object
+  Footer.tsx            Contact + directory
+lib/
+  site.ts               Name, contact details, links — edit this first
+  caseStudiesData.ts    All seven case studies, typed
+  openSource.ts         Curated repo list + live GitHub merge
+public/
+  images/projects/...   Case study screenshots
+```
 
-- The 3D hero scene requires WebGL support
-- All animations respect `prefers-reduced-motion`
-- The AI chatbot system prompt is ready to integrate with your preferred AI service
+## Making it yours
+
+1. **`lib/site.ts`** — name, role, location, email, résumé path, social links.
+   Nothing else hardcodes these.
+2. **`lib/caseStudiesData.ts`** — replace the `CASE_STUDIES` array. The
+   `CaseStudyData` interface at the top of the file documents every field;
+   `explorations` is the only optional section.
+3. **`app/projects/<slug>/`** — one folder per case study: a `page.tsx` that
+   calls `getCaseStudyBySlug('<slug>')` and a `layout.tsx` holding the page
+   metadata.
+4. **`lib/openSource.ts`** — the `FEATURED` array names which GitHub repos
+   appear and what each blurb says. Stars, language and the live-site flag are
+   fetched from the GitHub API at build time and revalidated hourly; if the API
+   is unreachable the curated entries still render.
+5. **Design tokens** — the `:root` block at the top of `app/globals.css` holds
+   the dark palette, type and spacing; the two blocks below it mirror the light
+   palette. Nothing in the site uses a literal colour.
+   Add `data-cursor="Label"` to any element to give the custom cursor a label.
+6. **Images** — drop them in `public/images/projects/<slug>/` and reference them
+   by path from the case study data.
+
+## Deploying
+
+Deploys as a standard Next.js app. On Vercel, import the repo and accept the
+defaults; the home page is statically generated and revalidated hourly so the
+GitHub stats stay current. No environment variables are required.
+
+The GitHub API is called unauthenticated (60 requests/hour per IP). That is
+plenty for hourly revalidation, and a failed call degrades gracefully.
 
 ## License
 
-Private project - All rights reserved
+[MIT](LICENSE) for the code.
+
+The case study content, written copy, screenshots and résumé in `public/` are
+**not** covered by the MIT license — they are Harsha's work and remain
+© Harsha Arrimalla, all rights reserved. Fork the structure, bring your own
+projects.
