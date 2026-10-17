@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import Smooth from '@/components/Smooth';
 import Cursor from '@/components/Cursor';
 import Preloader from '@/components/Preloader';
+import { Analytics } from '@vercel/analytics/next';
 import { SITE } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -45,6 +46,7 @@ export default function RootLayout({
         <Cursor />
         <Header />
         {children}
+        <Analytics />
       </body>
     </html>
   );
