@@ -1,0 +1,882 @@
+/* =========================================================================
+   The canvas portfolio.
+
+   The page is dressed as an open design file: named frames, a hairline grid,
+   mono labels, and content that the swarm draws back in. It inherits the
+   existing token set in globals.css, so the theme toggle keeps working in
+   both directions.
+   ========================================================================= */
+
+.cv {
+    --cv-surface: color-mix(in srgb, var(--ink) 4%, var(--ground));
+    --cv-line: var(--rule-soft);
+    --cv-pad: clamp(22px, 2.6vw, 40px);
+
+    max-width: var(--shell);
+    margin: 0 auto;
+    padding: 0 var(--gutter) clamp(80px, 10vw, 160px);
+    font-family: var(--body);
+    color: var(--ink);
+}
+
+/* A faint build grid, so the empty canvas before the swarm arrives still
+   reads as a surface someone is about to work on. */
+.cv::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(circle at 1px 1px, var(--rule-soft) 1px, transparent 0);
+    background-size: 42px 42px;
+    opacity: 0.55;
+}
+
+/* ------------------------------------------------------------ primitives */
+
+.cv-kicker,
+.cv-frame-name,
+.cv-frame-note,
+.cv-evidence,
+.cv-case-year,
+.cv-case-context,
+.cv-exp-period,
+.cv-counter-label,
+.cv-repo-foot,
+.cv-colophon {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.cv-body {
+    font-size: clamp(15.5px, 1.05vw, 17.5px);
+    line-height: 1.62;
+    color: var(--ink-soft);
+    max-width: 62ch;
+}
+
+.cv-rule {
+    height: 1px;
+    background: var(--rule);
+    margin: clamp(40px, 5vw, 72px) 0;
+}
+
+.cv-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 22px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.cv-btn:hover {
+    border-color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.cv-btn-fill {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+}
+
+.cv-btn-fill:hover {
+    background: color-mix(in srgb, var(--accent) 86%, #fff);
+    border-color: transparent;
+    color: var(--accent-ink);
+}
+
+.cv-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.cv-tag {
+    padding: 5px 11px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+}
+
+/* ---------------------------------------------------------------- frames */
+
+.cv-frame {
+    padding: clamp(56px, 7vw, 108px) 0 0;
+}
+
+.cv-frame-head,
+.cv-cover-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 14px;
+    margin-bottom: clamp(28px, 3.4vw, 48px);
+    border-bottom: 1px solid var(--cv-line);
+}
+
+.cv-frame-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+}
+
+/* The little frame handle, borrowed from every design tool's layer list. */
+.cv-frame-name i {
+    width: 9px;
+    height: 9px;
+    border: 1.5px solid var(--accent);
+    border-radius: 1px;
+}
+
+.cv-frame-note {
+    text-align: right;
+}
+
+/* ----------------------------------------------------------------- cover */
+
+.cv-cover {
+    padding-top: clamp(78px, 9vw, 124px);
+}
+
+.cv-display {
+    font-family: var(--display);
+    font-weight: 700;
+    font-stretch: 112%;
+    font-size: clamp(44px, 8.6vw, 132px);
+    line-height: 0.93;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    margin: 0 0 clamp(32px, 3.6vw, 56px);
+}
+
+.cv-display-line {
+    display: block;
+}
+
+.cv-display-sm {
+    font-size: clamp(38px, 6vw, 92px);
+    margin-bottom: clamp(32px, 4vw, 56px);
+}
+
+.cv-outline {
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+}
+
+.cv-accent {
+    color: var(--accent);
+}
+
+.cv-cover-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    gap: clamp(32px, 5vw, 80px);
+    align-items: end;
+}
+
+.cv-cover-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: flex-start;
+}
+
+.cv-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
+.cv-status i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--positive);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--positive) 22%, transparent);
+}
+
+.cv-lead {
+    font-size: clamp(17px, 1.5vw, 23px);
+    line-height: 1.48;
+    color: var(--ink);
+    max-width: 30ch;
+    margin: 0;
+}
+
+.cv-cover-plates {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+
+.cv-plate {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.cv-plate img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top center;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--panel);
+}
+
+.cv-plate figcaption {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.cv-plate-2 {
+    margin-top: 26px;
+}
+
+.cv-plate-3 {
+    margin-top: 52px;
+}
+
+/* --------------------------------------------------------------- marquee */
+
+.cv-marquee {
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+    border-top: 1px solid var(--cv-line);
+    border-bottom: 1px solid var(--cv-line);
+    padding: 16px 0;
+    margin-top: clamp(40px, 5vw, 72px);
+    user-select: none;
+}
+
+.cv-marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    gap: 44px;
+    padding-right: 44px;
+    animation: cv-slide 38s linear infinite;
+}
+
+.cv-marquee-track span {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    white-space: nowrap;
+}
+
+@keyframes cv-slide {
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cv-marquee-track {
+        animation: none;
+    }
+}
+
+/* ----------------------------------------------------------------- about */
+
+.cv-about {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 80px);
+    align-items: start;
+}
+
+.cv-statement {
+    font-family: var(--display);
+    font-weight: 600;
+    font-stretch: 104%;
+    font-size: clamp(26px, 3.2vw, 46px);
+    line-height: 1.16;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.cv-about-side {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+/* ---------------------------------------------------------- capabilities */
+
+.cv-caps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.cv-cap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: var(--cv-pad);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--cv-surface);
+}
+
+.cv-cap-num {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+}
+
+.cv-cap-title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(19px, 1.7vw, 25px);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin: 0;
+}
+
+.cv-cap .cv-body {
+    flex: 1;
+}
+
+.cv-evidence {
+    color: var(--ink-soft);
+    text-transform: none;
+    letter-spacing: 0.02em;
+}
+
+/* ------------------------------------------------------------------ work */
+
+.cv-work {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.cv-case {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: var(--cv-pad);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--cv-surface);
+    transition: border-color 0.25s var(--ease);
+}
+
+.cv-case:hover {
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--rule));
+}
+
+.cv-case:first-child {
+    grid-column: 1 / -1;
+}
+
+.cv-case-plate {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16 / 7;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.cv-case:first-child .cv-case-plate {
+    aspect-ratio: 21 / 6;
+}
+
+.cv-case-plate[data-tone='light'] {
+    background: var(--plate, #fff);
+}
+
+.cv-case-logo {
+    width: auto;
+    max-width: 46%;
+    height: auto;
+    max-height: 56%;
+    object-fit: contain;
+}
+
+.cv-case-wordmark {
+    font-family: var(--display);
+    font-weight: 700;
+    font-stretch: 118%;
+    font-size: clamp(26px, 3vw, 44px);
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.cv-case-index,
+.cv-case-badge {
+    position: absolute;
+    top: 12px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+}
+
+.cv-case-index {
+    left: 14px;
+    color: color-mix(in srgb, var(--ink) 55%, transparent);
+}
+
+.cv-case-plate[data-tone='light'] .cv-case-index {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+.cv-case-badge {
+    right: 14px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    text-transform: uppercase;
+}
+
+.cv-case-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.cv-case-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-stretch: 110%;
+    font-size: clamp(24px, 2.4vw, 38px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin: 0;
+}
+
+.cv-case-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.cv-case-title a:hover {
+    color: var(--accent);
+}
+
+.cv-case-context {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+}
+
+.cv-case-tagline {
+    font-size: 15.5px;
+    line-height: 1.58;
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 68ch;
+}
+
+.cv-case-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 26px;
+    padding-top: 4px;
+    border-top: 1px solid var(--cv-line);
+}
+
+.cv-case-metrics span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-top: 12px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+}
+
+.cv-case-metrics strong {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(22px, 2vw, 30px);
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.cv-case-cta {
+    margin-top: auto;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.cv-case-cta:hover {
+    color: var(--accent);
+}
+
+/* ----------------------------------------------------------------- build */
+
+.cv-h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-stretch: 110%;
+    font-size: clamp(32px, 5vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    margin: 0 0 clamp(32px, 4vw, 56px);
+}
+
+.cv-h2 em {
+    font-style: normal;
+    color: var(--accent);
+}
+
+.cv-build {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+}
+
+.cv-build-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.cv-build-split {
+    display: grid;
+    gap: 14px;
+}
+
+.cv-build-col {
+    padding: var(--cv-pad);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--cv-surface);
+}
+
+.cv-build-col ul {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 9px;
+}
+
+.cv-build-col li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+}
+
+.cv-build-col li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 6px;
+    height: 1px;
+    background: var(--accent);
+}
+
+.cv-counters {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: clamp(28px, 3.5vw, 48px);
+}
+
+.cv-counter {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--cv-pad);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--cv-surface);
+}
+
+.cv-counter-value {
+    font-family: var(--display);
+    font-weight: 700;
+    font-stretch: 112%;
+    font-size: clamp(38px, 4.6vw, 68px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------- open source */
+
+.cv-repos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.cv-repo {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding: var(--cv-pad);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--cv-surface);
+    text-decoration: none;
+    transition: border-color 0.2s var(--ease);
+}
+
+.cv-repo:hover {
+    border-color: color-mix(in srgb, var(--accent) 60%, var(--rule));
+}
+
+.cv-repo-name {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+}
+
+.cv-repo-blurb {
+    flex: 1;
+    margin: 0;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+}
+
+.cv-repo-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.cv-repo-foot i {
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: 0.03em;
+}
+
+/* ------------------------------------------------------------ experience */
+
+.cv-exp {
+    display: grid;
+    gap: 0;
+}
+
+.cv-exp-row {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr) minmax(0, 1.5fr);
+    gap: clamp(18px, 3vw, 48px);
+    padding: clamp(22px, 2.6vw, 34px) 0;
+    border-top: 1px solid var(--cv-line);
+    align-items: start;
+}
+
+.cv-exp-row:last-child {
+    border-bottom: 1px solid var(--cv-line);
+}
+
+.cv-exp-period {
+    text-transform: none;
+    letter-spacing: 0.03em;
+    padding-top: 4px;
+}
+
+.cv-exp-who h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(17px, 1.5vw, 22px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin: 0 0 5px;
+}
+
+.cv-exp-who span {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.cv-exp-row p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------- contact */
+
+.cv-contact {
+    padding-top: clamp(72px, 9vw, 140px);
+}
+
+.cv-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.cv-contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: var(--cv-pad);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--cv-surface);
+    text-decoration: none;
+    transition: border-color 0.2s var(--ease);
+}
+
+.cv-contact-card:hover {
+    border-color: var(--ink);
+}
+
+.cv-contact-value {
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--ink);
+    word-break: break-word;
+}
+
+.cv-colophon {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 18px;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+}
+
+.cv-colophon span:last-child {
+    max-width: 62ch;
+    text-align: right;
+}
+
+.cv-colophon a {
+    color: var(--ink-soft);
+}
+
+/* ------------------------------------------------------------ responsive */
+
+@media (max-width: 1080px) {
+    .cv-cover-grid,
+    .cv-about,
+    .cv-build {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cv-caps,
+    .cv-work,
+    .cv-repos,
+    .cv-contact-grid,
+    .cv-counters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cv-case:first-child {
+        grid-column: auto;
+    }
+
+    .cv-exp-row {
+        grid-template-columns: 160px minmax(0, 1fr);
+    }
+
+    .cv-exp-row p {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 720px) {
+    .cv-caps,
+    .cv-work,
+    .cv-repos,
+    .cv-contact-grid,
+    .cv-counters,
+    .cv-cover-plates {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cv-plate-2,
+    .cv-plate-3 {
+        margin-top: 0;
+    }
+
+    .cv-exp-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .cv-frame-head,
+    .cv-cover-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .cv-frame-note {
+        text-align: left;
+    }
+
+    .cv-colophon span:last-child {
+        text-align: left;
+    }
+}
