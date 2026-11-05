@@ -1,0 +1,331 @@
+/* =========================================================================
+   Swarm — the build-it-back layer.
+
+   Two halves: what hides the real page until a cursor has drawn it, and the
+   chrome the cursors draw with. Everything is scoped behind `html.sw-armed`,
+   so without JS, with reduced motion, on touch, or on a second page view the
+   page is simply itself.
+   ========================================================================= */
+
+:root {
+    --sw-blue: #0d99ff;
+    --sw-red: #f24822;
+    /* The HUD is tool chrome and stays dark in both themes, the way a design
+       tool's own toolbar does. The rulers sit against the page, so they take
+       their colour from it — hard-coding them dark put a black strip down the
+       edge of the light theme. */
+    --sw-chrome: rgba(10, 10, 12, 0.92);
+    --sw-hairline: rgba(255, 255, 255, 0.14);
+    --sw-ruler-bg: color-mix(in srgb, var(--ground, #0b0b0c) 82%, var(--ink, #fff) 18%);
+    --sw-ruler-tick: var(--rule, rgba(255, 255, 255, 0.14));
+}
+
+/* ------------------------------------------------------------- the page */
+
+html.sw-armed [data-sw] {
+    opacity: 0;
+}
+
+html.sw-armed [data-sw].sw-on {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+html.sw-armed [data-sw].sw-instant {
+    transition: none;
+}
+
+/* The picture arrives top to bottom, the way a slow image used to load. */
+html.sw-armed [data-sw='image'].sw-on {
+    clip-path: inset(0 0 calc((1 - var(--sw-p, 1)) * 100%) 0);
+}
+
+/* A rule is drawn, not faded. */
+html.sw-armed [data-sw='line'].sw-on {
+    transform-origin: left center;
+    transform: scaleX(var(--sw-p, 1));
+}
+
+/* Typed text: each unit appears as the caret passes it, with no transition —
+   a fade here reads as loading, and the point is that someone is typing. */
+html.sw-armed [data-sw='text'] .sw-u {
+    opacity: 0;
+}
+
+html.sw-armed [data-sw='text'] .sw-u.on {
+    opacity: 1;
+}
+
+/* Skip, finish, or anything that went wrong: the page is the page. */
+html.sw-revealed [data-sw],
+html.sw-revealed [data-sw] .sw-u {
+    opacity: 1 !important;
+    clip-path: none !important;
+    transform: none !important;
+}
+
+/* ------------------------------------------------------------ the stage */
+
+.sw-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    pointer-events: none;
+    contain: strict;
+    transition: opacity 0.6s ease;
+}
+
+.sw-vector {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    shape-rendering: crispEdges;
+}
+
+.sw-caret {
+    animation: sw-blink 1s steps(1) infinite;
+}
+
+@keyframes sw-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ---------------------------------------------------------- the cursors */
+
+.sw-cursors,
+.sw-badges {
+    position: absolute;
+    inset: 0;
+}
+
+.sw-cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform;
+    transform-origin: 4px 3px;
+}
+
+.sw-cursor svg {
+    display: block;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+}
+
+.sw-tag {
+    position: absolute;
+    top: 19px;
+    left: 13px;
+    padding: 2px 6px 3px;
+    border-radius: 4px;
+    font: 500 10.5px/1.1 var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    letter-spacing: 0.02em;
+    color: #fff;
+    white-space: nowrap;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* W × H readouts and the red spacing numbers. */
+.sw-badges i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: -50%;
+    padding: 2px 6px 3px;
+    border-radius: 3px;
+    background: var(--sw-blue);
+    font: 500 10.5px/1.1 var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    font-style: normal;
+    color: #fff;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.sw-badges i.sw-measure {
+    background: var(--sw-red);
+    margin-top: -7px;
+}
+
+/* ----------------------------------------------------------- the rulers */
+
+.sw-rulers {
+    position: absolute;
+    inset: 0;
+    opacity: 0.75;
+    transition: opacity 0.5s ease;
+}
+
+.sw-rulers[data-hidden] {
+    opacity: 0;
+}
+
+.sw-ruler {
+    position: absolute;
+    background: var(--sw-ruler-bg);
+}
+
+.sw-ruler-x {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 18px;
+    border-bottom: 1px solid var(--sw-ruler-tick);
+    background-image: repeating-linear-gradient(
+        to right,
+        var(--sw-ruler-tick) 0 1px,
+        transparent 1px 10px
+    );
+    background-position: bottom;
+    background-size: 100% 5px;
+    background-repeat: repeat-x;
+}
+
+.sw-ruler-y {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 18px;
+    border-right: 1px solid var(--sw-ruler-tick);
+    background-image: repeating-linear-gradient(
+        to bottom,
+        var(--sw-ruler-tick) 0 1px,
+        transparent 1px 10px
+    );
+    background-position: right;
+    background-size: 5px 100%;
+    background-repeat: repeat-y;
+}
+
+/* -------------------------------------------------------------- the HUD */
+
+.sw-hud {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 10px 8px 14px;
+    border: 1px solid var(--sw-hairline);
+    border-radius: 999px;
+    background: var(--sw-chrome);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+    pointer-events: auto;
+    font: 500 12px/1 var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+    color: rgba(255, 255, 255, 0.82);
+    white-space: nowrap;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.sw-hud[data-hidden] {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+    pointer-events: none;
+}
+
+.sw-hud-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.sw-hud-live strong {
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+}
+
+.sw-hud-live i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #0acf83;
+    box-shadow: 0 0 0 3px rgba(10, 207, 131, 0.16);
+}
+
+.sw-hud-sep {
+    width: 1px;
+    height: 14px;
+    background: var(--sw-hairline);
+}
+
+.sw-hud-count strong {
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+}
+
+.sw-hud-bar {
+    position: relative;
+    width: 76px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.16);
+    overflow: hidden;
+}
+
+.sw-hud-bar i {
+    position: absolute;
+    inset: 0;
+    background: var(--sw-blue);
+    transform-origin: left center;
+    transition: transform 0.25s ease;
+}
+
+.sw-hud-btn {
+    appearance: none;
+    border: 1px solid var(--sw-hairline);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    padding: 5px 11px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.sw-hud-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.sw-hud-skip {
+    background: #fff;
+    color: #0b0b0c;
+    border-color: #fff;
+}
+
+.sw-hud-skip:hover {
+    background: rgba(255, 255, 255, 0.86);
+    color: #0b0b0c;
+}
+
+/* The swarm is a desktop conceit: no cursors to echo on touch, and the
+   animation cost is not worth it on a phone. */
+@media (max-width: 900px), (pointer: coarse) {
+    .sw-stage {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sw-stage {
+        display: none;
+    }
+}
+
+/* ------------------------------------------------- yielding the entrance */
+
+/* Two intros fighting each other is one too many: the swarm replaces the
+   preloader, and the difference-blend cursor stays out of a crowd of
+   thirty until the real page is handed back. */
+html.sw-armed .hx-pre {
+    display: none !important;
+}
+
+html.sw-armed:not(.sw-revealed) .hx-cursor {
+    opacity: 0;
+}
